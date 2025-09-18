@@ -76,7 +76,7 @@ public class bacheDAO implements IBacheDAO {
     }
 
     @Override
-    public boolean insertar(bache bache) {
+    public boolean insertarBache(bache bache) {
         String sql = "INSERT INTO bache(id_ciudadano,fecha_reporte,tamaño_aprox,severidad,estado_actual,calle,colonia,codigo_postal,latitud,longitud) VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = ConexionDB.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, bache.getId_ciudadano());
@@ -99,7 +99,7 @@ public class bacheDAO implements IBacheDAO {
     }
 
     @Override
-    public boolean actualizar(bache bache) {
+    public boolean actualizarBache(bache bache) {
         String sql = "UPDATE bache SET fecha_reporte = ?,tamaño_aprox = ?,severidad = ?,estado_actual = ?, = ?,colonia = ?,codigo_postal = ?,latitud= ?,longitud = ? WHERE id_bache = ? ";
         try (Connection conn = ConexionDB.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -121,7 +121,7 @@ public class bacheDAO implements IBacheDAO {
     }
 
     @Override
-    public boolean eliminar(int id_bache) {
+    public boolean eliminarBache(int id_bache) {
         String sql = "DELETE FROM bache WHERE id_bache = ?";
         try (Connection conn = ConexionDB.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id_bache);
@@ -130,21 +130,6 @@ public class bacheDAO implements IBacheDAO {
             System.err.println("error al eliminar bache: " + e.getMessage());
             return false;
         }
-    }
-
-    @Override
-    public boolean insertarBache(bache bache) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public boolean actualizarBache(bache bache) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public boolean eliminarBache(int id_bache) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

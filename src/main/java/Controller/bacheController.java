@@ -70,7 +70,7 @@ public class bacheController {
         bache.setLatitud(latitud);
         bache.setLongitud(longitud);
         
-        return bacheDAO.insertar(bache);
+        return bacheDAO.insertarBache(bache);
         
     }
     
@@ -138,7 +138,7 @@ public class bacheController {
         bache.setLatitud(latitud);
         bache.setLongitud(longitud);
         
-        return bacheDAO.actualizar(bache);
+        return bacheDAO.actualizarBache(bache);
     }
     
     public boolean eliminarBache(int id_bache){
@@ -146,6 +146,6 @@ public class bacheController {
             System.err.println("la id del bache no puede ser vacio");
             return false;
         }
-        return bacheDAO.eliminar(id_bache);
+        return bacheDAO.eliminarBache(id_bache);
     }
 }

@@ -27,8 +27,8 @@ public class atencionDAO implements IAtencionDAO{
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, atencion.getId_autoridad());
-            ps.setTimestamp(2, atencion.getFecha_inicio()); // DATETIME
-            ps.setTimestamp(3, atencion.getFecha_solucion()); // DATETIME (puede ser null)
+            ps.setTimestamp(2, atencion.getFecha_inicio()); 
+            ps.setTimestamp(3, atencion.getFecha_solucion());
             ps.setString(4, atencion.getEstatus_final());
 
             return ps.executeUpdate() > 0;

@@ -23,9 +23,5 @@ public interface IBacheDAO {
 
     boolean eliminarBache(int id_bache);
 
-    public boolean actualizar(bache bache);
 
-    public boolean eliminar(int id_bache);
-
-    public boolean insertar(bache bache);
 }
