@@ -22,20 +22,22 @@ public class FrmCiudadanos extends javax.swing.JPanel {
 
         initComponents();
         cargarCiudadanos();
-
+        txtId.setEditable(false);
     }
 
     private void cargarCiudadanos() {
         DefaultTableModel modelo = clController.obtenerTablaProblemas();
         TablaCiudadanos.setModel(modelo);
     }
-    public void limpiarCampos(){
+
+    public void limpiarCampos() {
         txtId.setText("0");
         txtNombre.setText("");
         txtApellidoMaterno.setText("");
         txtApellidoPaterno.setText("");
         txtTelefono.setText("");
         txtCorreo.setText("");
+        TablaCiudadanos.clearSelection();
     }
 
     private void AgregarCliente() {
@@ -70,22 +72,79 @@ public class FrmCiudadanos extends javax.swing.JPanel {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
-    private void cargarDatos(){
+
+    private void cargarDatos() {
         int fila = TablaCiudadanos.getSelectedRow();
         if (fila >= 0) {
             txtId.setText(TablaCiudadanos.getValueAt(fila, 0).toString());
             txtNombre.setText(TablaCiudadanos.getValueAt(fila, 1).toString());
-            txtApellidoMaterno.setText(TablaCiudadanos.getValueAt(fila, 2).toString());
-            txtApellidoPaterno.setText(TablaCiudadanos.getValueAt(fila, 3).toString());
+            txtApellidoPaterno.setText(TablaCiudadanos.getValueAt(fila, 2).toString());
+            txtApellidoMaterno.setText(TablaCiudadanos.getValueAt(fila, 3).toString());
             txtTelefono.setText(TablaCiudadanos.getValueAt(fila, 4).toString());
             txtCorreo.setText(TablaCiudadanos.getValueAt(fila, 5).toString());
         }
     }
-    private void actualizar(){
-        int id = Integer.parseInt(txtId.getText());
-        
-        boolean exito = clController.actualizarCiudadano(id, TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY);
+
+    private void actualizarCiudadano() {
+        if (txtId.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un ciudadano de la tabla.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        try {
+            int id = Integer.parseInt(txtId.getText());
+            String nombre = txtNombre.getText();
+            String apellidoPaterno = txtApellidoPaterno.getText();
+            String apellidoMaterno = txtApellidoMaterno.getText();
+            String telefono = txtTelefono.getText();
+            String correo = txtCorreo.getText();
+
+            boolean exito = clController.actualizarCiudadano(id, nombre, apellidoPaterno, apellidoMaterno, telefono, correo);
+            if (exito) {
+                JOptionPane.showMessageDialog(this, "Ciudadano actualizado correctamente.");
+                cargarCiudadanos();
+                limpiarCampos();
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al actualizar el ciudadano.", "Error", JOptionPane.ERROR_MESSAGE);
+
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El ID no es valido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+
+        }
     }
+    private void eliminarCiudadano(){
+        try {
+            int id = Integer.parseInt(txtId.getText());
+            
+            int confirm = JOptionPane.showConfirmDialog(this,
+                    "¿Seguro que quieres eliminar este ciudadano?",
+                    "Confirmar eliminacion",
+                    JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                boolean exito = clController.eliminarCiudadano(id);
+                
+                if (exito) {
+                    JOptionPane.showMessageDialog(this,"Ciduadano eliminado correctamente");
+                    cargarCiudadanos();
+                    limpiarCampos();
+                }else{
+                     JOptionPane.showMessageDialog(
+                            this,
+                            "Ocurrio un error al eliminar al ciudadano.",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Error: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -425,6 +484,11 @@ public class FrmCiudadanos extends javax.swing.JPanel {
         });
 
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -434,6 +498,11 @@ public class FrmCiudadanos extends javax.swing.JPanel {
         });
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         jPanel6.setBackground(new java.awt.Color(101, 85, 143));
 
@@ -518,7 +587,7 @@ public class FrmCiudadanos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        eliminarCiudadano();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
@@ -528,6 +597,15 @@ public class FrmCiudadanos extends javax.swing.JPanel {
     private void TablaCiudadanosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaCiudadanosMouseClicked
         cargarDatos();
     }//GEN-LAST:event_TablaCiudadanosMouseClicked
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+       actualizarCiudadano();
+       
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+       limpiarCampos();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

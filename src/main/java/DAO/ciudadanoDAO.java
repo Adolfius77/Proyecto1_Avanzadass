@@ -30,6 +30,7 @@ public class ciudadanoDAO implements ICiudadanoDAO {
             ps.setString(4, ciudadano.getTelefono());
             ps.setString(5, ciudadano.getCorreo());
             
+            
             return ps.executeUpdate() > 0;
 
         } catch (SQLException e) {
@@ -91,7 +92,7 @@ public class ciudadanoDAO implements ICiudadanoDAO {
 
     @Override
     public boolean actualizarCiudadano(ciudadano ciudadano) {
-        String sql = "UPDATE ciudadano SET nombre = ? ,apellido_paterno = ?,apellido_paterno= ?, telefono = ?, correo = ? WHERE id_ciudadano = ?";
+    String sql = "UPDATE ciudadano SET nombre = ?, apellido_paterno = ?, apellido_materno = ?, telefono = ?, correo = ? WHERE id_ciudadano = ?";
         try(Connection conn = ConexionDB.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
            ps.setString(1, ciudadano.getNombre());
@@ -99,7 +100,7 @@ public class ciudadanoDAO implements ICiudadanoDAO {
            ps.setString(3, ciudadano.getApellido_materno());
            ps.setString(4, ciudadano.getTelefono());
            ps.setString(5, ciudadano.getCorreo());
-           
+           ps.setInt(6, ciudadano.getId_ciudadano());
            return ps.executeUpdate() > 0;
            
         } catch (SQLException e) {
