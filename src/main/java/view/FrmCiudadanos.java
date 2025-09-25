@@ -4,19 +4,88 @@
  */
 package view;
 
+import Controller.ciudadanoController;
+import DAO.ciudadanoDAO;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author USER
  */
 public class FrmCiudadanos extends javax.swing.JPanel {
 
-    /**
-     * Creates new form FrmCiudadanos
-     */
+    private ciudadanoController clController;
+
     public FrmCiudadanos() {
+        this.clController = new ciudadanoController(new ciudadanoDAO());
+
         initComponents();
+        cargarCiudadanos();
+
     }
 
+    private void cargarCiudadanos() {
+        DefaultTableModel modelo = clController.obtenerTablaProblemas();
+        TablaCiudadanos.setModel(modelo);
+    }
+    public void limpiarCampos(){
+        txtId.setText("0");
+        txtNombre.setText("");
+        txtApellidoMaterno.setText("");
+        txtApellidoPaterno.setText("");
+        txtTelefono.setText("");
+        txtCorreo.setText("");
+    }
+
+    private void AgregarCliente() {
+        try {
+            String nombre = txtNombre.getText();
+            String apellidoMaterno = txtApellidoMaterno.getText();
+            String apellidoPaterno = txtApellidoPaterno.getText();
+            String telefono = txtTelefono.getText();
+            String correo = txtCorreo.getText();
+
+            if (nombre.isEmpty() || apellidoMaterno.isEmpty() || apellidoPaterno.isEmpty() || telefono.isEmpty() || correo.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "todos los campos son necesarios", "Error", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            if (btnAgregar.getText().equals("Agregar")) {
+                boolean exito = clController.agregarCiudadano(nombre, apellidoPaterno, apellidoMaterno, telefono, correo);
+
+                if (exito) {
+                    JOptionPane.showMessageDialog(this, "ciudadano guardado correctamente");
+                } else {
+                    JOptionPane.showMessageDialog(this, "error al agregar un ciudadano", "Error", JOptionPane.WARNING_MESSAGE);
+
+                }
+            }
+            cargarCiudadanos();
+            limpiarCampos();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Error: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    private void cargarDatos(){
+        int fila = TablaCiudadanos.getSelectedRow();
+        if (fila >= 0) {
+            txtId.setText(TablaCiudadanos.getValueAt(fila, 0).toString());
+            txtNombre.setText(TablaCiudadanos.getValueAt(fila, 1).toString());
+            txtApellidoMaterno.setText(TablaCiudadanos.getValueAt(fila, 2).toString());
+            txtApellidoPaterno.setText(TablaCiudadanos.getValueAt(fila, 3).toString());
+            txtTelefono.setText(TablaCiudadanos.getValueAt(fila, 4).toString());
+            txtCorreo.setText(TablaCiudadanos.getValueAt(fila, 5).toString());
+        }
+    }
+    private void actualizar(){
+        int id = Integer.parseInt(txtId.getText());
+        
+        boolean exito = clController.actualizarCiudadano(id, TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,6 +124,8 @@ public class FrmCiudadanos extends javax.swing.JPanel {
         txtApellidoPaterno = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtCorreo = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtId = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaCiudadanos = new javax.swing.JTable();
         btnAgregar = new javax.swing.JButton();
@@ -271,6 +342,12 @@ public class FrmCiudadanos extends javax.swing.JPanel {
 
         txtCorreo.setBackground(new java.awt.Color(255, 255, 255));
 
+        jLabel7.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("id:");
+
+        txtId.setBackground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -278,6 +355,8 @@ public class FrmCiudadanos extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
                     .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -293,27 +372,31 @@ public class FrmCiudadanos extends javax.swing.JPanel {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel2)
+                .addGap(17, 17, 17)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtApellidoMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
 
         TablaCiudadanos.setModel(new javax.swing.table.DefaultTableModel(
@@ -327,6 +410,11 @@ public class FrmCiudadanos extends javax.swing.JPanel {
 
             }
         ));
+        TablaCiudadanos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaCiudadanosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TablaCiudadanos);
 
         btnAgregar.setText("Agregar");
@@ -434,8 +522,12 @@ public class FrmCiudadanos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
+        AgregarCliente();
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void TablaCiudadanosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaCiudadanosMouseClicked
+        cargarDatos();
+    }//GEN-LAST:event_TablaCiudadanosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -462,6 +554,7 @@ public class FrmCiudadanos extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -474,6 +567,7 @@ public class FrmCiudadanos extends javax.swing.JPanel {
     private javax.swing.JTextField txtApellidoMaterno;
     private javax.swing.JTextField txtApellidoPaterno;
     private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables

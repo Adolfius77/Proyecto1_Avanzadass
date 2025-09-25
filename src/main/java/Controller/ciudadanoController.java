@@ -3,6 +3,7 @@ package Controller;
 import Interfacez.ICiudadanoDAO;
 import java.util.List;
 import java.util.regex.Pattern;
+import javax.swing.table.DefaultTableModel;
 import model.ciudadano;
 
 public class ciudadanoController {
@@ -111,5 +112,15 @@ public class ciudadanoController {
             return false;
         }
         return  ciudadanoDAO.eliminarCiudadano(id_ciudadano);
+    }
+    
+     public DefaultTableModel obtenerTablaProblemas() {
+        String[] columnas = {"ID", "Nombre", "A. Paterno", "A. Materno", "Teléfono", "Correo"};
+        DefaultTableModel modelo = new DefaultTableModel(null, columnas);
+        List<ciudadano> lista = ciudadanoDAO.obtenerTodos();
+        for (ciudadano c : lista) {
+            modelo.addRow(new Object[]{c.getId_ciudadano(),c.getNombre(), c.getApellido_paterno(), c.getApellido_materno(), c.getTelefono(), c.getCorreo()});
+        }
+        return modelo;
     }
 }
