@@ -135,6 +135,9 @@ public class FrmBaches extends javax.swing.JPanel {
         txtEstadoActual = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         txtIDCidadano = new javax.swing.JTextField();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -211,21 +214,27 @@ public class FrmBaches extends javax.swing.JPanel {
 
         txtIDCidadano.setBackground(new java.awt.Color(255, 255, 255));
 
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
         jPanel2.setBackground(new java.awt.Color(217, 202, 218));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Tamaño aproximado");
 
         EstadoActual.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel3.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Estado Actual");
 
-        jLabel4.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Latitud");
 
@@ -233,17 +242,17 @@ public class FrmBaches extends javax.swing.JPanel {
 
         txtLatitud.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel5.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Colonia");
 
         txtColonia.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel6.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Prioridad");
 
-        jLabel7.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("id bache:");
 
@@ -252,24 +261,28 @@ public class FrmBaches extends javax.swing.JPanel {
         cmbPrioriodad.setBackground(new java.awt.Color(255, 255, 255));
         cmbPrioriodad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alta", "Media", "Bajo", " " }));
 
-        jLabel8.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Calle");
 
         txtLongitud.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel9.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Codigo Postal");
 
         txtCalle.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel10.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Longitud");
 
         txtCp.setBackground(new java.awt.Color(255, 255, 255));
 
+        BtnReportarBache.setBackground(new java.awt.Color(35, 41, 50));
+        BtnReportarBache.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
+        BtnReportarBache.setForeground(new java.awt.Color(255, 255, 255));
+        BtnReportarBache.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reporte.png"))); // NOI18N
         BtnReportarBache.setText("Reportar Bache");
         BtnReportarBache.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -279,17 +292,17 @@ public class FrmBaches extends javax.swing.JPanel {
 
         txtFchReporte.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel13.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("Fecha Reporte");
 
-        jLabel14.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("Ciudadanos");
 
         txtSeveridad.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel16.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Severidad");
 
@@ -402,16 +415,16 @@ public class FrmBaches extends javax.swing.JPanel {
 
         jPanel6.setBackground(new java.awt.Color(101, 85, 143));
 
-        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 20)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 30)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Baches");
+        jLabel1.setText("REPORTE DE BACHES");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(467, 467, 467)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -439,25 +452,25 @@ public class FrmBaches extends javax.swing.JPanel {
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel12.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel12.setFont(new java.awt.Font("Comic Sans MS", 0, 20)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Comic Sans MS", 0, 30)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel12.setText("Baches Registrados");
+        jLabel12.setText("BACHES REGISTRADOS");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(72, 72, 72)
+                .addGap(121, 121, 121)
                 .addComponent(jLabel12)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addContainerGap()
                 .addComponent(jLabel12)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -470,7 +483,7 @@ public class FrmBaches extends javax.swing.JPanel {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ScrollPanelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
+                    .addComponent(ScrollPanelTabla)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -557,6 +570,9 @@ public class FrmBaches extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

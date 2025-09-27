@@ -6,8 +6,13 @@ package view;
 
 import Controller.ciudadanoController;
 import DAO.ciudadanoDAO;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -21,10 +26,66 @@ public class FrmCiudadanos extends javax.swing.JPanel {
         this.clController = new ciudadanoController(new ciudadanoDAO());
 
         initComponents();
+
+        Font nuevaFuente = new Font("Segoe UI", Font.PLAIN, 14);
+
+        TablaCiudadanos.setFont(nuevaFuente);
+        JTableHeader header = TablaCiudadanos.getTableHeader();
+        header.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        personalizarTabla();
         cargarCiudadanos();
         txtId.setEditable(false);
-    }
 
+    }
+    private void personalizarTabla() {
+        
+        Color colorFondoEncabezado = new Color(101, 85, 143); // Morado oscuro
+        Color colorLetraEncabezado = Color.black;
+        Color colorFondoFilaPar = new Color(240, 237, 247); // Morado muy claro
+        Color colorFondoFilaImpar = Color.WHITE;
+        Color colorFondoSeleccion = new Color(188, 178, 217); // Morado medio
+        Color colorLetraSeleccion = Color.BLACK;
+        Color colorCuadricula = new Color(221, 221, 221); // Gris claro
+
+        
+        Font fuenteEncabezado = new Font("Segoe UI", Font.BOLD, 14);
+        Font fuenteCeldas = new Font("Segoe UI", Font.PLAIN, 14);
+
+       
+        JTableHeader header = TablaCiudadanos.getTableHeader();
+        header.setFont(fuenteEncabezado);
+        header.setBackground(colorFondoEncabezado);
+        header.setForeground(colorLetraEncabezado);
+        header.setOpaque(false); 
+
+        
+        TablaCiudadanos.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(javax.swing.JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                if (isSelected) {
+                    c.setBackground(colorFondoSeleccion);
+                    c.setForeground(colorLetraSeleccion);
+                } else {
+                    
+                    if (row % 2 == 0) {
+                        c.setBackground(colorFondoFilaPar);
+                    } else {
+                        c.setBackground(colorFondoFilaImpar);
+                    }
+                    c.setForeground(Color.BLACK); 
+                }
+                return c;
+            }
+        });
+
+        TablaCiudadanos.setFont(fuenteCeldas);
+        TablaCiudadanos.setGridColor(colorCuadricula);
+        TablaCiudadanos.setRowHeight(25);
+        TablaCiudadanos.getTableHeader().setReorderingAllowed(false); 
+    }
     private void cargarCiudadanos() {
         DefaultTableModel modelo = clController.obtenerTablaProblemas();
         TablaCiudadanos.setModel(modelo);
@@ -112,23 +173,24 @@ public class FrmCiudadanos extends javax.swing.JPanel {
 
         }
     }
-    private void eliminarCiudadano(){
+
+    private void eliminarCiudadano() {
         try {
             int id = Integer.parseInt(txtId.getText());
-            
+
             int confirm = JOptionPane.showConfirmDialog(this,
                     "¿Seguro que quieres eliminar este ciudadano?",
                     "Confirmar eliminacion",
                     JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
                 boolean exito = clController.eliminarCiudadano(id);
-                
+
                 if (exito) {
-                    JOptionPane.showMessageDialog(this,"Ciduadano eliminado correctamente");
+                    JOptionPane.showMessageDialog(this, "Ciduadano eliminado correctamente");
                     cargarCiudadanos();
                     limpiarCampos();
-                }else{
-                     JOptionPane.showMessageDialog(
+                } else {
+                    JOptionPane.showMessageDialog(
                             this,
                             "Ocurrio un error al eliminar al ciudadano.",
                             "Error",
@@ -375,17 +437,17 @@ public class FrmCiudadanos extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Nombre:");
 
         txtApellidoMaterno.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel3.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Apellido Materno:");
 
-        jLabel4.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Telefono:");
 
@@ -393,21 +455,21 @@ public class FrmCiudadanos extends javax.swing.JPanel {
 
         txtTelefono.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel5.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Apellido Paterno:");
 
         txtApellidoPaterno.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel6.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Correo electronico:");
 
         txtCorreo.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel7.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("id:");
+        jLabel7.setText("Id:");
 
         txtId.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -486,6 +548,10 @@ public class FrmCiudadanos extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(TablaCiudadanos);
 
+        btnAgregar.setBackground(new java.awt.Color(35, 41, 50));
+        btnAgregar.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
+        btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/save_all.png"))); // NOI18N
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -493,6 +559,10 @@ public class FrmCiudadanos extends javax.swing.JPanel {
             }
         });
 
+        btnActualizar.setBackground(new java.awt.Color(35, 41, 50));
+        btnActualizar.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/revert.png"))); // NOI18N
         btnActualizar.setText("Actualizar");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -500,6 +570,10 @@ public class FrmCiudadanos extends javax.swing.JPanel {
             }
         });
 
+        btnEliminar.setBackground(new java.awt.Color(35, 41, 50));
+        btnEliminar.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
+        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/button_cancel.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -507,6 +581,10 @@ public class FrmCiudadanos extends javax.swing.JPanel {
             }
         });
 
+        btnLimpiar.setBackground(new java.awt.Color(35, 41, 50));
+        btnLimpiar.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
+        btnLimpiar.setForeground(new java.awt.Color(255, 255, 255));
+        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/limpia.png"))); // NOI18N
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -515,8 +593,9 @@ public class FrmCiudadanos extends javax.swing.JPanel {
         });
 
         jPanel6.setBackground(new java.awt.Color(101, 85, 143));
+        jPanel6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel8.setFont(new java.awt.Font("Comic Sans MS", 0, 20)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Comic Sans MS", 1, 30)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Registrar Ciudadano");
 
@@ -525,36 +604,37 @@ public class FrmCiudadanos extends javax.swing.JPanel {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(16, 16, 16)
                 .addComponent(jLabel8)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel7.setBackground(new java.awt.Color(101, 85, 143));
+        jPanel7.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 20)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 30)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Ciudadanos");
+        jLabel1.setText("CIUDADANOS");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(274, 274, 274)
+                .addGap(225, 225, 225)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -568,22 +648,22 @@ public class FrmCiudadanos extends javax.swing.JPanel {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAgregar)
-                        .addGap(26, 26, 26)
-                        .addComponent(btnActualizar)
-                        .addGap(30, 30, 30)
-                        .addComponent(btnEliminar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnLimpiar)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE))
-                        .addContainerGap())))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(btnAgregar)
+                        .addGap(49, 49, 49)
+                        .addComponent(btnActualizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEliminar)
+                        .addGap(40, 40, 40)
+                        .addComponent(btnLimpiar)
+                        .addGap(41, 41, 41))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -595,13 +675,14 @@ public class FrmCiudadanos extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
-                            .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 411, Short.MAX_VALUE))
                 .addGap(24, 24, 24))
         );
 
@@ -609,11 +690,11 @@ public class FrmCiudadanos extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1042, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1057, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -630,12 +711,12 @@ public class FrmCiudadanos extends javax.swing.JPanel {
     }//GEN-LAST:event_TablaCiudadanosMouseClicked
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-       actualizarCiudadano();
-       
+        actualizarCiudadano();
+
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-       limpiarCampos();
+        limpiarCampos();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
 
