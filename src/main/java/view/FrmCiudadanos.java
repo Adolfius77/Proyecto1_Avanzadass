@@ -273,7 +273,6 @@ public class FrmCiudadanos extends javax.swing.JPanel {
         );
 
         jLabel24.setFont(new java.awt.Font("Comic Sans MS", 0, 20)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(0, 0, 0));
         jLabel24.setText("Reportes recientes");
 
         jPanel12.setBackground(new java.awt.Color(255, 255, 255));
@@ -281,13 +280,11 @@ public class FrmCiudadanos extends javax.swing.JPanel {
         jPanel12.setPreferredSize(new java.awt.Dimension(135, 130));
 
         jLabel21.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(0, 0, 0));
         jLabel21.setText("Pendientes");
 
         jLabel22.setText("jLabel5");
 
         jLabel23.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(0, 0, 0));
         jLabel23.setText("Total de reportes");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
@@ -319,11 +316,9 @@ public class FrmCiudadanos extends javax.swing.JPanel {
         jPanel11.setPreferredSize(new java.awt.Dimension(135, 130));
 
         jLabel18.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
         jLabel18.setText("Pendientes");
 
         jLabel19.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
         jLabel19.setText("En proceso");
 
         jLabel20.setText("jLabel8");
@@ -357,10 +352,8 @@ public class FrmCiudadanos extends javax.swing.JPanel {
         jPanel9.setPreferredSize(new java.awt.Dimension(135, 130));
 
         jLabel14.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("En Proceso");
 
-        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("jLabel11");
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -390,10 +383,8 @@ public class FrmCiudadanos extends javax.swing.JPanel {
         jPanel10.setPreferredSize(new java.awt.Dimension(135, 130));
 
         jLabel16.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Reparados");
 
-        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
         jLabel17.setText("jLabel12");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -438,40 +429,22 @@ public class FrmCiudadanos extends javax.swing.JPanel {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel2.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Nombre:");
 
-        txtApellidoMaterno.setBackground(new java.awt.Color(255, 255, 255));
-
         jLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Apellido Materno:");
 
         jLabel4.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Telefono:");
 
-        txtNombre.setBackground(new java.awt.Color(255, 255, 255));
-
-        txtTelefono.setBackground(new java.awt.Color(255, 255, 255));
-
         jLabel5.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Apellido Paterno:");
 
-        txtApellidoPaterno.setBackground(new java.awt.Color(255, 255, 255));
-
         jLabel6.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Correo electronico:");
 
-        txtCorreo.setBackground(new java.awt.Color(255, 255, 255));
-
         jLabel7.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Id:");
-
-        txtId.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -610,7 +583,7 @@ public class FrmCiudadanos extends javax.swing.JPanel {
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel7.setBackground(new java.awt.Color(101, 85, 143));
@@ -652,7 +625,7 @@ public class FrmCiudadanos extends javax.swing.JPanel {
                         .addGap(12, 12, 12)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(50, 50, 50)
@@ -669,8 +642,8 @@ public class FrmCiudadanos extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()

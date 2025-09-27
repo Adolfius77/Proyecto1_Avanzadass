@@ -2,7 +2,9 @@ package Controller;
 
 import Interfacez.IAutoridadDAO;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import model.autoridad;
+import model.ciudadano;
 
 public class autoridadController {
 
@@ -87,5 +89,15 @@ public class autoridadController {
             return false;
         }
         return autoridadDAO.eliminarAutoridad(id_autoridad);
+    }
+    
+    public DefaultTableModel obtenerTablaProblemas() {
+        String[] columnas = {"ID", "Nombre","Dependencia", "Correo", "Telefono"};
+        DefaultTableModel modelo = new DefaultTableModel(null, columnas);
+        List<autoridad> lista = autoridadDAO.obtenerTodos();
+        for (autoridad a : lista) {
+            modelo.addRow(new Object[]{a.getId_autoridad(), a.getNombre(),a.getDependencia(),a.getCorreo(), a.getTelefono()});
+        }
+        return modelo;
     }
 }
