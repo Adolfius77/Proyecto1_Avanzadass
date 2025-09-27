@@ -1,0 +1,53 @@
+
+CREATE DATABASE sistema_reporte_baches;
+
+USE sistema_reporte_baches;
+
+CREATE TABLE CIUDADANO (
+    id_ciudadano INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(50) NOT NULL,
+    apellido_paterno VARCHAR(50) NOT NULL,
+    apellido_materno VARCHAR(50),
+    telefono VARCHAR(20),
+    correo VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE AUTORIDAD (
+    id_autoridad INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(150) NOT NULL,
+    dependencia VARCHAR(100) NOT NULL,
+    telefono VARCHAR(20),
+    correo VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE BACHE (
+    id_bache INT PRIMARY KEY AUTO_INCREMENT,
+    id_ciudadano INT NOT NULL,
+    fecha_reporte DATETIME NOT NULL,
+    tamaño_aprox VARCHAR(50),
+    severidad VARCHAR(50),
+    estado_actual VARCHAR(50) NOT NULL,
+    calle VARCHAR(100) NOT NULL,
+    colonia VARCHAR(100) NOT NULL,
+    codigo_postal VARCHAR(10),
+    latitud DECIMAL(10, 8) NOT NULL,
+    longitud DECIMAL(11, 8) NOT NULL,
+    FOREIGN KEY (id_ciudadano) REFERENCES CIUDADANO(id_ciudadano)
+);
+
+CREATE TABLE ATENCION (
+    id_atencion INT PRIMARY KEY AUTO_INCREMENT,
+    id_autoridad INT NOT NULL,
+    fecha_inicio DATETIME,
+    fecha_solucion DATETIME,
+	estatus_final ENUM('Pendiente', 'En proceso', 'Reparado', 'Cancelado'),
+    FOREIGN KEY (id_autoridad) REFERENCES AUTORIDAD(id_autoridad)
+);
+
+CREATE TABLE INTERVENCION (
+    id_bache INT NOT NULL,
+    id_atencion INT NOT NULL,
+    PRIMARY KEY (id_bache, id_atencion),
+    FOREIGN KEY (id_bache) REFERENCES BACHE(id_bache),
+    FOREIGN KEY (id_atencion) REFERENCES ATENCION(id_atencion)
+);
