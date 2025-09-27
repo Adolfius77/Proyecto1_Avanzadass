@@ -39,8 +39,8 @@ public class bacheDAO implements IBacheDAO {
                 bache.setCalle(rs.getString("calle"));
                 bache.setColonia(rs.getString("colonia"));
                 bache.setCodigo_postal(rs.getString("codigo_postal"));
-                bache.setLongitud(rs.getDouble("latitud"));
-                bache.setLatitud(rs.getDouble("longitud"));
+                bache.setLongitud(rs.getDouble("longitud"));
+                bache.setLatitud(rs.getDouble("latitud"));
             }
         } catch (SQLException e) {
             System.err.println("error al obtener el bache por id: " + e.getMessage());
@@ -65,8 +65,8 @@ public class bacheDAO implements IBacheDAO {
                 bache.setCalle(rs.getString("calle"));
                 bache.setColonia(rs.getString("colonia"));
                 bache.setCodigo_postal(rs.getString("codigo_postal"));
-                bache.setLongitud(rs.getDouble("latitud"));
                 bache.setLatitud(rs.getDouble("longitud"));
+                bache.setLongitud(rs.getDouble("latitud"));
                 listaBaches.add(bache);
             }
         } catch (SQLException e) {
@@ -88,7 +88,7 @@ public class bacheDAO implements IBacheDAO {
             ps.setString(7, bache.getColonia());
             ps.setString(8, bache.getCodigo_postal());
             ps.setDouble(9, bache.getLatitud());
-            ps.setDouble(10, bache.getLatitud());
+            ps.setDouble(10, bache.getLongitud());
 
             return ps.executeUpdate() > 0;
 
@@ -111,7 +111,7 @@ public class bacheDAO implements IBacheDAO {
             ps.setString(6, bache.getColonia());
             ps.setString(7, bache.getCodigo_postal());
             ps.setDouble(8, bache.getLatitud());
-            ps.setDouble(9, bache.getLatitud());
+            ps.setDouble(9, bache.getLongitud());
 
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
