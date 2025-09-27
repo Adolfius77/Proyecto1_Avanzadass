@@ -23,7 +23,7 @@ public class bacheController {
         this.bacheDAO = bacheDAO;
     }
 
-    public boolean agregarBache(Date fecha_reporte, int tamaño_aprox, String severidad, String estado_actual, String calle, String colonia, String codigo_postal, double latitud, double longitud) {
+    public boolean agregarBache(int id_ciudadano,Date fecha_reporte, int tamaño_aprox, String severidad, String estado_actual, String calle, String colonia, String codigo_postal, double latitud, double longitud) {
         if (fecha_reporte == null) {
             System.err.println("la fecha no puede ser nula");
             return false;
@@ -56,12 +56,13 @@ public class bacheController {
             System.err.println("la latitud no puede ser negativa");
             return false;
         }
-        if (longitud <= 0) {
-            System.err.println("la longitud no pue4de ser negativa");
+        if (longitud == 0) {
+            System.err.println("ingresa un valor valido");
             return false;
         }
 
         bache bache = new bache();
+        bache.setId_ciudadano(id_ciudadano);
         bache.setFecha_reporte(fecha_reporte);
         bache.setTamano_aproximado(tamaño_aprox);
         bache.setSeveridad(severidad.trim());
@@ -125,8 +126,8 @@ public class bacheController {
             System.err.println("la latitud no puede ser negativa");
             return false;
         }
-        if (longitud <= 0) {
-            System.err.println("la longitud no pue4de ser negativa");
+        if (longitud == 0) {
+            System.err.println("ingresa un valor valido");
             return false;
         }
         bache bache = new bache();

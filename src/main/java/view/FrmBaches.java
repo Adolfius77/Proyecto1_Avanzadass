@@ -5,10 +5,14 @@
 package view;
 
 import Controller.bacheController;
+import Controller.ciudadanoController;
 import DAO.bacheDAO;
+import DAO.ciudadanoDAO;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.ciudadano;
 
 /**
  *
@@ -17,14 +21,17 @@ import javax.swing.table.DefaultTableModel;
 public class FrmBaches extends javax.swing.JPanel {
 
     private bacheController clBache;
+    private ciudadanoController clCiduadano;
 
     /**
      * Creates new form FrmBaches
      */
     public FrmBaches() {
         this.clBache = new bacheController(new bacheDAO());
+        this.clCiduadano = new ciudadanoController(new ciudadanoDAO());
         initComponents();
         cargarBaches();
+        cargarCiudadanosEnComboBox();
     }
 
     private void cargarBaches() {
@@ -48,38 +55,52 @@ public class FrmBaches extends javax.swing.JPanel {
 
     }
 
+    private void cargarCiudadanosEnComboBox() {
+        cmbCiudadanos.removeAllItems();
+        List<ciudadano> ciudadanos = clCiduadano.listarCiudadanos();
+
+        for (ciudadano c : ciudadanos) {
+            cmbCiudadanos.addItem(c);
+        }
+    }
+
     private void AgregarBaches() {
         try {
-            String idCiudadanoStr = txtIDCidadano.getText();
+
+            Object itemSeleccionado = cmbCiudadanos.getSelectedItem();
+
+            if (itemSeleccionado == null) {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un ciudadano.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            ciudadano ciudadanoSeleccionado = (ciudadano) itemSeleccionado;
+            int idCiudadano = ciudadanoSeleccionado.getId_ciudadano();
+
             java.util.Date fechaUtil = txtFchReporte.getDate();
             String tamAproxStr = txtTamAprox.getText();
             String severidad = txtSeveridad.getText();
-
-            
             String estado = EstadoActual.getText();
-
             String calle = txtCalle.getText();
             String colonia = txtColonia.getText();
             String cp = txtCp.getText();
             String latitudStr = txtLatitud.getText();
             String longitudStr = txtLongitud.getText();
 
-          
-            if (idCiudadanoStr.isEmpty() || fechaUtil == null || tamAproxStr.isEmpty()
-                    || severidad.isEmpty() || estado.isEmpty() || calle.isEmpty()
-                    || colonia.isEmpty() || cp.isEmpty() || latitudStr.isEmpty() || longitudStr.isEmpty()) {
+            if (fechaUtil == null || tamAproxStr.isEmpty() || severidad.isEmpty()
+                    || estado.isEmpty() || calle.isEmpty() || colonia.isEmpty()
+                    || cp.isEmpty() || latitudStr.isEmpty() || longitudStr.isEmpty()) {
 
                 JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Advertencia", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
-            // El resto del código se mantiene igual...
             int tamAprox = Integer.parseInt(tamAproxStr);
             double latitud = Double.parseDouble(latitudStr);
             double longitud = Double.parseDouble(longitudStr);
             java.sql.Date fechaReporte = new java.sql.Date(fechaUtil.getTime());
 
-            boolean exito = clBache.agregarBache(fechaReporte, tamAprox, severidad, estado, calle, colonia, cp, latitud, longitud);
+            boolean exito = clBache.agregarBache(idCiudadano, fechaReporte, tamAprox, severidad, estado, calle, colonia, cp, latitud, longitud);
 
             if (exito) {
                 JOptionPane.showMessageDialog(this, "Bache reportado exitosamente.");
@@ -90,9 +111,9 @@ public class FrmBaches extends javax.swing.JPanel {
             }
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores numéricos válidos para ID, tamaño, latitud y longitud.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores numéricos válidos para tamano, latitud y longitud.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrió un error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -113,6 +134,7 @@ public class FrmBaches extends javax.swing.JPanel {
         txtFchFin = new com.toedter.calendar.JDateChooser();
         txtEstadoActual = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
+        txtIDCidadano = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -138,9 +160,9 @@ public class FrmBaches extends javax.swing.JPanel {
         txtFchReporte = new com.toedter.calendar.JDateChooser();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        txtIDCidadano = new javax.swing.JTextField();
         txtSeveridad = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
+        cmbCiudadanos = new javax.swing.JComboBox<>();
         jPanel6 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         ScrollPanelTabla = new javax.swing.JScrollPane();
@@ -186,6 +208,8 @@ public class FrmBaches extends javax.swing.JPanel {
         jLabel15.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("Estado Actual");
+
+        txtIDCidadano.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel2.setBackground(new java.awt.Color(217, 202, 218));
 
@@ -261,9 +285,7 @@ public class FrmBaches extends javax.swing.JPanel {
 
         jLabel14.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel14.setText("id ciudadano:");
-
-        txtIDCidadano.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Ciudadanos");
 
         txtSeveridad.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -298,22 +320,23 @@ public class FrmBaches extends javax.swing.JPanel {
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(BtnReportarBache, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
-                                    .addComponent(txtCalle, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel9)
                                     .addComponent(txtCp, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel10)
                                     .addComponent(txtLongitud, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtFchReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel13)
-                                    .addComponent(jLabel14))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(txtIDCidadano)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(BtnReportarBache, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel14)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(cmbCiudadanos, javax.swing.GroupLayout.Alignment.LEADING, 0, 186, Short.MAX_VALUE)
+                                        .addComponent(txtCalle, javax.swing.GroupLayout.Alignment.LEADING)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -331,7 +354,7 @@ public class FrmBaches extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtIDBache, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtIDCidadano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbCiudadanos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -516,6 +539,7 @@ public class FrmBaches extends javax.swing.JPanel {
     private javax.swing.JScrollPane ScrollPanelTabla;
     private javax.swing.JTable TablaBaches;
     private javax.swing.JTable TablaCiudadanos;
+    private javax.swing.JComboBox<ciudadano> cmbCiudadanos;
     private javax.swing.JComboBox<String> cmbPrioriodad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

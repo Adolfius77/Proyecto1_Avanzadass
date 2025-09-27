@@ -9,6 +9,7 @@ package model;
  * @author USER
  */
 public class ciudadano {
+
     private int id_ciudadano;
     private String nombre;
     private String apellido_paterno;
@@ -17,7 +18,7 @@ public class ciudadano {
     private String correo;
 
     public ciudadano() {
-        
+
     }
 
     public ciudadano(int id_ciudadano, String nombre, String apellido_paterno, String apellido_materno, String telefono, String correo) {
@@ -28,8 +29,6 @@ public class ciudadano {
         this.telefono = telefono;
         this.correo = correo;
     }
-    
-    
 
     public int getId_ciudadano() {
         return id_ciudadano;
@@ -81,7 +80,7 @@ public class ciudadano {
 
     @Override
     public String toString() {
-        return "ciudadano{" + "id_ciudadano=" + id_ciudadano + ", nombre=" + nombre + ", apellido_paterno=" + apellido_paterno + ", apellido_materno=" + apellido_materno + ", telefono=" + telefono + ", correo=" + correo + '}';
+        return getId_ciudadano() + ": " + getNombre() + " " + getApellido_paterno();
     }
-    
+
 }

@@ -68,6 +68,13 @@
         <Property name="text" type="java.lang.String" value="Estado Actual"/>
       </Properties>
     </Component>
+    <Component class="javax.swing.JTextField" name="txtIDCidadano">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+      </Properties>
+    </Component>
   </NonVisualComponents>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -206,10 +213,13 @@
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          <Component id="BtnReportarBache" min="-2" pref="190" max="-2" attributes="0"/>
+                                      </Group>
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                              <Component id="txtCalle" min="-2" pref="186" max="-2" attributes="0"/>
                                               <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="txtCp" alignment="0" min="-2" pref="186" max="-2" attributes="0"/>
                                               <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -217,13 +227,12 @@
                                               <Component id="txtFchReporte" min="-2" pref="190" max="-2" attributes="0"/>
                                               <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                                  <Component id="cmbCiudadanos" alignment="0" pref="186" max="32767" attributes="0"/>
+                                                  <Component id="txtCalle" alignment="0" max="32767" attributes="0"/>
+                                              </Group>
                                           </Group>
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Component id="txtIDCidadano" max="32767" attributes="0"/>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          <Component id="BtnReportarBache" min="-2" pref="190" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -250,7 +259,7 @@
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="txtIDBache" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtIDCidadano" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cmbCiudadanos" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -516,14 +525,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="0" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="id ciudadano:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="txtIDCidadano">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                    </Property>
+                    <Property name="text" type="java.lang.String" value="Ciudadanos"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtSeveridad">
@@ -543,6 +545,16 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Severidad"/>
                   </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="cmbCiudadanos">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="0"/>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;ciudadano&gt;"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>

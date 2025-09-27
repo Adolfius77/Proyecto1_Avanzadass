@@ -39,7 +39,7 @@ public class Main {
         System.out.println("\n--- Pruebas Bache ---");
         long milisegundos = System.currentTimeMillis();
         Date fechaActual = new Date(milisegundos);
-        bacheCtrl.agregarBache(fechaActual, 5, "Alta", "Reportado", "Guerrero", "Centro", "85000", 27.48, -109.93);
+        //bacheCtrl.agregarBache(fechaActual, 5, "Alta", "Reportado", "Guerrero", "Centro", "85000", 27.48, -109.93);
         System.out.println("Listado de baches:");
         bacheCtrl.listarBaches().forEach(System.out::println);
 
