@@ -36,7 +36,7 @@ public class FrmAutoridades extends javax.swing.JPanel {
         JTableHeader header = tablaAutoridades.getTableHeader();
         header.setFont(new Font("Segoe UI", Font.BOLD, 14));
         personalizarTabla();
-        
+        cargarAutoridades();
         txtId.setEditable(false);
         
     }
@@ -259,6 +259,11 @@ public class FrmAutoridades extends javax.swing.JPanel {
 
             }
         ));
+        tablaAutoridades.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaAutoridadesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaAutoridades);
 
         jPanel1.setBackground(new java.awt.Color(101, 85, 143));
@@ -545,6 +550,10 @@ public class FrmAutoridades extends javax.swing.JPanel {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         limpiarCampos();
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void tablaAutoridadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaAutoridadesMouseClicked
+        cargarDatos();
+    }//GEN-LAST:event_tablaAutoridadesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

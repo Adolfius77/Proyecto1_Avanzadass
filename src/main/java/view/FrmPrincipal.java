@@ -606,7 +606,16 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAutoridadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutoridadesActionPerformed
-        // TODO add your handling code here:
+        FrmAutoridades auto = new FrmAutoridades();
+        
+        auto.setSize(PanelContenido.getWidth(),PanelContenido.getHeight());
+        auto.setLocation(0,0);
+        
+        PanelContenido.removeAll();
+        PanelContenido.add(auto,BorderLayout.CENTER);
+        
+        PanelContenido.revalidate();
+        PanelContenido.repaint();
     }//GEN-LAST:event_btnAutoridadesActionPerformed
 
     private void btnCiudadanosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCiudadanosActionPerformed
