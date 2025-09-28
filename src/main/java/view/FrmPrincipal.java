@@ -20,17 +20,19 @@ public class FrmPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         cargarMain();
     }
-    private void cargarMain(){
+
+    private void cargarMain() {
         FrmMain main = new FrmMain();
-        main.setSize(PanelContenido.getWidth(),PanelContenido.getHeight());
-        main.setLocation(0,0);
-        
+        main.setSize(PanelContenido.getWidth(), PanelContenido.getHeight());
+        main.setLocation(0, 0);
+
         PanelContenido.removeAll();
-        PanelContenido.add(main,BorderLayout.CENTER);
-        
+        PanelContenido.add(main, BorderLayout.CENTER);
+
         PanelContenido.revalidate();
         PanelContenido.repaint();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -539,7 +541,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(534, Short.MAX_VALUE))
+                .addContainerGap(528, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -555,18 +557,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         PanelContenido.setBackground(new java.awt.Color(255, 255, 255));
         PanelContenido.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        javax.swing.GroupLayout PanelContenidoLayout = new javax.swing.GroupLayout(PanelContenido);
-        PanelContenido.setLayout(PanelContenidoLayout);
-        PanelContenidoLayout.setHorizontalGroup(
-            PanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1068, Short.MAX_VALUE)
-        );
-        PanelContenidoLayout.setVerticalGroup(
-            PanelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
+        PanelContenido.setLayout(new java.awt.BorderLayout());
         jPanel1.add(PanelContenido, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -585,39 +576,40 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void btnAutoridadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutoridadesActionPerformed
         FrmAutoridades auto = new FrmAutoridades();
-        
-        auto.setSize(PanelContenido.getWidth(),PanelContenido.getHeight());
-        auto.setLocation(0,0);
-        
+
+        // 2. Limpias el contenido anterior
         PanelContenido.removeAll();
-        PanelContenido.add(auto,BorderLayout.CENTER);
-        
+
+        // 3. Dejas que BorderLayout haga su trabajo de ajustar el tamaño
+        PanelContenido.add(auto, BorderLayout.CENTER);
+
+        // 4. Refrescas la interfaz para que se muestren los cambios
         PanelContenido.revalidate();
         PanelContenido.repaint();
     }//GEN-LAST:event_btnAutoridadesActionPerformed
 
     private void btnCiudadanosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCiudadanosActionPerformed
-       FrmCiudadanos panelCiudadanos = new FrmCiudadanos();
-        
-        panelCiudadanos.setSize(PanelContenido.getWidth(),PanelContenido.getHeight());
-        panelCiudadanos.setLocation(0,0);
-        
+        FrmCiudadanos panelCiudadanos = new FrmCiudadanos();
+
+        panelCiudadanos.setSize(PanelContenido.getWidth(), PanelContenido.getHeight());
+        panelCiudadanos.setLocation(0, 0);
+
         PanelContenido.removeAll();
-        PanelContenido.add(panelCiudadanos,BorderLayout.CENTER);
-        
+        PanelContenido.add(panelCiudadanos, BorderLayout.CENTER);
+
         PanelContenido.revalidate();
         PanelContenido.repaint();
     }//GEN-LAST:event_btnCiudadanosActionPerformed
 
     private void btnBachesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBachesActionPerformed
         FrmBaches bachesPanel = new FrmBaches();
-        
-        bachesPanel.setSize(PanelContenido.getWidth(),PanelContenido.getHeight());
+
+        bachesPanel.setSize(PanelContenido.getWidth(), PanelContenido.getHeight());
         bachesPanel.setLocation(0, 0);
-        
+
         PanelContenido.removeAll();
-        PanelContenido.add(bachesPanel,BorderLayout.CENTER);
-        
+        PanelContenido.add(bachesPanel, BorderLayout.CENTER);
+
         PanelContenido.revalidate();
         PanelContenido.repaint();
     }//GEN-LAST:event_btnBachesActionPerformed
