@@ -47,9 +47,8 @@ public class FrmAtenciones extends javax.swing.JPanel {
         header.setFont(new Font("Segoe UI", Font.BOLD, 14));
         personalizarTabla();
         cargarAtenciones();
-
         cargarAutoridadesEnComboBox();
-
+        cmbEstatus.setSelectedItem(-1);//este es para que se inicie sin seleccion
         idField.setEditable(false);
     }
 
@@ -69,6 +68,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
 
     private void limpiarCampos() {
         idField.setText("");
+        cmbEstatus.setSelectedIndex(-1);
         cmbAutoridad.setSelectedIndex(-1);
         fechaInicio.setDateTimeStrict(null);
         fechaSolucion.setDateTimeStrict(null);
@@ -101,6 +101,11 @@ public class FrmAtenciones extends javax.swing.JPanel {
             } else {
                 fechaSolucion.setDateTimeStrict(null);
             }
+
+            if (tablaAtencion.getColumnCount() > 4) {
+                String estatus = tablaAtencion.getValueAt(fila, 4).toString();
+                cmbEstatus.setSelectedItem(estatus);
+            }
         }
     }
 
@@ -117,19 +122,27 @@ public class FrmAtenciones extends javax.swing.JPanel {
             return;
         }
 
+        // --- LÍNEA MODIFICADA ---
+        String estatusSeleccionado = (String) cmbEstatus.getSelectedItem();
+        if (estatusSeleccionado == null) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un estatus.", "Dato Faltante", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
         Timestamp fechaInicioTS = Timestamp.valueOf(fechaInicioLDT);
         Timestamp fechaSolucionTS = null;
         if (fechaSolucion.getDateTimeStrict() != null) {
             fechaSolucionTS = Timestamp.valueOf(fechaSolucion.getDateTimeStrict());
         }
 
-        boolean exito = clAtencion.agregarAtencion(autoridadSeleccionada.getId_autoridad(), fechaInicioTS, fechaSolucionTS);
+        boolean exito = clAtencion.agregarAtencion(autoridadSeleccionada.getId_autoridad(), fechaInicioTS, fechaSolucionTS, estatusSeleccionado);
+
         if (exito) {
-            JOptionPane.showMessageDialog(this, "Atención registrada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Atencion registrada correctamente.", "exito", JOptionPane.INFORMATION_MESSAGE);
             cargarAtenciones();
             limpiarCampos();
         } else {
-            JOptionPane.showMessageDialog(this, "No se pudo registrar la atención.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No se pudo registrar la atencion.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -138,7 +151,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Seleccione una atención de la tabla para actualizar.", "Sin Selección", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
+        
         try {
             int idAtencion = Integer.parseInt(idField.getText());
             autoridad autoridadSeleccionada = (autoridad) cmbAutoridad.getSelectedItem();
@@ -153,13 +166,20 @@ public class FrmAtenciones extends javax.swing.JPanel {
                 return;
             }
 
+           
+            String estatusSeleccionado = (String) cmbEstatus.getSelectedItem();
+            if (estatusSeleccionado == null) {
+                JOptionPane.showMessageDialog(this, "Por favor, seleccione un estatus.", "Dato Faltante", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
             Timestamp tsInicio = Timestamp.valueOf(ldtInicio);
             Timestamp tsSolucion = (fechaSolucion.getDateTimeStrict() != null) ? Timestamp.valueOf(fechaSolucion.getDateTimeStrict()) : null;
-
-            // CORRECCIÓN: Obtener el ID del objeto autoridad
+            
             int idAutoridad = autoridadSeleccionada.getId_autoridad();
-            boolean exito = clAtencion.actualizarAtencion(idAtencion, idAutoridad, tsInicio, tsSolucion);
-
+            
+            boolean exito = clAtencion.actualizarAtencion(idAtencion, idAutoridad, tsInicio, tsSolucion, estatusSeleccionado);
+            
             if (exito) {
                 JOptionPane.showMessageDialog(this, "Atención actualizada correctamente.");
                 cargarAtenciones();
@@ -258,8 +278,6 @@ public class FrmAtenciones extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnLimpiar1 = new javax.swing.JButton();
-        btnLimpiar2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -272,6 +290,8 @@ public class FrmAtenciones extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         idField = new javax.swing.JTextField();
         cmbAutoridad = new javax.swing.JComboBox<>();
+        cmbEstatus = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
@@ -282,28 +302,6 @@ public class FrmAtenciones extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-
-        btnLimpiar1.setBackground(new java.awt.Color(35, 41, 50));
-        btnLimpiar1.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
-        btnLimpiar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnLimpiar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/limpia.png"))); // NOI18N
-        btnLimpiar1.setText("Limpiar");
-        btnLimpiar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpiar1ActionPerformed(evt);
-            }
-        });
-
-        btnLimpiar2.setBackground(new java.awt.Color(35, 41, 50));
-        btnLimpiar2.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
-        btnLimpiar2.setForeground(new java.awt.Color(255, 255, 255));
-        btnLimpiar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/limpia.png"))); // NOI18N
-        btnLimpiar2.setText("Limpiar");
-        btnLimpiar2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpiar2ActionPerformed(evt);
-            }
-        });
 
         setBackground(new java.awt.Color(217, 202, 218));
         setForeground(new java.awt.Color(217, 202, 218));
@@ -353,6 +351,11 @@ public class FrmAtenciones extends javax.swing.JPanel {
             }
         });
 
+        cmbEstatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pendiente", "En proceso", "Reparado", "Cancelado" }));
+
+        jLabel9.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
+        jLabel9.setText("Estatus:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -379,7 +382,13 @@ public class FrmAtenciones extends javax.swing.JPanel {
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
                             .addComponent(cmbAutoridad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(12, 12, 12))))
+                        .addGap(12, 12, 12))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(cmbEstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -402,7 +411,11 @@ public class FrmAtenciones extends javax.swing.JPanel {
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fechaSolucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(159, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(cmbEstatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(89, Short.MAX_VALUE))
         );
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/save_all.png"))); // NOI18N
@@ -497,6 +510,11 @@ public class FrmAtenciones extends javax.swing.JPanel {
         );
 
         txtBuscar.setBackground(new java.awt.Color(255, 255, 255));
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyReleased(evt);
@@ -510,9 +528,11 @@ public class FrmAtenciones extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
@@ -521,7 +541,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
                         .addComponent(btnActualizar)
                         .addGap(89, 89, 89)
                         .addComponent(btnEliminar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                         .addComponent(btnLimpiar3)
                         .addGap(33, 33, 33))
                     .addGroup(layout.createSequentialGroup()
@@ -559,7 +579,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
                             .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnLimpiar3))))
-                .addGap(0, 137, Short.MAX_VALUE))
+                .addGap(0, 127, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -574,14 +594,6 @@ public class FrmAtenciones extends javax.swing.JPanel {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         eliminarAtencion();
     }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void btnLimpiar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiar1ActionPerformed
-        limpiarCampos();
-    }//GEN-LAST:event_btnLimpiar1ActionPerformed
-
-    private void btnLimpiar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiar2ActionPerformed
-        limpiarCampos();
-    }//GEN-LAST:event_btnLimpiar2ActionPerformed
 
     private void btnLimpiar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiar3ActionPerformed
         limpiarCampos();
@@ -603,15 +615,18 @@ public class FrmAtenciones extends javax.swing.JPanel {
         buscar();
     }//GEN-LAST:event_txtBuscarKeyReleased
 
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnLimpiar1;
-    private javax.swing.JButton btnLimpiar2;
     private javax.swing.JButton btnLimpiar3;
     private javax.swing.JComboBox<model.autoridad> cmbAutoridad;
+    private javax.swing.JComboBox<String> cmbEstatus;
     private com.github.lgooddatepicker.components.DateTimePicker fechaInicio;
     private com.github.lgooddatepicker.components.DateTimePicker fechaSolucion;
     private javax.swing.JTextField idField;
@@ -623,6 +638,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

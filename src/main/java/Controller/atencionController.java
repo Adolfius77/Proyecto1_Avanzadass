@@ -15,16 +15,17 @@ public class atencionController {
         this.atencionDAO = atencionDAO;
     }
 
-    public boolean agregarAtencion(int id_autoridad, Timestamp fecha_inicio, Timestamp fecha_solucion) {
+    public boolean agregarAtencion(int id_autoridad, Timestamp fecha_inicio, Timestamp fecha_solucion, String estatus) {
         atencion atencion = new atencion();
         atencion.setId_autoridad(id_autoridad);
         atencion.setFecha_inicio(fecha_inicio);
         atencion.setFecha_solucion(fecha_solucion);
+        atencion.setEstatus_final(estatus); 
 
         return atencionDAO.insertarAtencion(atencion);
     }
 
-    public boolean actualizarAtencion(int id_atencion, int id_autoridad, Timestamp fecha_inicio, Timestamp fecha_solucion) {
+    public boolean actualizarAtencion(int id_atencion, int id_autoridad, Timestamp fecha_inicio, Timestamp fecha_solucion, String estatusSeleccionado) {
         atencion atencion = new atencion();
         atencion.setId_atencion(id_atencion);
         atencion.setId_autoridad(id_autoridad);
@@ -39,7 +40,8 @@ public class atencionController {
     }
 
     public DefaultTableModel obtenerTablaAtenciones() {
-        String[] columnas = {"ID", "Autoridad", "Fecha Inicio", "Fecha Solucion"};
+        // AÑADIDO: La columna "Estatus"
+        String[] columnas = {"ID", "Autoridad", "Fecha Inicio", "Fecha Solucion", "Estatus"};
         DefaultTableModel modelo = new DefaultTableModel(null, columnas) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -53,7 +55,9 @@ public class atencionController {
                 a.getId_atencion(),
                 a.getNombre_autoridad(),
                 a.getFecha_inicio(),
-                a.getFecha_solucion(),});
+                a.getFecha_solucion(),
+                a.getEstatus_final() 
+            });
         }
         return modelo;
     }

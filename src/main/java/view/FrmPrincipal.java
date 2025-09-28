@@ -427,10 +427,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnCiudadanos.setText("Ciudadanos");
         btnCiudadanos.setBackground(new java.awt.Color(35, 41, 50));
         btnCiudadanos.setFont(new java.awt.Font("Comic Sans MS", 0, 15)); // NOI18N
         btnCiudadanos.setForeground(new java.awt.Color(255, 255, 255));
-        btnCiudadanos.setText("Ciudadanos");
         btnCiudadanos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCiudadanosActionPerformed(evt);
@@ -457,10 +457,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnAtenciones.setText("Atenciones");
         btnAtenciones.setBackground(new java.awt.Color(35, 41, 50));
         btnAtenciones.setFont(new java.awt.Font("Comic Sans MS", 0, 15)); // NOI18N
         btnAtenciones.setForeground(new java.awt.Color(255, 255, 255));
-        btnAtenciones.setText("Atenciones");
         btnAtenciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAtencionesActionPerformed(evt);
@@ -552,7 +552,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1316, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -565,13 +565,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void btnAutoridadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutoridadesActionPerformed
         FrmAutoridades auto = new FrmAutoridades();
 
-        // 2. Limpias el contenido anterior
+        
         PanelContenido.removeAll();
 
-        // 3. Dejas que BorderLayout haga su trabajo de ajustar el tamaño
+      
         PanelContenido.add(auto, BorderLayout.CENTER);
 
-        // 4. Refrescas la interfaz para que se muestren los cambios
+       
         PanelContenido.revalidate();
         PanelContenido.repaint();
     }//GEN-LAST:event_btnAutoridadesActionPerformed

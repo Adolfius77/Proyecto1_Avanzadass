@@ -50,10 +50,10 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Pendientes"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Comic Sans MS" size="13" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Pendientes"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
@@ -63,10 +63,10 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Total de reportes"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Comic Sans MS" size="13" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Total de reportes"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -119,18 +119,18 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Pendientes"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Comic Sans MS" size="13" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Pendientes"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
+            <Property name="text" type="java.lang.String" value="En proceso"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Comic Sans MS" size="13" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="En proceso"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
@@ -185,10 +185,10 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
+            <Property name="text" type="java.lang.String" value="En Proceso"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Comic Sans MS" size="13" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="En Proceso"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel11">
@@ -246,10 +246,10 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Reparados"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Comic Sans MS" size="13" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Reparados"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel12">
@@ -361,10 +361,10 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel21">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Pendientes"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Comic Sans MS" size="13" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Pendientes"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel22">
@@ -374,10 +374,10 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel23">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Total de reportes"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Comic Sans MS" size="13" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Total de reportes"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -463,18 +463,18 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel18">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Pendientes"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Comic Sans MS" size="13" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Pendientes"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel19">
           <Properties>
+            <Property name="text" type="java.lang.String" value="En proceso"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Comic Sans MS" size="13" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="En proceso"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel20">
@@ -529,10 +529,10 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel14">
           <Properties>
+            <Property name="text" type="java.lang.String" value="En Proceso"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Comic Sans MS" size="13" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="En Proceso"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel15">
@@ -590,10 +590,10 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel16">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Reparados"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Comic Sans MS" size="13" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Reparados"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel17">
@@ -705,17 +705,18 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel13">
               <Properties>
+                <Property name="text" type="java.lang.String" value="Dashboard"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Comic Sans MS" size="20" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Dashboard"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnAutoridades">
               <Properties>
+                <Property name="text" type="java.lang.String" value="Autoridades"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="32" green="29" red="23" type="rgb"/>
                 </Property>
@@ -725,7 +726,6 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Autoridades"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAutoridadesActionPerformed"/>
@@ -733,6 +733,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnCiudadanos">
               <Properties>
+                <Property name="text" type="java.lang.String" value="Ciudadanos"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="32" green="29" red="23" type="rgb"/>
                 </Property>
@@ -742,7 +743,6 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Ciudadanos"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCiudadanosActionPerformed"/>
@@ -750,6 +750,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnBaches">
               <Properties>
+                <Property name="text" type="java.lang.String" value="Baches"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="32" green="29" red="23" type="rgb"/>
                 </Property>
@@ -759,7 +760,6 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Baches"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBachesActionPerformed"/>
@@ -767,6 +767,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnIntervenciones">
               <Properties>
+                <Property name="text" type="java.lang.String" value="Intervenciones"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="32" green="29" red="23" type="rgb"/>
                 </Property>
@@ -776,7 +777,6 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Intervenciones"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIntervencionesActionPerformed"/>
@@ -848,13 +848,13 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
+                <Property name="text" type="java.lang.String" value="Sistema de Reportes de Baches"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Comic Sans MS" size="25" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Sistema de Reportes de Baches"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnInicio">

@@ -22,12 +22,14 @@ public class atencionDAO implements IAtencionDAO {
 
     @Override
     public boolean insertarAtencion(atencion atencion) {
-        String sql = "INSERT INTO atencion (id_autoridad, fecha_inicio, fecha_solucion) VALUES (?, ?, ?)";
+        // AÑADIDO: estatus_final en la consulta y en los parámetros
+        String sql = "INSERT INTO atencion (id_autoridad, fecha_inicio, fecha_solucion, estatus_final) VALUES (?, ?, ?, ?)";
         try (Connection conn = ConexionDB.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, atencion.getId_autoridad());
             ps.setTimestamp(2, atencion.getFecha_inicio());
             ps.setTimestamp(3, atencion.getFecha_solucion());
+            ps.setString(4, atencion.getEstatus_final()); // <-- AÑADIDO
 
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -61,6 +63,7 @@ public class atencionDAO implements IAtencionDAO {
 
     @Override
     public List<atencion> obtenerTodos() {
+      
         String sql = "SELECT a.id_atencion, a.id_autoridad, a.fecha_inicio, a.fecha_solucion, a.estatus_final, au.nombre AS nombre_autoridad "
                 + "FROM atencion a "
                 + "JOIN autoridad au ON a.id_autoridad = au.id_autoridad";
@@ -76,6 +79,7 @@ public class atencionDAO implements IAtencionDAO {
                 atencion.setFecha_inicio(rs.getTimestamp("fecha_inicio"));
                 atencion.setFecha_solucion(rs.getTimestamp("fecha_solucion"));
                 atencion.setNombre_autoridad(rs.getString("nombre_autoridad")); 
+                atencion.setEstatus_final(rs.getString("estatus_final")); // <-- AÑADIDO
 
                 listaAtenciones.add(atencion);
             }
@@ -88,14 +92,15 @@ public class atencionDAO implements IAtencionDAO {
 
     @Override
     public boolean actualizarAtencion(atencion atencion) {
-        String sql = "UPDATE atencion SET id_autoridad = ?, fecha_inicio = ?, fecha_solucion = ? WHERE id_atencion = ?";
+        String sql = "UPDATE atencion SET id_autoridad = ?, fecha_inicio = ?, fecha_solucion = ?, estatus_final = ? WHERE id_atencion = ?";
 
         try (Connection conn = ConexionDB.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, atencion.getId_autoridad());
             ps.setTimestamp(2, atencion.getFecha_inicio());
             ps.setTimestamp(3, atencion.getFecha_solucion());
-            ps.setInt(4, atencion.getId_atencion());
+            ps.setString(4, atencion.getEstatus_final()); 
+            ps.setInt(5, atencion.getId_atencion());
 
             return ps.executeUpdate() > 0;
 
@@ -104,6 +109,7 @@ public class atencionDAO implements IAtencionDAO {
             return false;
         }
     }
+
 
     @Override
     public boolean eliminarAtencion(int id_atencion) {
@@ -124,12 +130,14 @@ public class atencionDAO implements IAtencionDAO {
         String sql = "SELECT a.id_atencion, a.id_autoridad, a.fecha_inicio, a.fecha_solucion, au.nombre AS nombre_autoridad "
                 + "FROM atencion a "
                 + "JOIN autoridad au ON a.id_autoridad = au.id_autoridad "
-                + "WHERE au.nombre LIKE ?";
+                + "WHERE au.nombre LIKE ? OR CAST(a.id_atencion AS CHAR) LIKE ?";
         List<atencion> listaAtenciones = new ArrayList<>();
 
         try (Connection conn = ConexionDB.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, "%" + filtro + "%");
+            ps.setString(2, "%" + filtro + "%");
+            
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 atencion atencion = new atencion();
