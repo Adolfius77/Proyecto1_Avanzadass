@@ -36,20 +36,20 @@ public class FrmAtenciones extends javax.swing.JPanel {
      */
     public FrmAtenciones() {
         initComponents();
-        this.clAtencion = new atencionController(new atencionDAO()); 
-        
+        this.clAtencion = new atencionController(new atencionDAO());
+
         this.clAutoridad = new autoridadController(new autoridadDAO());
-        
+
         Font nuevaFuente = new Font("Segoe UI", Font.PLAIN, 14);
-        
+
         tablaAtencion.setFont(nuevaFuente);
         JTableHeader header = tablaAtencion.getTableHeader();
         header.setFont(new Font("Segoe UI", Font.BOLD, 14));
         personalizarTabla();
         cargarAtenciones();
-        
+
         cargarAutoridadesEnComboBox();
-        
+
         idField.setEditable(false);
     }
 
@@ -64,9 +64,8 @@ public class FrmAtenciones extends javax.swing.JPanel {
         for (autoridad aut : autoridades) {
             model.addElement(aut);
         }
-        cmbAutoridad.setModel(model); 
+        cmbAutoridad.setModel(model);
     }
-
 
     private void limpiarCampos() {
         idField.setText("");
@@ -75,6 +74,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
         fechaSolucion.setDateTimeStrict(null);
         tablaAtencion.clearSelection();
     }
+
     private void cargarDatosDeTabla() {
         int fila = tablaAtencion.getSelectedRow();
         if (fila != -1) {
@@ -103,6 +103,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
             }
         }
     }
+
     private void agregarAtencion() {
         autoridad autoridadSeleccionada = (autoridad) cmbAutoridad.getSelectedItem();
         if (autoridadSeleccionada == null) {
@@ -110,13 +111,12 @@ public class FrmAtenciones extends javax.swing.JPanel {
             return;
         }
 
-        
         LocalDateTime fechaInicioLDT = fechaInicio.getDateTimeStrict();
         if (fechaInicioLDT == null) {
             JOptionPane.showMessageDialog(this, "La fecha de inicio es obligatoria.", "Dato Faltante", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
         Timestamp fechaInicioTS = Timestamp.valueOf(fechaInicioLDT);
         Timestamp fechaSolucionTS = null;
         if (fechaSolucion.getDateTimeStrict() != null) {
@@ -132,12 +132,13 @@ public class FrmAtenciones extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "No se pudo registrar la atención.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     private void actualizarAtencion() {
         if (idField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Seleccione una atención de la tabla para actualizar.", "Sin Selección", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
         try {
             int idAtencion = Integer.parseInt(idField.getText());
             autoridad autoridadSeleccionada = (autoridad) cmbAutoridad.getSelectedItem();
@@ -154,11 +155,11 @@ public class FrmAtenciones extends javax.swing.JPanel {
 
             Timestamp tsInicio = Timestamp.valueOf(ldtInicio);
             Timestamp tsSolucion = (fechaSolucion.getDateTimeStrict() != null) ? Timestamp.valueOf(fechaSolucion.getDateTimeStrict()) : null;
-            
+
             // CORRECCIÓN: Obtener el ID del objeto autoridad
             int idAutoridad = autoridadSeleccionada.getId_autoridad();
             boolean exito = clAtencion.actualizarAtencion(idAtencion, idAutoridad, tsInicio, tsSolucion);
-            
+
             if (exito) {
                 JOptionPane.showMessageDialog(this, "Atención actualizada correctamente.");
                 cargarAtenciones();
@@ -173,6 +174,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Ocurrió un error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     private void eliminarAtencion() {
         if (idField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Seleccione una atención para eliminar.", "Sin selección", JOptionPane.WARNING_MESSAGE);
@@ -185,7 +187,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
                     "¿Seguro que quieres eliminar esta atención?",
                     "Confirmar eliminación",
                     JOptionPane.YES_NO_OPTION);
-            
+
             if (confirm == JOptionPane.YES_OPTION) {
                 boolean exito = clAtencion.eliminarAtencion(id);
                 if (exito) {
@@ -200,9 +202,10 @@ public class FrmAtenciones extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-     private void personalizarTabla() {
+
+    private void personalizarTabla() {
         Color colorFondoEncabezado = new Color(101, 85, 143);
-        Color colorLetraEncabezado = Color.WHITE; 
+        Color colorLetraEncabezado = Color.WHITE;
         Color colorFondoFilaPar = new Color(240, 237, 247);
         Color colorFondoFilaImpar = Color.WHITE;
         Color colorFondoSeleccion = new Color(188, 178, 217);
@@ -221,7 +224,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
         tablaAtencion.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(javax.swing.JTable table, Object value,
-                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                    boolean isSelected, boolean hasFocus, int row, int column) {
                 Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (isSelected) {
                     c.setBackground(colorFondoSeleccion);
@@ -239,6 +242,13 @@ public class FrmAtenciones extends javax.swing.JPanel {
         tablaAtencion.setRowHeight(25);
         tablaAtencion.getTableHeader().setReorderingAllowed(false);
     }
+
+    private void buscar() {
+        String filtro = txtBuscar.getText();
+        DefaultTableModel modelo = clAtencion.obtenerTablaAtencionesPorFiltro(filtro);
+        tablaAtencion.setModel(modelo);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -270,6 +280,8 @@ public class FrmAtenciones extends javax.swing.JPanel {
         tablaAtencion = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
 
         btnLimpiar1.setBackground(new java.awt.Color(35, 41, 50));
         btnLimpiar1.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
@@ -484,6 +496,15 @@ public class FrmAtenciones extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        txtBuscar.setBackground(new java.awt.Color(255, 255, 255));
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+        });
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lupa.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -509,7 +530,13 @@ public class FrmAtenciones extends javax.swing.JPanel {
                             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jiji)
-                                .addContainerGap())))))
+                                .addContainerGap())))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -518,17 +545,21 @@ public class FrmAtenciones extends javax.swing.JPanel {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jiji, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtBuscar)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jiji, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnLimpiar3))))
-                .addGap(0, 50, Short.MAX_VALUE))
+                .addGap(0, 137, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -561,12 +592,16 @@ public class FrmAtenciones extends javax.swing.JPanel {
     }//GEN-LAST:event_idFieldActionPerformed
 
     private void tablaAtencionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaAtencionMouseClicked
-        cargarAtenciones();
+        cargarDatosDeTabla();
     }//GEN-LAST:event_tablaAtencionMouseClicked
 
     private void jijiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jijiMouseClicked
-         cargarDatosDeTabla();
+
     }//GEN-LAST:event_jijiMouseClicked
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        buscar();
+    }//GEN-LAST:event_txtBuscarKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -587,11 +622,13 @@ public class FrmAtenciones extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jiji;
     private javax.swing.JTable tablaAtencion;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 
 }
