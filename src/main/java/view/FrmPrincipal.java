@@ -25,6 +25,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         FrmMain main = new FrmMain();
         main.setSize(PanelContenido.getWidth(), PanelContenido.getHeight());
         main.setLocation(0, 0);
+        
 
         PanelContenido.removeAll();
         PanelContenido.add(main, BorderLayout.CENTER);

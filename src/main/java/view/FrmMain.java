@@ -4,6 +4,8 @@
  */
 package view;
 
+import java.awt.BorderLayout;
+
 /**
  *
  * @author USER
@@ -15,6 +17,20 @@ public class FrmMain extends javax.swing.JPanel {
      */
     public FrmMain() {
         initComponents();
+        cargarReportes();
+    }
+    
+    public void cargarReportes(){
+        FrmReportesRecientes main = new FrmReportesRecientes();
+        main.setSize(PanelDinamico.getWidth(), PanelDinamico.getHeight());
+        main.setLocation(0, 0);
+        
+
+        PanelDinamico.removeAll();
+        PanelDinamico.add(main, BorderLayout.CENTER);
+
+        PanelDinamico.revalidate();
+        PanelDinamico.repaint();
     }
 
     /**
