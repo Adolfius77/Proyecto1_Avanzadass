@@ -4,19 +4,51 @@
  */
 package view;
 
+import Controller.atencionController;
+import Controller.autoridadController;
+import DAO.atencionDAO;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import model.ciudadano;
+
 /**
  *
  * @author USER
  */
 public class FrmAtenciones extends javax.swing.JPanel {
-
+    
+    private atencionController clAtencion;
+    private autoridadController clAutoridad;
+    
     /**
      * Creates new form FrmAtenciones
      */
     public FrmAtenciones() {
         initComponents();
+        this.clAtencion = new atencionController(new atencionDAO());   
+        
+        Font nuevaFuente = new Font("Segoe UI", Font.PLAIN, 14);
+        
+        tablaAtencion.setFont(nuevaFuente);
+        JTableHeader header = tablaAtencion.getTableHeader();
+        header.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        personalizarTabla();
+        cargarAtenciones();
+        idField.setEditable(false);
     }
-
+    
+    private void cargarAtenciones() {
+        DefaultTableModel modelo = clAtencion.obtenerTablaAtencion();
+        tablaAtencion.setModel(modelo);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,32 +58,447 @@ public class FrmAtenciones extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        btnLimpiar1 = new javax.swing.JButton();
+        btnLimpiar2 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        autoridadIdField = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        fechaSolucion = new com.github.lgooddatepicker.components.DateTimePicker();
+        fechaInicio = new com.github.lgooddatepicker.components.DateTimePicker();
+        jLabel6 = new javax.swing.JLabel();
+        idField = new javax.swing.JTextField();
+        btnAgregar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnLimpiar3 = new javax.swing.JButton();
+        jiji = new javax.swing.JScrollPane();
+        tablaAtencion = new javax.swing.JTable();
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        btnLimpiar1.setBackground(new java.awt.Color(35, 41, 50));
+        btnLimpiar1.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
+        btnLimpiar1.setForeground(new java.awt.Color(255, 255, 255));
+        btnLimpiar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/limpia.png"))); // NOI18N
+        btnLimpiar1.setText("Limpiar");
+        btnLimpiar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiar1ActionPerformed(evt);
+            }
+        });
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        btnLimpiar2.setBackground(new java.awt.Color(35, 41, 50));
+        btnLimpiar2.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
+        btnLimpiar2.setForeground(new java.awt.Color(255, 255, 255));
+        btnLimpiar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/limpia.png"))); // NOI18N
+        btnLimpiar2.setText("Limpiar");
+        btnLimpiar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiar2ActionPerformed(evt);
+            }
+        });
+
+        setBackground(new java.awt.Color(217, 202, 218));
+        setForeground(new java.awt.Color(217, 202, 218));
+        setPreferredSize(new java.awt.Dimension(4, 528));
+
+        jPanel1.setBackground(new java.awt.Color(101, 85, 143));
+
+        jLabel1.setText("ATENCIONES");
+        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 30)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(68, 68, 68)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel3.setText("Id Autoridad:");
+        jLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
+
+        autoridadIdField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                autoridadIdFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Fecha inicio:");
+        jLabel4.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
+
+        jLabel5.setText("Fecha solución:");
+        jLabel5.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
+
+        jLabel6.setText("Id:");
+        jLabel6.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
+
+        idField.setEnabled(false);
+        idField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idFieldActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(idField)
+                            .addComponent(fechaSolucion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(autoridadIdField)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(fechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2)))
+                        .addContainerGap())))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addGap(7, 7, 7)
+                .addComponent(autoridadIdField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addGap(8, 8, 8)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fechaSolucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/save_all.png"))); // NOI18N
+        btnAgregar.setText("Agregar");
+        btnAgregar.setBackground(new java.awt.Color(35, 41, 50));
+        btnAgregar.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
+        btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/revert.png"))); // NOI18N
+        btnActualizar.setText("Actualizar");
+        btnActualizar.setBackground(new java.awt.Color(35, 41, 50));
+        btnActualizar.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/button_cancel.png"))); // NOI18N
+        btnEliminar.setText("Eliminar");
+        btnEliminar.setBackground(new java.awt.Color(35, 41, 50));
+        btnEliminar.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
+        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        btnLimpiar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/limpia.png"))); // NOI18N
+        btnLimpiar3.setText("Limpiar");
+        btnLimpiar3.setBackground(new java.awt.Color(35, 41, 50));
+        btnLimpiar3.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
+        btnLimpiar3.setForeground(new java.awt.Color(255, 255, 255));
+        btnLimpiar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiar3ActionPerformed(evt);
+            }
+        });
+
+        tablaAtencion.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jiji.setViewportView(tablaAtencion);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 868, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAgregar)
+                        .addGap(27, 27, 27)
+                        .addComponent(btnActualizar)
+                        .addGap(31, 31, 31)
+                        .addComponent(btnEliminar)
+                        .addGap(37, 37, 37)
+                        .addComponent(btnLimpiar3)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jiji))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 475, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jiji, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnLimpiar3)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void autoridadIdFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoridadIdFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_autoridadIdFieldActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        agregarAtencion();
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        actualizarAtencion();
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        eliminarAtencion();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnLimpiar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiar1ActionPerformed
+        limpiarCampos();
+    }//GEN-LAST:event_btnLimpiar1ActionPerformed
+
+    private void btnLimpiar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiar2ActionPerformed
+        limpiarCampos();
+    }//GEN-LAST:event_btnLimpiar2ActionPerformed
+
+    private void btnLimpiar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiar3ActionPerformed
+        limpiarCampos();
+    }//GEN-LAST:event_btnLimpiar3ActionPerformed
+
+    private void idFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_idFieldActionPerformed
+    
+    private void limpiarCampos() {
+        idField.setText("");
+        autoridadIdField.setText("");
+        fechaInicio.setDateTimeStrict(null);
+        fechaSolucion.setDateTimeStrict(null);
+    }
+    
+    private void personalizarTabla() {
+
+        Color colorFondoEncabezado = new Color(101, 85, 143); // Morado oscuro
+        Color colorLetraEncabezado = Color.black;
+        Color colorFondoFilaPar = new Color(240, 237, 247); // Morado muy claro
+        Color colorFondoFilaImpar = Color.WHITE;
+        Color colorFondoSeleccion = new Color(188, 178, 217); // Morado medio
+        Color colorLetraSeleccion = Color.BLACK;
+        Color colorCuadricula = new Color(221, 221, 221); // Gris claro
+
+        Font fuenteEncabezado = new Font("Segoe UI", Font.BOLD, 14);
+        Font fuenteCeldas = new Font("Segoe UI", Font.PLAIN, 14);
+
+        JTableHeader header = tablaAtencion.getTableHeader();
+        header.setFont(fuenteEncabezado);
+        header.setBackground(colorFondoEncabezado);
+        header.setForeground(colorLetraEncabezado);
+        header.setOpaque(false);
+
+        tablaAtencion.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(javax.swing.JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                if (isSelected) {
+                    c.setBackground(colorFondoSeleccion);
+                    c.setForeground(colorLetraSeleccion);
+                } else {
+
+                    if (row % 2 == 0) {
+                        c.setBackground(colorFondoFilaPar);
+                    } else {
+                        c.setBackground(colorFondoFilaImpar);
+                    }
+                    c.setForeground(Color.BLACK);
+                }
+                return c;
+            }
+        });
+
+        tablaAtencion.setFont(fuenteCeldas);
+        tablaAtencion.setGridColor(colorCuadricula);
+        tablaAtencion.setRowHeight(25);
+        tablaAtencion.getTableHeader().setReorderingAllowed(false);
+    }
+    
+    private void eliminarAtencion() {
+        try {
+            int id = Integer.parseInt(idField.getText());
+
+            int confirm = JOptionPane.showConfirmDialog(this,
+                    "¿Seguro que quieres eliminar esta atencion?",
+                    "Confirmar eliminacion",
+                    JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                boolean exito = clAtencion.eliminarAtencion(id);
+
+            if (exito) {
+                JOptionPane.showMessageDialog(this, "La atención y sus intervenciones asociadas han sido elimnadas");
+                //Falta eliminar todas las intervenciones con el id de esta atención
+                cargarAtenciones();
+                limpiarCampos();
+            } else {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Ocurrio un error al eliminar a la autoridad.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } } catch (Exception e) {
+        JOptionPane.showMessageDialog(
+                this,
+                "Error: " + e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void actualizarAtencion() {
+        try {
+            String nombreAutoridad = this.autoridadIdField.getText();
+            int idAtencion = Integer.parseInt(this.idField.getText());
+
+            LocalDateTime ldtInicio = fechaInicio.getDateTimeStrict();
+            LocalDateTime ldtSolucion = fechaSolucion.getDateTimeStrict();
+
+            if (ldtInicio == null || nombreAutoridad.isBlank()) {
+                JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            Timestamp tsInicio = Timestamp.valueOf(ldtInicio);
+            Timestamp tsSolucion = (ldtSolucion != null) ? Timestamp.valueOf(ldtSolucion) : null;
+            
+            int idAutoridad = Integer.parseInt(autoridadIdField.getText());
+            boolean exito = clAtencion.actualizarAtencion(idAtencion, idAutoridad, tsInicio, null);
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores numéricos válidos para tamano, latitud y longitud.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void agregarAtencion() {
+        try {
+            String nombreAutoridad = this.autoridadIdField.getText();
+
+            LocalDateTime ldtInicio = fechaInicio.getDateTimeStrict();
+            LocalDateTime ldtSolucion = fechaSolucion.getDateTimeStrict();
+
+            if (ldtInicio == null || nombreAutoridad.isBlank()) {
+                JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            Timestamp tsInicio = Timestamp.valueOf(ldtInicio);
+            Timestamp tsSolucion = (ldtSolucion != null) ? Timestamp.valueOf(ldtSolucion) : null;
+            
+            int idAutoridad = Integer.parseInt(autoridadIdField.getText());
+            boolean exito = clAtencion.agregarAtencion(idAutoridad, tsInicio, null);
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores numéricos válidos para tamano, latitud y longitud.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JTextField autoridadIdField;
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnLimpiar1;
+    private javax.swing.JButton btnLimpiar2;
+    private javax.swing.JButton btnLimpiar3;
+    private com.github.lgooddatepicker.components.DateTimePicker fechaInicio;
+    private com.github.lgooddatepicker.components.DateTimePicker fechaSolucion;
+    private javax.swing.JTextField idField;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jiji;
+    private javax.swing.JTable tablaAtencion;
     // End of variables declaration//GEN-END:variables
+
 }

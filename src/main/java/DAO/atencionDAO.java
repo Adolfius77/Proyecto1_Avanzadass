@@ -22,14 +22,13 @@ public class atencionDAO implements IAtencionDAO{
 
     @Override
     public boolean insertarAtencion(atencion atencion) {
-        String sql = "INSERT INTO atencion (id_autoridad, fecha_inicio, fecha_solucion, estatus_final) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO atencion (id_autoridad, fecha_inicio, fecha_solucion) VALUES (?, ?, ?)";
         try (Connection conn = ConexionDB.getConnection(); 
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, atencion.getId_autoridad());
             ps.setTimestamp(2, atencion.getFecha_inicio()); 
             ps.setTimestamp(3, atencion.getFecha_solucion());
-            ps.setString(4, atencion.getEstatus_final());
 
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -54,7 +53,6 @@ public class atencionDAO implements IAtencionDAO{
                 atencion.setId_autoridad(rs.getInt("id_autoridad"));
                 atencion.setFecha_inicio(rs.getTimestamp("fecha_inicio"));
                 atencion.setFecha_solucion(rs.getTimestamp("fecha_solucion"));
-                atencion.setEstatus_final(rs.getString("estatus_final"));
                 
             }
         } catch (SQLException e) {
@@ -78,7 +76,6 @@ public class atencionDAO implements IAtencionDAO{
                 atencion.setId_autoridad(rs.getInt("id_autoridad"));
                 atencion.setFecha_inicio(rs.getTimestamp("fecha_inicio"));
                 atencion.setFecha_solucion(rs.getTimestamp("fecha_solucion"));
-                atencion.setEstatus_final(rs.getString("estatus_final"));
 
                 listaAtenciones.add(atencion);
             }
@@ -92,7 +89,7 @@ public class atencionDAO implements IAtencionDAO{
 
     @Override
     public boolean actualizarAtencion(atencion atencion) {
-        String sql = "UPDATE atencion SET id_autoridad = ?, fecha_inicio = ?, fecha_solucion = ?, estatus_final = ? WHERE id_atencion = ?";
+        String sql = "UPDATE atencion SET id_autoridad = ?, fecha_inicio = ?, fecha_solucion = ? WHERE id_atencion = ?";
 
         try (Connection conn = ConexionDB.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -100,8 +97,7 @@ public class atencionDAO implements IAtencionDAO{
             ps.setInt(1, atencion.getId_autoridad());
             ps.setTimestamp(2, atencion.getFecha_inicio());
             ps.setTimestamp(3, atencion.getFecha_solucion());
-            ps.setString(4, atencion.getEstatus_final());
-            ps.setInt(5, atencion.getId_atencion());
+            ps.setInt(4, atencion.getId_atencion());
 
             return ps.executeUpdate() > 0;
 

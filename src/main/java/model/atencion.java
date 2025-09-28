@@ -17,17 +17,21 @@ public class atencion {
     private int id_autoridad;
     private Timestamp fecha_inicio;
     private Timestamp fecha_solucion;
-    private String estatus_final;
 
     public atencion() {
     }
-
+    
+    public atencion(int id_atencion, int id_autoridad, Timestamp fecha_inicio, Timestamp fecha_solucion) {
+        this.id_atencion = id_atencion;
+        this.id_autoridad = id_autoridad;
+        this.fecha_inicio = fecha_inicio;
+    }
+    
     public atencion(int id_atencion, int id_autoridad, Timestamp fecha_inicio, Timestamp fecha_solucion, String estatus_final) {
         this.id_atencion = id_atencion;
         this.id_autoridad = id_autoridad;
         this.fecha_inicio = fecha_inicio;
         this.fecha_solucion = fecha_solucion;
-        this.estatus_final = estatus_final;
     }
     
     public int getId_atencion() {
@@ -63,17 +67,11 @@ public class atencion {
         this.fecha_solucion = fecha_solucion;
     }
 
-    public String getEstatus_final() {
-        return estatus_final;
-    }
-
-    public void setEstatus_final(String estatus_final) {
-        this.estatus_final = estatus_final;
-    }
-
     @Override
     public String toString() {
-        return "atencion{" + "id_atencion=" + id_atencion + ", id_autoridad=" + id_autoridad + ", fecha_inicio=" + fecha_inicio + ", fecha_solucion=" + fecha_solucion + ", estatus_final=" + estatus_final + '}';
+        return "atencion{" + "id_atencion=" + id_atencion + ", id_autoridad=" + id_autoridad + ", fecha_inicio=" + fecha_inicio + ", fecha_solucion=" + fecha_solucion + '}';
     }
 
+
+    
 }

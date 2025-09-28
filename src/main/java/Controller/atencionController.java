@@ -3,7 +3,9 @@ package Controller;
 import Interfacez.IAtencionDAO;
 import java.sql.Timestamp;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import model.atencion;
+import model.autoridad;
 
 public class atencionController {
 
@@ -13,7 +15,7 @@ public class atencionController {
         this.atencionDAO = atencionDAO;
     }
 
-    public boolean agregarAtencion(int id_autoridad, Timestamp fecha_inicio, Timestamp fecha_solucion, String estatus_final) {
+    public boolean agregarAtencion(int id_autoridad, Timestamp fecha_inicio, Timestamp fecha_solucion) {
         if (id_autoridad <= 0) {
             System.err.println("El ID de la autoridad no puede ser cero o negativo.");
             return false;
@@ -22,16 +24,11 @@ public class atencionController {
             System.err.println("La fecha de inicio no puede ser nula.");
             return false;
         }
-        if (estatus_final == null || estatus_final.trim().isEmpty()) {
-            System.err.println("El estatus final no puede estar vacio.");
-            return false;
-        }
 
         atencion atencion = new atencion();
         atencion.setId_autoridad(id_autoridad);
         atencion.setFecha_inicio(fecha_inicio);
         atencion.setFecha_solucion(fecha_solucion);
-        atencion.setEstatus_final(estatus_final.trim());
 
         return atencionDAO.insertarAtencion(atencion);
     }
@@ -48,11 +45,7 @@ public class atencionController {
         return atencionDAO.obtenerTodos();
     }
 
-    public boolean actualizarAtencion(int id_atencion, int id_autoridad, Timestamp fecha_inicio, Timestamp fecha_solucion, String estatus_final) {
-        if (id_atencion <= 0) {
-            System.err.println("El ID de la atencion no puede ser nulo.");
-            return false;
-        }
+    public boolean actualizarAtencion(int id_atencion,int id_autoridad, Timestamp fecha_inicio, Timestamp fecha_solucion) {
         if (id_autoridad <= 0) {
             System.err.println("El ID de la autoridad no puede ser cero o negativo.");
             return false;
@@ -61,17 +54,12 @@ public class atencionController {
             System.err.println("La fecha de inicio no puede ser nula.");
             return false;
         }
-        if (estatus_final == null || estatus_final.trim().isEmpty()) {
-            System.err.println("El estatus final no puede estar vacio.");
-            return false;
-        }
-
+       
         atencion atencion = new atencion();
         atencion.setId_atencion(id_atencion);
         atencion.setId_autoridad(id_autoridad);
         atencion.setFecha_inicio(fecha_inicio);
         atencion.setFecha_solucion(fecha_solucion);
-        atencion.setEstatus_final(estatus_final.trim());
 
         return atencionDAO.actualizarAtencion(atencion);
     }
@@ -82,5 +70,15 @@ public class atencionController {
             return false;
         }
         return atencionDAO.eliminarAtencion(id_atencion);
+    }
+    
+    public DefaultTableModel obtenerTablaAtencion() {
+        String[] columnas = {"ID", "Autoridad","Fecha Inicio", "Fecha Solución", "Telefono"};
+        DefaultTableModel modelo = new DefaultTableModel(null, columnas);
+        List<atencion> lista = atencionDAO.obtenerTodos();
+        for (atencion a : lista) {
+            modelo.addRow(new Object[]{a.getId_atencion(), a.getId_autoridad(),a.getFecha_inicio(),a.getFecha_inicio()});
+        }
+        return modelo;
     }
 }

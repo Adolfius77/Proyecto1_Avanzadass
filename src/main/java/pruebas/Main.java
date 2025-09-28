@@ -52,7 +52,7 @@ public class Main {
         // --- Pruebas para Atencion ---
         System.out.println("\n--- Pruebas Atencion ---");
         Timestamp fechaInicio = Timestamp.valueOf(LocalDateTime.now());
-        atencionCtrl.agregarAtencion(1, fechaInicio, null, "En proceso");
+        //atencionCtrl.agregarAtencion(1, fechaInicio, );
         System.out.println("Listado de atenciones:");
         atencionCtrl.listarAtenciones().forEach(System.out::println);
 
