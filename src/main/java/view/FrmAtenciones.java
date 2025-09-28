@@ -7,15 +7,19 @@ package view;
 import Controller.atencionController;
 import Controller.autoridadController;
 import DAO.atencionDAO;
+import DAO.autoridadDAO;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import model.autoridad;
 import model.ciudadano;
 
 /**
@@ -23,16 +27,18 @@ import model.ciudadano;
  * @author USER
  */
 public class FrmAtenciones extends javax.swing.JPanel {
-    
+
     private atencionController clAtencion;
     private autoridadController clAutoridad;
-    
+
     /**
      * Creates new form FrmAtenciones
      */
     public FrmAtenciones() {
         initComponents();
-        this.clAtencion = new atencionController(new atencionDAO());   
+        this.clAtencion = new atencionController(new atencionDAO()); 
+        
+        this.clAutoridad = new autoridadController(new autoridadDAO());
         
         Font nuevaFuente = new Font("Segoe UI", Font.PLAIN, 14);
         
@@ -41,14 +47,198 @@ public class FrmAtenciones extends javax.swing.JPanel {
         header.setFont(new Font("Segoe UI", Font.BOLD, 14));
         personalizarTabla();
         cargarAtenciones();
+        
+        cargarAutoridadesEnComboBox();
+        
         idField.setEditable(false);
     }
-    
+
     private void cargarAtenciones() {
         DefaultTableModel modelo = clAtencion.obtenerTablaAtenciones();
         tablaAtencion.setModel(modelo);
     }
-    
+
+    private void cargarAutoridadesEnComboBox() {
+        DefaultComboBoxModel<autoridad> model = new DefaultComboBoxModel<>();
+        List<autoridad> autoridades = clAutoridad.listarAutoridades();
+        for (autoridad aut : autoridades) {
+            model.addElement(aut);
+        }
+        cmbAutoridad.setModel(model); 
+    }
+
+
+    private void limpiarCampos() {
+        idField.setText("");
+        cmbAutoridad.setSelectedIndex(-1);
+        fechaInicio.setDateTimeStrict(null);
+        fechaSolucion.setDateTimeStrict(null);
+        tablaAtencion.clearSelection();
+    }
+    private void cargarDatosDeTabla() {
+        int fila = tablaAtencion.getSelectedRow();
+        if (fila != -1) {
+            idField.setText(tablaAtencion.getValueAt(fila, 0).toString());
+
+            String nombreAutoridad = tablaAtencion.getValueAt(fila, 1).toString();
+            for (int i = 0; i < cmbAutoridad.getItemCount(); i++) {
+                if (cmbAutoridad.getItemAt(i).toString().equals(nombreAutoridad)) {
+                    cmbAutoridad.setSelectedIndex(i);
+                    break;
+                }
+            }
+
+            Timestamp tsInicio = (Timestamp) tablaAtencion.getValueAt(fila, 2);
+            if (tsInicio != null) {
+                fechaInicio.setDateTimeStrict(tsInicio.toLocalDateTime());
+            } else {
+                fechaInicio.setDateTimeStrict(null);
+            }
+
+            Timestamp tsSolucion = (Timestamp) tablaAtencion.getValueAt(fila, 3);
+            if (tsSolucion != null) {
+                fechaSolucion.setDateTimeStrict(tsSolucion.toLocalDateTime());
+            } else {
+                fechaSolucion.setDateTimeStrict(null);
+            }
+        }
+    }
+    private void agregarAtencion() {
+        autoridad autoridadSeleccionada = (autoridad) cmbAutoridad.getSelectedItem();
+        if (autoridadSeleccionada == null) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una autoridad.", "Dato Faltante", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        
+        LocalDateTime fechaInicioLDT = fechaInicio.getDateTimeStrict();
+        if (fechaInicioLDT == null) {
+            JOptionPane.showMessageDialog(this, "La fecha de inicio es obligatoria.", "Dato Faltante", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        Timestamp fechaInicioTS = Timestamp.valueOf(fechaInicioLDT);
+        Timestamp fechaSolucionTS = null;
+        if (fechaSolucion.getDateTimeStrict() != null) {
+            fechaSolucionTS = Timestamp.valueOf(fechaSolucion.getDateTimeStrict());
+        }
+
+        boolean exito = clAtencion.agregarAtencion(autoridadSeleccionada.getId_autoridad(), fechaInicioTS, fechaSolucionTS);
+        if (exito) {
+            JOptionPane.showMessageDialog(this, "Atención registrada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            cargarAtenciones();
+            limpiarCampos();
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo registrar la atención.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    private void actualizarAtencion() {
+        if (idField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Seleccione una atención de la tabla para actualizar.", "Sin Selección", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        try {
+            int idAtencion = Integer.parseInt(idField.getText());
+            autoridad autoridadSeleccionada = (autoridad) cmbAutoridad.getSelectedItem();
+            if (autoridadSeleccionada == null) {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar una autoridad.", "Dato Faltante", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            LocalDateTime ldtInicio = fechaInicio.getDateTimeStrict();
+            if (ldtInicio == null) {
+                JOptionPane.showMessageDialog(this, "La fecha de inicio no puede estar vacía.", "Dato Faltante", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            Timestamp tsInicio = Timestamp.valueOf(ldtInicio);
+            Timestamp tsSolucion = (fechaSolucion.getDateTimeStrict() != null) ? Timestamp.valueOf(fechaSolucion.getDateTimeStrict()) : null;
+            
+            // CORRECCIÓN: Obtener el ID del objeto autoridad
+            int idAutoridad = autoridadSeleccionada.getId_autoridad();
+            boolean exito = clAtencion.actualizarAtencion(idAtencion, idAutoridad, tsInicio, tsSolucion);
+            
+            if (exito) {
+                JOptionPane.showMessageDialog(this, "Atención actualizada correctamente.");
+                cargarAtenciones();
+                limpiarCampos();
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al actualizar la atención.");
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El ID no es válido.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    private void eliminarAtencion() {
+        if (idField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Seleccione una atención para eliminar.", "Sin selección", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            int id = Integer.parseInt(idField.getText());
+            int confirm = JOptionPane.showConfirmDialog(this,
+                    "¿Seguro que quieres eliminar esta atención?",
+                    "Confirmar eliminación",
+                    JOptionPane.YES_NO_OPTION);
+            
+            if (confirm == JOptionPane.YES_OPTION) {
+                boolean exito = clAtencion.eliminarAtencion(id);
+                if (exito) {
+                    JOptionPane.showMessageDialog(this, "La atención ha sido eliminada.");
+                    cargarAtenciones();
+                    limpiarCampos();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Ocurrió un error al eliminar la atención.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+     private void personalizarTabla() {
+        Color colorFondoEncabezado = new Color(101, 85, 143);
+        Color colorLetraEncabezado = Color.WHITE; 
+        Color colorFondoFilaPar = new Color(240, 237, 247);
+        Color colorFondoFilaImpar = Color.WHITE;
+        Color colorFondoSeleccion = new Color(188, 178, 217);
+        Color colorLetraSeleccion = Color.BLACK;
+        Color colorCuadricula = new Color(221, 221, 221);
+
+        Font fuenteEncabezado = new Font("Segoe UI", Font.BOLD, 14);
+        Font fuenteCeldas = new Font("Segoe UI", Font.PLAIN, 14);
+
+        JTableHeader header = tablaAtencion.getTableHeader();
+        header.setFont(fuenteEncabezado);
+        header.setBackground(colorFondoEncabezado);
+        header.setForeground(colorLetraEncabezado);
+        header.setOpaque(false);
+
+        tablaAtencion.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(javax.swing.JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (isSelected) {
+                    c.setBackground(colorFondoSeleccion);
+                    c.setForeground(colorLetraSeleccion);
+                } else {
+                    c.setBackground(row % 2 == 0 ? colorFondoFilaPar : colorFondoFilaImpar);
+                    c.setForeground(Color.BLACK);
+                }
+                return c;
+            }
+        });
+
+        tablaAtencion.setFont(fuenteCeldas);
+        tablaAtencion.setGridColor(colorCuadricula);
+        tablaAtencion.setRowHeight(25);
+        tablaAtencion.getTableHeader().setReorderingAllowed(false);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -71,13 +261,15 @@ public class FrmAtenciones extends javax.swing.JPanel {
         fechaInicio = new com.github.lgooddatepicker.components.DateTimePicker();
         jLabel6 = new javax.swing.JLabel();
         idField = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbAutoridad = new javax.swing.JComboBox<>();
         btnAgregar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnLimpiar3 = new javax.swing.JButton();
         jiji = new javax.swing.JScrollPane();
         tablaAtencion = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
 
         btnLimpiar1.setBackground(new java.awt.Color(35, 41, 50));
         btnLimpiar1.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
@@ -118,7 +310,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(68, 68, 68)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,8 +341,6 @@ public class FrmAtenciones extends javax.swing.JPanel {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -176,7 +366,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
                             .addComponent(jLabel3)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(cmbAutoridad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(12, 12, 12))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -189,7 +379,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addGap(11, 11, 11)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbAutoridad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -200,7 +390,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fechaSolucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(159, Short.MAX_VALUE))
         );
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/save_all.png"))); // NOI18N
@@ -247,6 +437,12 @@ public class FrmAtenciones extends javax.swing.JPanel {
             }
         });
 
+        jiji.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jijiMouseClicked(evt);
+            }
+        });
+
         tablaAtencion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -265,50 +461,74 @@ public class FrmAtenciones extends javax.swing.JPanel {
         });
         jiji.setViewportView(tablaAtencion);
 
+        jPanel3.setBackground(new java.awt.Color(101, 85, 143));
+
+        jLabel7.setText("ATENCIONES REGISTRADAS  ");
+        jLabel7.setFont(new java.awt.Font("Comic Sans MS", 1, 30)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addGap(102, 102, 102))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 49, Short.MAX_VALUE)
+                        .addGap(30, 30, 30)
                         .addComponent(btnAgregar)
-                        .addGap(46, 46, 46)
+                        .addGap(43, 43, 43)
                         .addComponent(btnActualizar)
-                        .addGap(65, 65, 65)
+                        .addGap(89, 89, 89)
                         .addComponent(btnEliminar)
-                        .addGap(47, 47, 47)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                         .addComponent(btnLimpiar3)
-                        .addGap(54, 54, 54))
+                        .addGap(33, 33, 33))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jiji)
-                        .addContainerGap())))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jiji)
+                                .addContainerGap())))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jiji, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jiji, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnLimpiar3)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(95, Short.MAX_VALUE))
+                            .addComponent(btnLimpiar3))))
+                .addGap(0, 37, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -343,144 +563,11 @@ public class FrmAtenciones extends javax.swing.JPanel {
     private void tablaAtencionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaAtencionMouseClicked
         cargarAtenciones();
     }//GEN-LAST:event_tablaAtencionMouseClicked
-    
-    private void limpiarCampos() {
-        idField.setText("");
-        autoridadIdField.setText("");
-        fechaInicio.setDateTimeStrict(null);
-        fechaSolucion.setDateTimeStrict(null);
-    }
-    
-    private void personalizarTabla() {
 
-        Color colorFondoEncabezado = new Color(101, 85, 143); // Morado oscuro
-        Color colorLetraEncabezado = Color.black;
-        Color colorFondoFilaPar = new Color(240, 237, 247); // Morado muy claro
-        Color colorFondoFilaImpar = Color.WHITE;
-        Color colorFondoSeleccion = new Color(188, 178, 217); // Morado medio
-        Color colorLetraSeleccion = Color.BLACK;
-        Color colorCuadricula = new Color(221, 221, 221); // Gris claro
+    private void jijiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jijiMouseClicked
+         cargarDatosDeTabla();
+    }//GEN-LAST:event_jijiMouseClicked
 
-        Font fuenteEncabezado = new Font("Segoe UI", Font.BOLD, 14);
-        Font fuenteCeldas = new Font("Segoe UI", Font.PLAIN, 14);
-
-        JTableHeader header = tablaAtencion.getTableHeader();
-        header.setFont(fuenteEncabezado);
-        header.setBackground(colorFondoEncabezado);
-        header.setForeground(colorLetraEncabezado);
-        header.setOpaque(false);
-
-        tablaAtencion.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(javax.swing.JTable table, Object value,
-                    boolean isSelected, boolean hasFocus, int row, int column) {
-                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-                if (isSelected) {
-                    c.setBackground(colorFondoSeleccion);
-                    c.setForeground(colorLetraSeleccion);
-                } else {
-
-                    if (row % 2 == 0) {
-                        c.setBackground(colorFondoFilaPar);
-                    } else {
-                        c.setBackground(colorFondoFilaImpar);
-                    }
-                    c.setForeground(Color.BLACK);
-                }
-                return c;
-            }
-        });
-
-        tablaAtencion.setFont(fuenteCeldas);
-        tablaAtencion.setGridColor(colorCuadricula);
-        tablaAtencion.setRowHeight(25);
-        tablaAtencion.getTableHeader().setReorderingAllowed(false);
-    }
-    
-    private void eliminarAtencion() {
-        try {
-            int id = Integer.parseInt(idField.getText());
-
-            int confirm = JOptionPane.showConfirmDialog(this,
-                    "¿Seguro que quieres eliminar esta atencion?",
-                    "Confirmar eliminacion",
-                    JOptionPane.YES_NO_OPTION);
-            if (confirm == JOptionPane.YES_OPTION) {
-                boolean exito = clAtencion.eliminarAtencion(id);
-
-            if (exito) {
-                JOptionPane.showMessageDialog(this, "La atención y sus intervenciones asociadas han sido elimnadas");
-                //Falta eliminar todas las intervenciones con el id de esta atención
-                cargarAtenciones();
-                limpiarCampos();
-            } else {
-                JOptionPane.showMessageDialog(
-                        this,
-                        "Ocurrio un error al eliminar a la autoridad.",
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-        } } catch (Exception e) {
-        JOptionPane.showMessageDialog(
-                this,
-                "Error: " + e.getMessage(),
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
-    private void actualizarAtencion() {
-        try {
-            String nombreAutoridad = this.autoridadIdField.getText();
-            int idAtencion = Integer.parseInt(this.idField.getText());
-
-            LocalDateTime ldtInicio = fechaInicio.getDateTimeStrict();
-            LocalDateTime ldtSolucion = fechaSolucion.getDateTimeStrict();
-
-            if (ldtInicio == null || nombreAutoridad.isBlank()) {
-                JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-
-            Timestamp tsInicio = Timestamp.valueOf(ldtInicio);
-            Timestamp tsSolucion = (ldtSolucion != null) ? Timestamp.valueOf(ldtSolucion) : null;
-            
-            int idAutoridad = Integer.parseInt(autoridadIdField.getText());
-            boolean exito = clAtencion.actualizarAtencion(idAtencion, idAutoridad, tsInicio, tsSolucion, nombreAutoridad);
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores numéricos válidos para tamano, latitud y longitud.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
-    private void agregarAtencion() {
-        try {
-            String nombreAutoridad = this.autoridadIdField.getText();
-
-            LocalDateTime ldtInicio = fechaInicio.getDateTimeStrict();
-            LocalDateTime ldtSolucion = fechaSolucion.getDateTimeStrict();
-
-            if (ldtInicio == null || nombreAutoridad.isBlank()) {
-                JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-
-            Timestamp tsInicio = Timestamp.valueOf(ldtInicio);
-            Timestamp tsSolucion = (ldtSolucion != null) ? Timestamp.valueOf(ldtSolucion) : null;
-            
-            int idAutoridad = Integer.parseInt(autoridadIdField.getText());
-            boolean exito = clAtencion.agregarAtencion(idAutoridad, tsInicio, tsSolucion, nombreAutoridad);
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores numéricos válidos para tamano, latitud y longitud.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
@@ -489,18 +576,20 @@ public class FrmAtenciones extends javax.swing.JPanel {
     private javax.swing.JButton btnLimpiar1;
     private javax.swing.JButton btnLimpiar2;
     private javax.swing.JButton btnLimpiar3;
+    private javax.swing.JComboBox<model.autoridad> cmbAutoridad;
     private com.github.lgooddatepicker.components.DateTimePicker fechaInicio;
     private com.github.lgooddatepicker.components.DateTimePicker fechaSolucion;
     private javax.swing.JTextField idField;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jiji;
     private javax.swing.JTable tablaAtencion;
     // End of variables declaration//GEN-END:variables

@@ -96,13 +96,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel4.setPreferredSize(new java.awt.Dimension(135, 130));
 
         jLabel3.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Pendientes");
 
         jLabel5.setText("jLabel5");
 
         jLabel6.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Total de reportes");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -134,11 +132,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel5.setPreferredSize(new java.awt.Dimension(135, 130));
 
         jLabel4.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Pendientes");
 
         jLabel7.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("En proceso");
 
         jLabel8.setText("jLabel8");
@@ -172,10 +168,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel6.setPreferredSize(new java.awt.Dimension(135, 130));
 
         jLabel9.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("En Proceso");
 
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("jLabel11");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -205,10 +199,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel7.setPreferredSize(new java.awt.Dimension(135, 130));
 
         jLabel10.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Reparados");
 
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("jLabel12");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -248,7 +240,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jPanel8);
 
         jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 20)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Reportes recientes");
 
         jPanel13.setBackground(new java.awt.Color(255, 255, 255));
@@ -269,13 +260,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel12.setPreferredSize(new java.awt.Dimension(135, 130));
 
         jLabel21.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(0, 0, 0));
         jLabel21.setText("Pendientes");
 
         jLabel22.setText("jLabel5");
 
         jLabel23.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(0, 0, 0));
         jLabel23.setText("Total de reportes");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
@@ -317,7 +306,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         );
 
         jLabel24.setFont(new java.awt.Font("Comic Sans MS", 0, 20)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(0, 0, 0));
         jLabel24.setText("Reportes recientes");
 
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
@@ -325,11 +313,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel11.setPreferredSize(new java.awt.Dimension(135, 130));
 
         jLabel18.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
         jLabel18.setText("Pendientes");
 
         jLabel19.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
         jLabel19.setText("En proceso");
 
         jLabel20.setText("jLabel8");
@@ -363,10 +349,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel9.setPreferredSize(new java.awt.Dimension(135, 130));
 
         jLabel14.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("En Proceso");
 
-        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("jLabel11");
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -396,10 +380,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel10.setPreferredSize(new java.awt.Dimension(135, 130));
 
         jLabel16.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Reparados");
 
-        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
         jLabel17.setText("jLabel12");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -547,7 +529,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(528, Short.MAX_VALUE))
+                .addContainerGap(594, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -570,7 +552,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1316, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

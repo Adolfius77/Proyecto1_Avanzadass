@@ -68,8 +68,9 @@ public class autoridad {
     }
 
     @Override
-    public String toString() {
-        return "autoridad{" + "id_autoridad=" + id_autoridad + ", nombre=" + nombre + ", dependencia=" + dependencia + ", telefono=" + telefono + ", correo=" + correo + '}';
-    }
+public String toString() {
+    // Esto hará que el JComboBox muestre el nombre de la autoridad
+    return this.getNombre(); 
+}
 
 }

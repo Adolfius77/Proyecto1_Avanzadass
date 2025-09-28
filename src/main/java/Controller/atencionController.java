@@ -15,7 +15,7 @@ public class atencionController {
         this.atencionDAO = atencionDAO;
     }
 
-    public boolean agregarAtencion(int id_autoridad, Timestamp fecha_inicio, Timestamp fecha_solucion, String estatus_final) {
+    public boolean agregarAtencion(int id_autoridad, Timestamp fecha_inicio, Timestamp fecha_solucion) {
         atencion atencion = new atencion();
         atencion.setId_autoridad(id_autoridad);
         atencion.setFecha_inicio(fecha_inicio);
@@ -24,7 +24,7 @@ public class atencionController {
         return atencionDAO.insertarAtencion(atencion);
     }
 
-    public boolean actualizarAtencion(int id_atencion, int id_autoridad, Timestamp fecha_inicio, Timestamp fecha_solucion, String estatus_final) {
+    public boolean actualizarAtencion(int id_atencion, int id_autoridad, Timestamp fecha_inicio, Timestamp fecha_solucion) {
         atencion atencion = new atencion();
         atencion.setId_atencion(id_atencion);
         atencion.setId_autoridad(id_autoridad);
