@@ -134,4 +134,37 @@ public class bacheDAO implements IBacheDAO {
         }
     }
 
+    @Override
+    public List<bache> obtenerTodosPorFiltro(String filtro) {
+        String sql = "SELECT * FROM bache WHERE calle LIKE ? OR colonia LIKE ? OR estado_actual LIKE ? LIMIT 100";
+        List<bache> listaBaches = new ArrayList<>();
+
+        try (Connection conn = ConexionDB.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            String filtroBusqueda = "%" + filtro + "%";
+            ps.setString(1, filtroBusqueda);
+            ps.setString(2, filtroBusqueda);
+            ps.setString(3, filtroBusqueda);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                bache bache = new bache();
+                bache.setId_bache(rs.getInt("id_bache"));
+                bache.setId_ciudadano(rs.getInt("id_ciudadano"));
+                bache.setFecha_reporte(rs.getDate("fecha_reporte"));
+                bache.setTamano_aproximado(rs.getInt("tamaño_aprox"));
+                bache.setSeveridad(rs.getString("severidad"));
+                bache.setEstado_actual(rs.getString("estado_actual"));
+                bache.setCalle(rs.getString("calle"));
+                bache.setColonia(rs.getString("colonia"));
+                bache.setCodigo_postal(rs.getString("codigo_postal"));
+                bache.setLatitud(rs.getDouble("latitud"));
+                bache.setLongitud(rs.getDouble("longitud"));
+                listaBaches.add(bache);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener baches por filtro: " + e.getMessage());
+        }
+        return listaBaches;
+    }
 }

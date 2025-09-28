@@ -164,6 +164,14 @@ public class FrmBaches extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    private void buscar() {
+        String nombre = txtBuscardor.getText().trim();
+        if (nombre.isEmpty()) {
+            cargarBaches();
+        } else {
+            TablaBaches.setModel(clBache.obtenerTablaBachesPorFiltro(nombre));
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -221,7 +229,7 @@ public class FrmBaches extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
-        txtBuscar = new javax.swing.JTextField();
+        txtBuscardor = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
 
         txtCorreo.setBackground(new java.awt.Color(255, 255, 255));
@@ -526,15 +534,15 @@ public class FrmBaches extends javax.swing.JPanel {
                 .addGap(26, 26, 26))
         );
 
-        txtBuscar.setBackground(new java.awt.Color(255, 255, 255));
-        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+        txtBuscardor.setBackground(new java.awt.Color(255, 255, 255));
+        txtBuscardor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBuscarActionPerformed(evt);
+                txtBuscardorActionPerformed(evt);
             }
         });
-        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtBuscardor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtBuscarKeyReleased(evt);
+                txtBuscardorKeyReleased(evt);
             }
         });
 
@@ -557,7 +565,7 @@ public class FrmBaches extends javax.swing.JPanel {
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtBuscardor, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -573,7 +581,7 @@ public class FrmBaches extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtBuscardor, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(ScrollPanelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -623,13 +631,13 @@ public class FrmBaches extends javax.swing.JPanel {
         AgregarBaches();
     }//GEN-LAST:event_BtnReportarBacheActionPerformed
 
-    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBuscarActionPerformed
+    private void txtBuscardorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscardorActionPerformed
+       
+    }//GEN-LAST:event_txtBuscardorActionPerformed
 
-    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBuscarKeyReleased
+    private void txtBuscardorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscardorKeyReleased
+        buscar();
+    }//GEN-LAST:event_txtBuscardorKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -669,7 +677,7 @@ public class FrmBaches extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtBuscardor;
     private javax.swing.JTextField txtCalle;
     private javax.swing.JTextField txtColonia;
     private javax.swing.JTextField txtCorreo;

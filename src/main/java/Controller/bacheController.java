@@ -23,7 +23,7 @@ public class bacheController {
         this.bacheDAO = bacheDAO;
     }
 
-    public boolean agregarBache(int id_ciudadano,Date fecha_reporte, int tamaño_aprox, String severidad, String estado_actual, String calle, String colonia, String codigo_postal, double latitud, double longitud) {
+    public boolean agregarBache(int id_ciudadano, Date fecha_reporte, int tamaño_aprox, String severidad, String estado_actual, String calle, String colonia, String codigo_postal, double latitud, double longitud) {
         if (fecha_reporte == null) {
             System.err.println("la fecha no puede ser nula");
             return false;
@@ -167,16 +167,47 @@ public class bacheController {
         for (bache b : lista) {
             modelo.addRow(new Object[]{
                 b.getId_bache(),
-                b.getId_ciudadano(), 
+                b.getId_ciudadano(),
                 b.getFecha_reporte(),
                 b.getTamano_aproximado(),
                 b.getSeveridad(),
                 b.getEstado_actual(),
                 b.getCalle(),
                 b.getColonia(),
-                b.getCodigo_postal(), 
-                b.getLatitud(),      
-                b.getLongitud()      
+                b.getCodigo_postal(),
+                b.getLatitud(),
+                b.getLongitud()
+            });
+        }
+
+        return modelo;
+    }
+
+    public DefaultTableModel obtenerTablaBachesPorFiltro(String filtro) {
+        String[] columnas = {"ID", "IDCiudadano", "FechaRep", "Tam", "Sev", "Estado", "Calle", "Col", "C.P.", "Latitud", "Longitud"};
+
+        DefaultTableModel modelo = new DefaultTableModel(null, columnas) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        List<bache> lista = bacheDAO.obtenerTodosPorFiltro(filtro);
+
+        for (bache b : lista) {
+            modelo.addRow(new Object[]{
+                b.getId_bache(),
+                b.getId_ciudadano(),
+                b.getFecha_reporte(),
+                b.getTamano_aproximado(),
+                b.getSeveridad(),
+                b.getEstado_actual(),
+                b.getCalle(),
+                b.getColonia(),
+                b.getCodigo_postal(),
+                b.getLatitud(),
+                b.getLongitud()
             });
         }
 

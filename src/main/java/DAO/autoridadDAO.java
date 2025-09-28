@@ -131,11 +131,12 @@ public class autoridadDAO implements IAutoridadDAO {
     }
     @Override
     public List<autoridad> obtenerTodosPorFiltro(String filtro){
-        String sql = "SELECT id_autoridad,nombre,dependencia,telefono,correo FROM autoridad WHERE nombre LIKE ? LIMIT 100";
+        String sql = "SELECT * FROM autoridad WHERE nombre LIKE ? OR dependencia LIKE ? LIMIT 100";
         List<autoridad> lista = new ArrayList<>();
         try(Connection conn = ConexionDB.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, "%" + filtro + "%");
+            ps.setString(2, "%" + filtro + "%");
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){

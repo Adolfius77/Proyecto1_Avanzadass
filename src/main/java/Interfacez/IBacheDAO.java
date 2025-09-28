@@ -22,6 +22,7 @@ public interface IBacheDAO {
     boolean actualizarBache(bache bache);
 
     boolean eliminarBache(int id_bache);
-
+    
+    List<bache> obtenerTodosPorFiltro(String filtro);
 
 }
