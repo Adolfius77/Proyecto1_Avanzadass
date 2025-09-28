@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import model.autoridad;
 import model.ciudadano;
 
 /**
@@ -122,5 +123,28 @@ public class ciudadanoDAO implements ICiudadanoDAO {
             return false;
         }
     }
-
+@Override
+    public List<ciudadano> obtenerTodosPorFiltro(String filtro){
+        String sql = "SELECT id_ciudadano,nombre,apellido_paterno,apellido_materno,telefono,correo  FROM correo WHERE nombre LIKE ? and apellido_paterno LIKE ? AND apellido_paterno LIKE ?   LIMIT 100";
+        List<ciudadano> lista = new ArrayList<>();
+        try(Connection conn = ConexionDB.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, "%" + filtro + "%");
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                ciudadano au = new ciudadano();
+                au.setId_ciudadano(rs.getInt("id_ciudadano"));
+                au.setNombre(rs.getString("nombre"));
+                au.setApellido_paterno(rs.getString("apellido_paterno"));
+                au.setApellido_materno(rs.getString("apellido_paterno"));
+                au.setTelefono(rs.getString("apellido_paterno"));
+                au.setCorreo(rs.getString("apellido_paterno"));
+                lista.add(au);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener autoridades por filtro: "+ e.getMessage());
+        }
+        return lista;
+    }
 }

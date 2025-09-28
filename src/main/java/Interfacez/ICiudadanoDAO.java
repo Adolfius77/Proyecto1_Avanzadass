@@ -5,6 +5,7 @@
 package Interfacez;
 
 import java.util.List;
+import model.autoridad;
 import model.ciudadano;
 
 /**
@@ -22,5 +23,7 @@ public interface ICiudadanoDAO {
     boolean actualizarCiudadano(ciudadano ciudadano);
 
     boolean eliminarCiudadano(int id_ciudadano);
+
+    List<ciudadano> obtenerTodosPorFiltro(String filtro);
 
 }

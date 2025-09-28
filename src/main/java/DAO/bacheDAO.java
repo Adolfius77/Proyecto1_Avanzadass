@@ -22,7 +22,7 @@ public class bacheDAO implements IBacheDAO {
 
     @Override
     public bache obtenerPorId(int id_bache) {
-        String sql = "SELECT * FROM WHERE id_bache = ? ";
+        String sql = "SELECT * FROM bache WHERE id_bache = ? ";
         bache bache = null;
 
         try (Connection conn = ConexionDB.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -31,6 +31,7 @@ public class bacheDAO implements IBacheDAO {
 
             if (rs.next()) {
                 bache = new bache();
+                bache.setId_bache(rs.getInt("id_bache"));
                 bache.setId_ciudadano(rs.getInt("id_ciudadano"));
                 bache.setFecha_reporte(rs.getDate("fecha_reporte"));
                 bache.setTamano_aproximado(rs.getInt("tamaño_aprox"));
@@ -57,6 +58,7 @@ public class bacheDAO implements IBacheDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 bache bache = new bache();
+                bache.setId_bache(rs.getInt("id_bache"));
                 bache.setId_ciudadano(rs.getInt("id_ciudadano"));
                 bache.setFecha_reporte(rs.getDate("fecha_reporte"));
                 bache.setTamano_aproximado(rs.getInt("tamaño_aprox"));

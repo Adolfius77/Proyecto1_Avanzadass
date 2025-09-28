@@ -92,11 +92,20 @@ public class autoridadController {
     }
     
     public DefaultTableModel obtenerTablaProblemas() {
-        String[] columnas = {"ID", "Nombre","Dependencia", "Correo", "Telefono"};
+        String[] columnas = {"ID", "Nombre","Dependencia","Telefono","Correo"};
         DefaultTableModel modelo = new DefaultTableModel(null, columnas);
         List<autoridad> lista = autoridadDAO.obtenerTodos();
         for (autoridad a : lista) {
             modelo.addRow(new Object[]{a.getId_autoridad(), a.getNombre(),a.getDependencia(),a.getCorreo(), a.getTelefono()});
+        }
+        return modelo;
+    }
+    public DefaultTableModel obtenerTablaClientesPorFiltroModal(String filtro) {
+        String[] columnas = {"ID", "Nombre","Dependencia","Telefono","Correo"};
+        DefaultTableModel modelo = new DefaultTableModel(null, columnas);
+        List<autoridad> lista = autoridadDAO.obtenerTodosPorFiltro(filtro);
+        for (autoridad c : lista) {
+            modelo.addRow(new Object[]{c.getId_autoridad(), c.getNombre(), c.getDependencia(), c.getTelefono(), c.getCorreo()});
         }
         return modelo;
     }

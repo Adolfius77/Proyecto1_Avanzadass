@@ -8,10 +8,15 @@ import Controller.bacheController;
 import Controller.ciudadanoController;
 import DAO.bacheDAO;
 import DAO.ciudadanoDAO;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import model.ciudadano;
 
 /**
@@ -30,6 +35,7 @@ public class FrmBaches extends javax.swing.JPanel {
         this.clBache = new bacheController(new bacheDAO());
         this.clCiduadano = new ciudadanoController(new ciudadanoDAO());
         initComponents();
+        personalizarTabla();
         cargarBaches();
         cargarCiudadanosEnComboBox();
     }
@@ -63,7 +69,49 @@ public class FrmBaches extends javax.swing.JPanel {
             cmbCiudadanos.addItem(c);
         }
     }
+     private void personalizarTabla() {
+        Color colorFondoEncabezado = new Color(101, 85, 143); // Morado oscuro
+        Color colorLetraEncabezado = Color.black;
+        Color colorFondoFilaPar = new Color(240, 237, 247); // Morado muy claro
+        Color colorFondoFilaImpar = Color.WHITE;
+        Color colorFondoSeleccion = new Color(188, 178, 217); // Morado medio
+        Color colorLetraSeleccion = Color.BLACK;
+        Color colorCuadricula = new Color(221, 221, 221); // Gris claro
 
+        Font fuenteEncabezado = new Font("Segoe UI", Font.BOLD, 11);
+        Font fuenteCeldas = new Font("Segoe UI", Font.PLAIN, 11);
+
+        JTableHeader header = TablaBaches.getTableHeader();
+        header.setFont(fuenteEncabezado);
+        header.setBackground(colorFondoEncabezado);
+        header.setForeground(colorLetraEncabezado);
+        header.setOpaque(false);
+
+        TablaBaches.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(javax.swing.JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (isSelected) {
+                    c.setBackground(colorFondoSeleccion);
+                    c.setForeground(colorLetraSeleccion);
+                } else {
+                    if (row % 2 == 0) {
+                        c.setBackground(colorFondoFilaPar);
+                    } else {
+                        c.setBackground(colorFondoFilaImpar);
+                    }
+                    c.setForeground(Color.BLACK);
+                }
+                return c;
+            }
+        });
+
+        TablaBaches.setFont(fuenteCeldas);
+        TablaBaches.setGridColor(colorCuadricula);
+        TablaBaches.setRowHeight(25);
+        TablaBaches.getTableHeader().setReorderingAllowed(false);
+    }
     private void AgregarBaches() {
         try {
 
@@ -173,6 +221,8 @@ public class FrmBaches extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
         txtCorreo.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -476,6 +526,20 @@ public class FrmBaches extends javax.swing.JPanel {
                 .addGap(26, 26, 26))
         );
 
+        txtBuscar.setBackground(new java.awt.Color(255, 255, 255));
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+        });
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lupa.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -488,7 +552,12 @@ public class FrmBaches extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ScrollPanelTabla)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -501,8 +570,12 @@ public class FrmBaches extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ScrollPanelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ScrollPanelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40))
         );
@@ -550,6 +623,14 @@ public class FrmBaches extends javax.swing.JPanel {
         AgregarBaches();
     }//GEN-LAST:event_BtnReportarBacheActionPerformed
 
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnReportarBache;
@@ -574,6 +655,7 @@ public class FrmBaches extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
@@ -587,6 +669,7 @@ public class FrmBaches extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtCalle;
     private javax.swing.JTextField txtColonia;
     private javax.swing.JTextField txtCorreo;

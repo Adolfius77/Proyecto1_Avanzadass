@@ -129,4 +129,27 @@ public class autoridadDAO implements IAutoridadDAO {
             return false;
         }
     }
+    @Override
+    public List<autoridad> obtenerTodosPorFiltro(String filtro){
+        String sql = "SELECT id_autoridad,nombre,dependencia,telefono,correo FROM autoridad WHERE nombre LIKE ? LIMIT 100";
+        List<autoridad> lista = new ArrayList<>();
+        try(Connection conn = ConexionDB.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, "%" + filtro + "%");
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                autoridad au = new autoridad();
+                au.setId_autoridad(rs.getInt("id_autoridad"));
+                au.setNombre(rs.getString("nombre"));
+                au.setDependencia(rs.getString("dependencia"));
+                au.setTelefono(rs.getString("telefono"));
+                au.setCorreo(rs.getString("correo"));
+                lista.add(au);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener autoridades por filtro: "+ e.getMessage());
+        }
+        return lista;
+    }
 }

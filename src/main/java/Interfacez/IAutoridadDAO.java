@@ -22,5 +22,7 @@ public interface IAutoridadDAO {
     boolean actualizarAutoridad(autoridad autoridad);
 
     boolean eliminarAutoridad(int id_autoridad);
+    
+    List<autoridad> obtenerTodosPorFiltro(String filtro);
 
 }

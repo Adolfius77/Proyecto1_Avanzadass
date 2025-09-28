@@ -21,15 +21,16 @@ import javax.swing.table.JTableHeader;
  * @author USER
  */
 public class FrmAutoridades extends javax.swing.JPanel {
-    
+
     private autoridadController atController;
+
     /**
      * Creates new form FrmAutoridades
      */
     public FrmAutoridades() {
         this.atController = new autoridadController(new autoridadDAO());
         initComponents();
-        
+
         Font nuevaFuente = new Font("Segoe UI", Font.PLAIN, 14);
 
         tablaAutoridades.setFont(nuevaFuente);
@@ -38,9 +39,9 @@ public class FrmAutoridades extends javax.swing.JPanel {
         personalizarTabla();
         cargarAutoridades();
         txtId.setEditable(false);
-        
+
     }
-    
+
     private void personalizarTabla() {
 
         Color colorFondoEncabezado = new Color(101, 85, 143); // Morado oscuro
@@ -87,12 +88,12 @@ public class FrmAutoridades extends javax.swing.JPanel {
         tablaAutoridades.setRowHeight(25);
         tablaAutoridades.getTableHeader().setReorderingAllowed(false);
     }
-    
-    private void cargarAutoridades(){
+
+    private void cargarAutoridades() {
         DefaultTableModel modelo = atController.obtenerTablaProblemas();
         tablaAutoridades.setModel(modelo);
     }
-    
+
     public void limpiarCampos() {
         txtId.setText("0");
         txtNombre.setText("");
@@ -101,20 +102,20 @@ public class FrmAutoridades extends javax.swing.JPanel {
         txtCorreo.setText("");
         tablaAutoridades.clearSelection();
     }
-    
+
     private void AgregarAutoridad() {
         try {
             String nombre = txtNombre.getText();
-            String dependencia=txtDependencia.getText();
+            String dependencia = txtDependencia.getText();
             String telefono = txtTelefono.getText();
             String correo = txtCorreo.getText();
 
-            if (nombre.isEmpty() ||dependencia.isEmpty() || telefono.isEmpty() || correo.isEmpty()) {
+            if (nombre.isEmpty() || dependencia.isEmpty() || telefono.isEmpty() || correo.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "todos los campos son necesarios", "Error", JOptionPane.WARNING_MESSAGE);
                 return;
             }
             if (btnAgregar.getText().equals("Agregar")) {
-                boolean exito = atController.agregarAutoridad(nombre,dependencia, telefono, correo);
+                boolean exito = atController.agregarAutoridad(nombre, dependencia, telefono, correo);
 
                 if (exito) {
                     JOptionPane.showMessageDialog(this, "Autoridad guardada correctamente");
@@ -133,7 +134,7 @@ public class FrmAutoridades extends javax.swing.JPanel {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     private void cargarDatos() {
         int fila = tablaAutoridades.getSelectedRow();
         if (fila >= 0) {
@@ -142,11 +143,11 @@ public class FrmAutoridades extends javax.swing.JPanel {
             txtDependencia.setText(tablaAutoridades.getValueAt(fila, 2).toString());
             txtCorreo.setText(tablaAutoridades.getValueAt(fila, 3).toString());
             txtTelefono.setText(tablaAutoridades.getValueAt(fila, 4).toString());
-            
+
         }
     }
-        
-        private void actualizarAutoridad() {
+
+    private void actualizarAutoridad() {
         if (txtId.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor, seleccione una autoridad de la tabla.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
@@ -154,7 +155,7 @@ public class FrmAutoridades extends javax.swing.JPanel {
         try {
             int id = Integer.parseInt(txtId.getText());
             String nombre = txtNombre.getText();
-            String dependencia=txtDependencia.getText();
+            String dependencia = txtDependencia.getText();
             String telefono = txtTelefono.getText();
             String correo = txtCorreo.getText();
 
@@ -171,8 +172,8 @@ public class FrmAutoridades extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "El ID no es valido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
         }
     }
-        
-        private void eliminarAutoridad() {
+
+    private void eliminarAutoridad() {
         try {
             int id = Integer.parseInt(txtId.getText());
 
@@ -204,9 +205,15 @@ public class FrmAutoridades extends javax.swing.JPanel {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
-        
-        
 
+    private void buscar() {
+        String nombre = txtBuscador.getText().trim();
+        if (nombre.isEmpty()) {
+            cargarAutoridades();
+        } else {
+            tablaAutoridades.setModel(atController.obtenerTablaClientesPorFiltroModal(nombre));
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -242,6 +249,8 @@ public class FrmAutoridades extends javax.swing.JPanel {
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        txtBuscador = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
         jLabel9.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
         jLabel9.setText("Nombre:");
@@ -280,7 +289,7 @@ public class FrmAutoridades extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
                 .addGap(15, 15, 15))
         );
         jPanel4Layout.setVerticalGroup(
@@ -309,20 +318,26 @@ public class FrmAutoridades extends javax.swing.JPanel {
         );
 
         jPanel2.setBackground(new java.awt.Color(245, 245, 245));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel7.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Id:");
 
         jLabel8.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Nombre:");
 
         jLabel10.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Dependencia:");
 
         jLabel11.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Telefono:");
 
         jLabel12.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Correo:");
 
         txtTelefono.addActionListener(new java.awt.event.ActionListener() {
@@ -354,7 +369,7 @@ public class FrmAutoridades extends javax.swing.JPanel {
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -394,10 +409,10 @@ public class FrmAutoridades extends javax.swing.JPanel {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(65, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -468,6 +483,15 @@ public class FrmAutoridades extends javax.swing.JPanel {
             }
         });
 
+        txtBuscador.setBackground(new java.awt.Color(255, 255, 255));
+        txtBuscador.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscadorKeyReleased(evt);
+            }
+        });
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lupa.png"))); // NOI18N
+
         javax.swing.GroupLayout fondoPrincipalLayout = new javax.swing.GroupLayout(fondoPrincipal);
         fondoPrincipal.setLayout(fondoPrincipalLayout);
         fondoPrincipalLayout.setHorizontalGroup(
@@ -475,13 +499,13 @@ public class FrmAutoridades extends javax.swing.JPanel {
             .addGroup(fondoPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(fondoPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(fondoPrincipalLayout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(fondoPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(fondoPrincipalLayout.createSequentialGroup()
+                .addGroup(fondoPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, fondoPrincipalLayout.createSequentialGroup()
                         .addComponent(btnAgregar)
                         .addGap(18, 18, 18)
                         .addComponent(btnActualizar)
@@ -489,8 +513,10 @@ public class FrmAutoridades extends javax.swing.JPanel {
                         .addComponent(btnEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnLimpiar))
-                    .addComponent(jScrollPane1)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(fondoPrincipalLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         fondoPrincipalLayout.setVerticalGroup(
@@ -500,9 +526,16 @@ public class FrmAutoridades extends javax.swing.JPanel {
                 .addGroup(fondoPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(fondoPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(fondoPrincipalLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fondoPrincipalLayout.createSequentialGroup()
+                        .addGroup(fondoPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(fondoPrincipalLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(fondoPrincipalLayout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(txtBuscador)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(fondoPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -510,8 +543,10 @@ public class FrmAutoridades extends javax.swing.JPanel {
                             .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addGroup(fondoPrincipalLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -554,6 +589,10 @@ public class FrmAutoridades extends javax.swing.JPanel {
         cargarDatos();
     }//GEN-LAST:event_tablaAutoridadesMouseClicked
 
+    private void txtBuscadorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscadorKeyReleased
+        buscar();
+    }//GEN-LAST:event_txtBuscadorKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
@@ -566,6 +605,7 @@ public class FrmAutoridades extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -576,6 +616,7 @@ public class FrmAutoridades extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaAutoridades;
+    private javax.swing.JTextField txtBuscador;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDependencia;
     private javax.swing.JTextField txtId;

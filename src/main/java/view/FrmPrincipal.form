@@ -719,20 +719,16 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="btnCiudadanos" alignment="1" max="32767" attributes="0"/>
+                  <Component id="btnBaches" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnAutoridades" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jLabel13" min="-2" pref="110" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="btnCiudadanos" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnBaches" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnAutoridades" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnAtenciones" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnIntervenciones" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                      <Component id="jLabel13" min="-2" pref="110" max="-2" attributes="0"/>
                       <EmptySpace pref="34" max="32767" attributes="0"/>
                   </Group>
+                  <Component id="btnAtenciones" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnIntervenciones" alignment="1" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
