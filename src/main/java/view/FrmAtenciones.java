@@ -78,14 +78,21 @@ public class FrmAtenciones extends javax.swing.JPanel {
     private void cargarDatosDeTabla() {
         int fila = tablaAtencion.getSelectedRow();
         if (fila != -1) {
-            idField.setText(tablaAtencion.getValueAt(fila, 0).toString());
 
-            String nombreAutoridad = tablaAtencion.getValueAt(fila, 1).toString();
-            for (int i = 0; i < cmbAutoridad.getItemCount(); i++) {
-                if (cmbAutoridad.getItemAt(i).toString().equals(nombreAutoridad)) {
-                    cmbAutoridad.setSelectedIndex(i);
-                    break;
+            Object idObj = tablaAtencion.getValueAt(fila, 0);
+            idField.setText(idObj != null ? idObj.toString() : "");
+
+            Object nombreObj = tablaAtencion.getValueAt(fila, 1);
+            if (nombreObj != null) {
+                String nombreAutoridad = nombreObj.toString();
+                for (int i = 0; i < cmbAutoridad.getItemCount(); i++) {
+                    if (cmbAutoridad.getItemAt(i).toString().equals(nombreAutoridad)) {
+                        cmbAutoridad.setSelectedIndex(i);
+                        break;
+                    }
                 }
+            } else {
+                cmbAutoridad.setSelectedIndex(-1);
             }
 
             Timestamp tsInicio = (Timestamp) tablaAtencion.getValueAt(fila, 2);
@@ -103,8 +110,12 @@ public class FrmAtenciones extends javax.swing.JPanel {
             }
 
             if (tablaAtencion.getColumnCount() > 4) {
-                String estatus = tablaAtencion.getValueAt(fila, 4).toString();
-                cmbEstatus.setSelectedItem(estatus);
+                Object estatusObj = tablaAtencion.getValueAt(fila, 4);
+                if (estatusObj != null) {
+                    cmbEstatus.setSelectedItem(estatusObj.toString());
+                } else {
+                    cmbEstatus.setSelectedIndex(-1);
+                }
             }
         }
     }
@@ -122,7 +133,6 @@ public class FrmAtenciones extends javax.swing.JPanel {
             return;
         }
 
-        // --- LÍNEA MODIFICADA ---
         String estatusSeleccionado = (String) cmbEstatus.getSelectedItem();
         if (estatusSeleccionado == null) {
             JOptionPane.showMessageDialog(this, "Por favor, seleccione un estatus.", "Dato Faltante", JOptionPane.WARNING_MESSAGE);
@@ -151,7 +161,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Seleccione una atención de la tabla para actualizar.", "Sin Selección", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
         try {
             int idAtencion = Integer.parseInt(idField.getText());
             autoridad autoridadSeleccionada = (autoridad) cmbAutoridad.getSelectedItem();
@@ -166,7 +176,6 @@ public class FrmAtenciones extends javax.swing.JPanel {
                 return;
             }
 
-           
             String estatusSeleccionado = (String) cmbEstatus.getSelectedItem();
             if (estatusSeleccionado == null) {
                 JOptionPane.showMessageDialog(this, "Por favor, seleccione un estatus.", "Dato Faltante", JOptionPane.WARNING_MESSAGE);
@@ -175,11 +184,11 @@ public class FrmAtenciones extends javax.swing.JPanel {
 
             Timestamp tsInicio = Timestamp.valueOf(ldtInicio);
             Timestamp tsSolucion = (fechaSolucion.getDateTimeStrict() != null) ? Timestamp.valueOf(fechaSolucion.getDateTimeStrict()) : null;
-            
+
             int idAutoridad = autoridadSeleccionada.getId_autoridad();
-            
+
             boolean exito = clAtencion.actualizarAtencion(idAtencion, idAutoridad, tsInicio, tsSolucion, estatusSeleccionado);
-            
+
             if (exito) {
                 JOptionPane.showMessageDialog(this, "Atención actualizada correctamente.");
                 cargarAtenciones();
