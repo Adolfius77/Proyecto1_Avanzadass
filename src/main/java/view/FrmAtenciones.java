@@ -45,7 +45,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
     }
     
     private void cargarAtenciones() {
-        DefaultTableModel modelo = clAtencion.obtenerTablaAtencion();
+        DefaultTableModel modelo = clAtencion.obtenerTablaAtenciones();
         tablaAtencion.setModel(modelo);
     }
     
@@ -64,7 +64,6 @@ public class FrmAtenciones extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        autoridadIdField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -72,6 +71,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
         fechaInicio = new com.github.lgooddatepicker.components.DateTimePicker();
         jLabel6 = new javax.swing.JLabel();
         idField = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
         btnAgregar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
@@ -130,14 +130,8 @@ public class FrmAtenciones extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel3.setText("Id Autoridad:");
+        jLabel3.setText("Autoridad:");
         jLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
-
-        autoridadIdField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                autoridadIdFieldActionPerformed(evt);
-            }
-        });
 
         jLabel4.setText("Fecha inicio:");
         jLabel4.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
@@ -155,6 +149,8 @@ public class FrmAtenciones extends javax.swing.JPanel {
             }
         });
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -164,15 +160,8 @@ public class FrmAtenciones extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(idField)
                             .addComponent(fechaSolucion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(autoridadIdField)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -181,7 +170,14 @@ public class FrmAtenciones extends javax.swing.JPanel {
                                     .addComponent(fechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel2)))
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(12, 12, 12))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,9 +188,9 @@ public class FrmAtenciones extends javax.swing.JPanel {
                 .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addGap(7, 7, 7)
-                .addComponent(autoridadIdField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addGap(11, 11, 11)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -262,6 +258,11 @@ public class FrmAtenciones extends javax.swing.JPanel {
 
             }
         ));
+        tablaAtencion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaAtencionMouseClicked(evt);
+            }
+        });
         jiji.setViewportView(tablaAtencion);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -274,19 +275,21 @@ public class FrmAtenciones extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 49, Short.MAX_VALUE)
                         .addComponent(btnAgregar)
-                        .addGap(27, 27, 27)
+                        .addGap(46, 46, 46)
                         .addComponent(btnActualizar)
-                        .addGap(31, 31, 31)
+                        .addGap(65, 65, 65)
                         .addComponent(btnEliminar)
-                        .addGap(37, 37, 37)
+                        .addGap(47, 47, 47)
                         .addComponent(btnLimpiar3)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jiji))
-                .addContainerGap())
+                        .addGap(54, 54, 54))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jiji)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,13 +308,9 @@ public class FrmAtenciones extends javax.swing.JPanel {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void autoridadIdFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoridadIdFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_autoridadIdFieldActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         agregarAtencion();
@@ -340,6 +339,10 @@ public class FrmAtenciones extends javax.swing.JPanel {
     private void idFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_idFieldActionPerformed
+
+    private void tablaAtencionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaAtencionMouseClicked
+        cargarAtenciones();
+    }//GEN-LAST:event_tablaAtencionMouseClicked
     
     private void limpiarCampos() {
         idField.setText("");
@@ -444,7 +447,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
             Timestamp tsSolucion = (ldtSolucion != null) ? Timestamp.valueOf(ldtSolucion) : null;
             
             int idAutoridad = Integer.parseInt(autoridadIdField.getText());
-            boolean exito = clAtencion.actualizarAtencion(idAtencion, idAutoridad, tsInicio, null);
+            boolean exito = clAtencion.actualizarAtencion(idAtencion, idAutoridad, tsInicio, tsSolucion, nombreAutoridad);
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese valores numéricos válidos para tamano, latitud y longitud.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
@@ -469,7 +472,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
             Timestamp tsSolucion = (ldtSolucion != null) ? Timestamp.valueOf(ldtSolucion) : null;
             
             int idAutoridad = Integer.parseInt(autoridadIdField.getText());
-            boolean exito = clAtencion.agregarAtencion(idAutoridad, tsInicio, null);
+            boolean exito = clAtencion.agregarAtencion(idAutoridad, tsInicio, tsSolucion, nombreAutoridad);
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese valores numéricos válidos para tamano, latitud y longitud.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
@@ -477,9 +480,9 @@ public class FrmAtenciones extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField autoridadIdField;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEliminar;
@@ -489,6 +492,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
     private com.github.lgooddatepicker.components.DateTimePicker fechaInicio;
     private com.github.lgooddatepicker.components.DateTimePicker fechaSolucion;
     private javax.swing.JTextField idField;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

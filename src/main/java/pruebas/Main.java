@@ -54,7 +54,7 @@ public class Main {
         Timestamp fechaInicio = Timestamp.valueOf(LocalDateTime.now());
         //atencionCtrl.agregarAtencion(1, fechaInicio, );
         System.out.println("Listado de atenciones:");
-        atencionCtrl.listarAtenciones().forEach(System.out::println);
+        //atencionCtrl.listarAtencion().forEach(System.out::println);
 
         // --- Pruebas para Intervencion ---
         System.out.println("\n--- Pruebas Intervencion ---");

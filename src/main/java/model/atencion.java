@@ -17,6 +17,7 @@ public class atencion {
     private int id_autoridad;
     private Timestamp fecha_inicio;
     private Timestamp fecha_solucion;
+    private String nombre_autoridad;
 
     public atencion() {
     }
@@ -65,6 +66,14 @@ public class atencion {
 
     public void setFecha_solucion(Timestamp fecha_solucion) {
         this.fecha_solucion = fecha_solucion;
+    }
+
+    public String getNombre_autoridad() {
+        return nombre_autoridad;
+    }
+
+    public void setNombre_autoridad(String nombre_autoridad) {
+        this.nombre_autoridad = nombre_autoridad;
     }
 
     @Override
