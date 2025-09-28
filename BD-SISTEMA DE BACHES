@@ -40,6 +40,7 @@ CREATE TABLE ATENCION (
     id_autoridad INT NOT NULL,
     fecha_inicio DATETIME,
     fecha_solucion DATETIME,
+    estatus_final ENUM('Pendiente', 'En proceso', 'Reparado', 'Cancelado'),
     FOREIGN KEY (id_autoridad) REFERENCES AUTORIDAD(id_autoridad)
 );
 
