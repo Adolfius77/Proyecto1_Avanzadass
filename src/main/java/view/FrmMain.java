@@ -5,8 +5,10 @@
 package view;
 
 import Controller.bacheController;
+import DAO.bacheDAO;
 import java.awt.BorderLayout;
 import java.util.List;
+import javax.swing.BoxLayout;
 import model.bache;
 
 /**
@@ -14,21 +16,62 @@ import model.bache;
  * @author USER
  */
 public class FrmMain extends javax.swing.JPanel {
+
     private bacheController bacheController;
 
     public FrmMain() {
         initComponents();
-        
+        this.bacheController = new bacheController(new bacheDAO());
+        cargarEstadisticas();
+        cargarReportesRecientes();
     }
-    private void cargarEstadisticas(){
+
+    private void cargarEstadisticas() {
         int total = 0;
         int pendientes = 0;
         int enProceso = 0;
         int Reparados = 0;
+
+        List<bache> baches = bacheController.listarBaches();
+        total = baches.size();
+
+        for (bache b : baches) {
+            switch (b.getEstado_actual().toLowerCase()) {
+                case "reportado":
+                    pendientes++;
+                    break;
+                case "en proceso":
+                    enProceso++;
+                    break;
+                case "reparado":
+                    Reparados++;
+                    break;
+            }
+        }
+        lblTotalReportes.setText(String.valueOf(total));
+        lblPendientes.setText(String.valueOf(pendientes));
+        lblEnProceso.setText(String.valueOf(enProceso));
+        lblReparados.setText(String.valueOf(Reparados));
+    }
+    private void cargarReportesRecientes(){
+        PanelDinamico.removeAll();
+        PanelDinamico.setLayout(new BoxLayout(PanelDinamico,BoxLayout.Y_AXIS));
         
         List<bache> baches = bacheController.listarBaches();
+        
+        int count = 0;
+        for (bache b : baches) {
+            if (count < 5) {
+                FrmReportesRecientes reportePanel = new FrmReportesRecientes();
+                PanelDinamico.add(reportePanel);
+                count++;
+            }else{
+                break;
+            }
+        }
+        PanelDinamico.revalidate();
+        PanelDinamico.repaint();
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -43,17 +86,17 @@ public class FrmMain extends javax.swing.JPanel {
         PanelContenido = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        lblEnProceso = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        lblReparados = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
+        lblPendientes = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
+        lblTotalReportes = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         scrollPanel = new javax.swing.JScrollPane();
@@ -81,11 +124,9 @@ public class FrmMain extends javax.swing.JPanel {
         jPanel9.setPreferredSize(new java.awt.Dimension(135, 130));
 
         jLabel14.setFont(new java.awt.Font("Comic Sans MS", 0, 15)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("En Proceso");
 
-        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel15.setText("jLabel11");
+        lblEnProceso.setText("jLabel11");
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -95,7 +136,7 @@ public class FrmMain extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14)
-                    .addComponent(jLabel15))
+                    .addComponent(lblEnProceso))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
@@ -104,7 +145,7 @@ public class FrmMain extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel15)
+                .addComponent(lblEnProceso)
                 .addContainerGap(60, Short.MAX_VALUE))
         );
 
@@ -114,11 +155,9 @@ public class FrmMain extends javax.swing.JPanel {
         jPanel10.setPreferredSize(new java.awt.Dimension(135, 130));
 
         jLabel16.setFont(new java.awt.Font("Comic Sans MS", 0, 15)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Reparados");
 
-        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel17.setText("jLabel12");
+        lblReparados.setText("jLabel12");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -128,7 +167,7 @@ public class FrmMain extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel16)
-                    .addComponent(jLabel17))
+                    .addComponent(lblReparados))
                 .addContainerGap(54, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
@@ -137,7 +176,7 @@ public class FrmMain extends javax.swing.JPanel {
                 .addGap(19, 19, 19)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel17)
+                .addComponent(lblReparados)
                 .addContainerGap(59, Short.MAX_VALUE))
         );
 
@@ -146,14 +185,12 @@ public class FrmMain extends javax.swing.JPanel {
         jPanel11.setPreferredSize(new java.awt.Dimension(135, 130));
 
         jLabel18.setFont(new java.awt.Font("Comic Sans MS", 0, 15)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
         jLabel18.setText("Pendientes");
 
         jLabel19.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
         jLabel19.setText("En proceso");
 
-        jLabel20.setText("jLabel8");
+        lblPendientes.setText("jLabel8");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -164,7 +201,7 @@ public class FrmMain extends javax.swing.JPanel {
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel18)
                     .addComponent(jLabel19)
-                    .addComponent(jLabel20))
+                    .addComponent(lblPendientes))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
@@ -173,7 +210,7 @@ public class FrmMain extends javax.swing.JPanel {
                 .addGap(16, 16, 16)
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel20)
+                .addComponent(lblPendientes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(jLabel19)
                 .addContainerGap())
@@ -184,13 +221,11 @@ public class FrmMain extends javax.swing.JPanel {
         jPanel12.setPreferredSize(new java.awt.Dimension(135, 130));
 
         jLabel21.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(0, 0, 0));
         jLabel21.setText("Pendientes");
 
-        jLabel22.setText("jLabel5");
+        lblTotalReportes.setText("jLabel5");
 
         jLabel23.setFont(new java.awt.Font("Comic Sans MS", 0, 15)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(0, 0, 0));
         jLabel23.setText("Total de reportes");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
@@ -201,7 +236,7 @@ public class FrmMain extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel21)
-                    .addComponent(jLabel22)
+                    .addComponent(lblTotalReportes)
                     .addComponent(jLabel23))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -211,14 +246,13 @@ public class FrmMain extends javax.swing.JPanel {
                 .addGap(15, 15, 15)
                 .addComponent(jLabel23)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel22)
+                .addComponent(lblTotalReportes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(jLabel21)
                 .addContainerGap())
         );
 
         jLabel24.setFont(new java.awt.Font("Comic Sans MS", 1, 20)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(0, 0, 0));
         jLabel24.setText("Reportes recientes");
 
         PanelDinamico.setBackground(new java.awt.Color(255, 255, 255));
@@ -288,14 +322,10 @@ public class FrmMain extends javax.swing.JPanel {
     private javax.swing.JPanel PanelContenido;
     private javax.swing.JPanel PanelDinamico;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JPanel jPanel10;
@@ -303,6 +333,10 @@ public class FrmMain extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JLabel lblEnProceso;
+    private javax.swing.JLabel lblPendientes;
+    private javax.swing.JLabel lblReparados;
+    private javax.swing.JLabel lblTotalReportes;
     private javax.swing.JScrollPane scrollPanel;
     // End of variables declaration//GEN-END:variables
 }

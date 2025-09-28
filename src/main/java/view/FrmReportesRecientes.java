@@ -4,6 +4,10 @@
  */
 package view;
 
+import java.awt.Color;
+import java.text.SimpleDateFormat;
+import model.bache;
+
 /**
  *
  * @author USER
@@ -15,6 +19,37 @@ public class FrmReportesRecientes extends javax.swing.JPanel {
      */
     public FrmReportesRecientes() {
         initComponents();
+    }
+    public FrmReportesRecientes(bache bacheInfo) {
+        initComponents();
+        llenarDatos(bacheInfo);
+    }
+
+    private void llenarDatos(bache bacheInfo) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        lblID.setText(String.valueOf(bacheInfo.getId_bache()));
+        lblUbicacion.setText(bacheInfo.getCalle() + ", " + bacheInfo.getColonia());
+        lblSeveridad.setText(bacheInfo.getSeveridad());
+        lblFechaReporte.setText(sdf.format(bacheInfo.getFecha_reporte()));
+        switch (bacheInfo.getEstado_actual().toLowerCase()) {
+            case "reportado":
+                lblEstatus.setText("PENDIENTE");
+                lblEstatus.setForeground(Color.RED);
+                break;
+            case "en proceso":
+                lblEstatus.setText("EN PROCESO");
+                lblEstatus.setForeground(new Color(238, 173, 14)); // Color naranja/amarillo
+                break;
+            case "reparado":
+                lblEstatus.setText("REPARADO");
+                lblEstatus.setForeground(new Color(0, 128, 0)); // Color verde
+                break;
+            default:
+                lblEstatus.setText(bacheInfo.getEstado_actual().toUpperCase());
+                lblEstatus.setForeground(Color.BLACK);
+                break;
+        }
+
     }
 
     /**
