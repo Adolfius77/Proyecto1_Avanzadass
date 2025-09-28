@@ -45,42 +45,34 @@ public class FrmReportesRecientes extends javax.swing.JPanel {
         jPanel6 = new javax.swing.JPanel();
         lblSeveridad = new javax.swing.JLabel();
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
 
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("jLabel9");
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("ID:");
 
         jLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Ubicacion:");
 
         jLabel5.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Severidad:");
 
         jLabel7.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Estatus:");
 
         jLabel8.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Fecha del Reporte:");
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
 
-        lblFechaReporte.setForeground(new java.awt.Color(0, 0, 0));
         lblFechaReporte.setText("jLabel4");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -103,7 +95,6 @@ public class FrmReportesRecientes extends javax.swing.JPanel {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setForeground(new java.awt.Color(255, 255, 255));
 
-        lblUbicacion.setForeground(new java.awt.Color(0, 0, 0));
         lblUbicacion.setText("jLabel9");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -126,7 +117,6 @@ public class FrmReportesRecientes extends javax.swing.JPanel {
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setForeground(new java.awt.Color(255, 255, 255));
 
-        lblID.setForeground(new java.awt.Color(0, 0, 0));
         lblID.setText("jLabel2");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -149,7 +139,6 @@ public class FrmReportesRecientes extends javax.swing.JPanel {
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setForeground(new java.awt.Color(255, 255, 255));
 
-        lblEstatus.setForeground(new java.awt.Color(0, 0, 0));
         lblEstatus.setText("jLabel6");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -172,7 +161,6 @@ public class FrmReportesRecientes extends javax.swing.JPanel {
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setForeground(new java.awt.Color(255, 255, 255));
 
-        lblSeveridad.setForeground(new java.awt.Color(0, 0, 0));
         lblSeveridad.setText("jLabel10");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -223,7 +211,7 @@ public class FrmReportesRecientes extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
