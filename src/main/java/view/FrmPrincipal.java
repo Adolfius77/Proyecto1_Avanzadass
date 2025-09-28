@@ -607,7 +607,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIntervencionesActionPerformed
 
     private void btnAtencionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtencionesActionPerformed
-        FrmAtenciones atencion = new FrmAtenciones();
+       FrmAtenciones atencion = new FrmAtenciones();
 
         atencion.setSize(PanelContenido.getWidth(), PanelContenido.getHeight());
         atencion.setLocation(0, 0);

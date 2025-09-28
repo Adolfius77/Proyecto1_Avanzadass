@@ -119,5 +119,32 @@ public class atencionDAO implements IAtencionDAO {
             return false;
         }
     }
+    @Override
+    public List<atencion> obtenerTodosPorFiltro(String filtro) {
+        String sql = "SELECT a.id_atencion, a.id_autoridad, a.fecha_inicio, a.fecha_solucion, au.nombre AS nombre_autoridad "
+                + "FROM atencion a "
+                + "JOIN autoridad au ON a.id_autoridad = au.id_autoridad "
+                + "WHERE au.nombre LIKE ?";
+        List<atencion> listaAtenciones = new ArrayList<>();
 
+        try (Connection conn = ConexionDB.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, "%" + filtro + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                atencion atencion = new atencion();
+                atencion.setId_atencion(rs.getInt("id_atencion"));
+                atencion.setId_autoridad(rs.getInt("id_autoridad"));
+                atencion.setFecha_inicio(rs.getTimestamp("fecha_inicio"));
+                atencion.setFecha_solucion(rs.getTimestamp("fecha_solucion"));
+                atencion.setNombre_autoridad(rs.getString("nombre_autoridad"));
+
+                listaAtenciones.add(atencion);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al obtener la lista de atenciones por filtro: " + e.getMessage());
+        }
+        return listaAtenciones;
+    }
 }

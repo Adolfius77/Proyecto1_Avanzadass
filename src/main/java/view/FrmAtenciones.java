@@ -500,7 +500,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
                         .addComponent(btnActualizar)
                         .addGap(89, 89, 89)
                         .addComponent(btnEliminar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnLimpiar3)
                         .addGap(33, 33, 33))
                     .addGroup(layout.createSequentialGroup()
@@ -528,7 +528,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
                             .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnLimpiar3))))
-                .addGap(0, 37, Short.MAX_VALUE))
+                .addGap(0, 50, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

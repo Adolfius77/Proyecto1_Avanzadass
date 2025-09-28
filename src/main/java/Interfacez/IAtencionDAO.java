@@ -22,4 +22,7 @@ public interface IAtencionDAO {
     boolean actualizarAtencion(atencion atencion);
 
     boolean eliminarAtencion(int id_atencion);
+
+    List<atencion> obtenerTodosPorFiltro(String filtro);
+
 }

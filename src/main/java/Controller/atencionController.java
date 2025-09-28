@@ -57,4 +57,23 @@ public class atencionController {
         }
         return modelo;
     }
+    public DefaultTableModel obtenerTablaAtencionesPorFiltro(String filtro) {
+        String[] columnas = {"ID", "Autoridad", "Fecha Inicio", "Fecha Solucion"};
+        DefaultTableModel modelo = new DefaultTableModel(null, columnas) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        List<atencion> lista = atencionDAO.obtenerTodosPorFiltro(filtro);
+        for (atencion a : lista) {
+            modelo.addRow(new Object[]{
+                a.getId_atencion(),
+                a.getNombre_autoridad(),
+                a.getFecha_inicio(),
+                a.getFecha_solucion(),});
+        }
+        return modelo;
+    }
 }
