@@ -63,7 +63,7 @@ public class atencionDAO implements IAtencionDAO {
 
     @Override
     public List<atencion> obtenerTodos() {
-      
+
         String sql = "SELECT a.id_atencion, a.id_autoridad, a.fecha_inicio, a.fecha_solucion, a.estatus_final, au.nombre AS nombre_autoridad "
                 + "FROM atencion a "
                 + "JOIN autoridad au ON a.id_autoridad = au.id_autoridad";
@@ -78,7 +78,7 @@ public class atencionDAO implements IAtencionDAO {
                 atencion.setId_autoridad(rs.getInt("id_autoridad"));
                 atencion.setFecha_inicio(rs.getTimestamp("fecha_inicio"));
                 atencion.setFecha_solucion(rs.getTimestamp("fecha_solucion"));
-                atencion.setNombre_autoridad(rs.getString("nombre_autoridad")); 
+                atencion.setNombre_autoridad(rs.getString("nombre_autoridad"));
                 atencion.setEstatus_final(rs.getString("estatus_final")); // <-- AÑADIDO
 
                 listaAtenciones.add(atencion);
@@ -99,7 +99,7 @@ public class atencionDAO implements IAtencionDAO {
             ps.setInt(1, atencion.getId_autoridad());
             ps.setTimestamp(2, atencion.getFecha_inicio());
             ps.setTimestamp(3, atencion.getFecha_solucion());
-            ps.setString(4, atencion.getEstatus_final()); 
+            ps.setString(4, atencion.getEstatus_final());
             ps.setInt(5, atencion.getId_atencion());
 
             return ps.executeUpdate() > 0;
@@ -109,7 +109,6 @@ public class atencionDAO implements IAtencionDAO {
             return false;
         }
     }
-
 
     @Override
     public boolean eliminarAtencion(int id_atencion) {
@@ -125,6 +124,7 @@ public class atencionDAO implements IAtencionDAO {
             return false;
         }
     }
+
     @Override
     public List<atencion> obtenerTodosPorFiltro(String filtro) {
         String sql = "SELECT a.id_atencion, a.id_autoridad, a.fecha_inicio, a.fecha_solucion, au.nombre AS nombre_autoridad "
@@ -137,7 +137,7 @@ public class atencionDAO implements IAtencionDAO {
 
             ps.setString(1, "%" + filtro + "%");
             ps.setString(2, "%" + filtro + "%");
-            
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 atencion atencion = new atencion();
@@ -152,6 +152,27 @@ public class atencionDAO implements IAtencionDAO {
 
         } catch (SQLException e) {
             System.err.println("Error al obtener la lista de atenciones por filtro: " + e.getMessage());
+        }
+        return listaAtenciones;
+    }
+
+    @Override
+    public List<atencion> obtenerAtencionesDisponibles() {
+        String sql = "SELECT a.*, au.nombre as nombre_autoridad FROM atencion a "
+                + "JOIN autoridad au ON a.id_autoridad = au.id_autoridad "
+                + "WHERE a.id_atencion NOT IN (SELECT id_atencion FROM intervencion)";
+        List<atencion> listaAtenciones = new ArrayList<>();
+        try (Connection conn = ConexionDB.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                atencion a = new atencion();
+                a.setId_atencion(rs.getInt("id_atencion"));
+                a.setNombre_autoridad(rs.getString("nombre_autoridad"));
+                a.setFecha_inicio(rs.getTimestamp("fecha_inicio"));
+                listaAtenciones.add(a);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener atenciones disponibles: " + e.getMessage());
         }
         return listaAtenciones;
     }

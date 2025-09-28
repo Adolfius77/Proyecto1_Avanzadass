@@ -27,7 +27,7 @@ public class Main {
         bacheController bacheCtrl = new bacheController(bacheDAO);
         autoridadController autoridadCtrl = new autoridadController(autoridadDAO);
         atencionController atencionCtrl = new atencionController(atencionDAO);
-        intervencionController intervencionCtrl = new intervencionController(intervencionDAO);
+        //intervencionController intervencionCtrl = new intervencionController(intervencionDAO);
 
         // --- Pruebas para Ciudadano ---
         System.out.println("--- Pruebas Ciudadano ---");
@@ -58,8 +58,8 @@ public class Main {
 
         // --- Pruebas para Intervencion ---
         System.out.println("\n--- Pruebas Intervencion ---");
-        intervencionCtrl.agregarIntervencion(1, 1);
+        //intervencionCtrl.agregarIntervencion(1, 1);
         System.out.println("Intervenciones por bache 1:");
-        intervencionCtrl.obtenerIntervencionesPorBache(1).forEach(System.out::println);
+        //intervencionCtrl.obtenerIntervencionesPorBache(1).forEach(System.out::println);
     }
 }

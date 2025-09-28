@@ -167,4 +167,24 @@ public class bacheDAO implements IBacheDAO {
         }
         return listaBaches;
     }
+    @Override
+    public List<bache> obtenerBachesSinAtender(){
+        String sql = "SELECT * FROM bache WHERE estado_actual = 'Reportado'";
+        List<bache> listaBaches = new ArrayList<>();
+        try(Connection conn = ConexionDB.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                bache bache = new bache();
+                bache.setId_bache(rs.getInt("id_bache"));
+                bache.setCalle(rs.getString("calle"));
+                bache.setColonia(rs.getString("colonia"));
+                bache.setEstado_actual(rs.getString("estado_actual"));
+                listaBaches.add(bache);
+            }
+        } catch (SQLException e) {
+            System.err.println("error al obtenr baches sin atender: " + e.getMessage());
+        }
+        return listaBaches;
+    }
 }

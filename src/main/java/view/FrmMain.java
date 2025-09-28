@@ -4,34 +4,31 @@
  */
 package view;
 
+import Controller.bacheController;
 import java.awt.BorderLayout;
+import java.util.List;
+import model.bache;
 
 /**
  *
  * @author USER
  */
 public class FrmMain extends javax.swing.JPanel {
+    private bacheController bacheController;
 
-    /**
-     * Creates new form FrmMain
-     */
     public FrmMain() {
         initComponents();
-        cargarReportes();
+        
+    }
+    private void cargarEstadisticas(){
+        int total = 0;
+        int pendientes = 0;
+        int enProceso = 0;
+        int Reparados = 0;
+        
+        List<bache> baches = bacheController.listarBaches();
     }
     
-    public void cargarReportes(){
-        FrmReportesRecientes main = new FrmReportesRecientes();
-        main.setSize(PanelDinamico.getWidth(), PanelDinamico.getHeight());
-        main.setLocation(0, 0);
-        
-
-        PanelDinamico.removeAll();
-        PanelDinamico.add(main, BorderLayout.CENTER);
-
-        PanelDinamico.revalidate();
-        PanelDinamico.repaint();
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.

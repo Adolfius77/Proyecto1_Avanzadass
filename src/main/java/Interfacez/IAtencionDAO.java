@@ -24,5 +24,7 @@ public interface IAtencionDAO {
     boolean eliminarAtencion(int id_atencion);
 
     List<atencion> obtenerTodosPorFiltro(String filtro);
+    
+    List<atencion> obtenerAtencionesDisponibles();
 
 }

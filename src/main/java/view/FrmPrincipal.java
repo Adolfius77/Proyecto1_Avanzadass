@@ -25,7 +25,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         FrmMain main = new FrmMain();
         main.setSize(PanelContenido.getWidth(), PanelContenido.getHeight());
         main.setLocation(0, 0);
-        
 
         PanelContenido.removeAll();
         PanelContenido.add(main, BorderLayout.CENTER);
@@ -565,13 +564,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void btnAutoridadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutoridadesActionPerformed
         FrmAutoridades auto = new FrmAutoridades();
 
-        
         PanelContenido.removeAll();
 
-      
         PanelContenido.add(auto, BorderLayout.CENTER);
 
-       
         PanelContenido.revalidate();
         PanelContenido.repaint();
     }//GEN-LAST:event_btnAutoridadesActionPerformed
@@ -603,11 +599,20 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBachesActionPerformed
 
     private void btnIntervencionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIntervencionesActionPerformed
-        // TODO add your handling code here:
+        FrmIntervencion intervencion = new FrmIntervencion();
+
+        intervencion.setSize(PanelContenido.getWidth(), PanelContenido.getHeight());
+        intervencion.setLocation(0, 0);
+
+        PanelContenido.removeAll();
+        PanelContenido.add(intervencion, BorderLayout.CENTER);
+
+        PanelContenido.revalidate();
+        PanelContenido.repaint();
     }//GEN-LAST:event_btnIntervencionesActionPerformed
 
     private void btnAtencionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtencionesActionPerformed
-       FrmAtenciones atencion = new FrmAtenciones();
+        FrmAtenciones atencion = new FrmAtenciones();
 
         atencion.setSize(PanelContenido.getWidth(), PanelContenido.getHeight());
         atencion.setLocation(0, 0);

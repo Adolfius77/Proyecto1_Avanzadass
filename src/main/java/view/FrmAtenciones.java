@@ -588,7 +588,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
                             .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnLimpiar3))))
-                .addGap(0, 127, Short.MAX_VALUE))
+                .addGap(0, 114, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

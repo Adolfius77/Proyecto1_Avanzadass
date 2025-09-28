@@ -21,4 +21,8 @@ public interface IIntervencionDAO {
 
     boolean eliminarIntervencion(int id_bache, int id_atencion);
 
+    List<intervencion> obtenerTodas();
+
+    List<intervencion> obtenerTodasConFiltro(String filtro);
+
 }

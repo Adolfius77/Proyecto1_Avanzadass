@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author USER
@@ -12,6 +14,10 @@ public class intervencion {
 
     private int id_bache;
     private int id_atencion;
+    
+    private String ubicacionBache;
+    private String nombreAutoridad;
+    private Timestamp fechaSolucion;
 
     public intervencion() {
     }
@@ -19,6 +25,7 @@ public class intervencion {
     public intervencion(int id_bache, int id_atencion) {
         this.id_bache = id_bache;
         this.id_atencion = id_atencion;
+        
     }
     
     public int getId_bache() {
@@ -35,6 +42,30 @@ public class intervencion {
 
     public void setId_atencion(int id_atencion) {
         this.id_atencion = id_atencion;
+    }
+
+    public String getUbicacionBache() {
+        return ubicacionBache;
+    }
+
+    public void setUbicacionBache(String ubicacionBache) {
+        this.ubicacionBache = ubicacionBache;
+    }
+
+    public String getNombreAutoridad() {
+        return nombreAutoridad;
+    }
+
+    public void setNombreAutoridad(String nombreAutoridad) {
+        this.nombreAutoridad = nombreAutoridad;
+    }
+
+    public Timestamp getFechaSolucion() {
+        return fechaSolucion;
+    }
+
+    public void setFechaSolucion(Timestamp fechaSolucion) {
+        this.fechaSolucion = fechaSolucion;
     }
 
     @Override

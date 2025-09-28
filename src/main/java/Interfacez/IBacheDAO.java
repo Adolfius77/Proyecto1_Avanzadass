@@ -24,5 +24,7 @@ public interface IBacheDAO {
     boolean eliminarBache(int id_bache);
     
     List<bache> obtenerTodosPorFiltro(String filtro);
+    
+    List<bache> obtenerBachesSinAtender();
 
 }
