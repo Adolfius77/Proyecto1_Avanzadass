@@ -295,7 +295,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(217, 202, 218));
         setForeground(new java.awt.Color(217, 202, 218));
-        setPreferredSize(new java.awt.Dimension(4, 528));
+        setPreferredSize(new java.awt.Dimension(854, 1000));
 
         jPanel1.setBackground(new java.awt.Color(101, 85, 143));
 
@@ -500,7 +500,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
                         .addComponent(btnActualizar)
                         .addGap(89, 89, 89)
                         .addComponent(btnEliminar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
                         .addComponent(btnLimpiar3)
                         .addGap(33, 33, 33))
                     .addGroup(layout.createSequentialGroup()
