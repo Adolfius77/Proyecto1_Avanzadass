@@ -16,7 +16,7 @@ import java.util.Properties;
  * @author USER
  */
 public class ConexionDB {
-
+    //jiijijaja
     private static String url;
     private static String user;
     private static String password;
