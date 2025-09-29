@@ -1,6 +1,6 @@
 package Controller;
 
-import Interfacez.IAutoridadDAO;
+import Interfaces.IAutoridadDAO;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.autoridad;

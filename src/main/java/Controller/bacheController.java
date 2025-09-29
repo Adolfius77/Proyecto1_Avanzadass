@@ -4,7 +4,7 @@
  */
 package Controller;
 
-import Interfacez.IBacheDAO;
+import Interfaces.IBacheDAO;
 import java.sql.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;

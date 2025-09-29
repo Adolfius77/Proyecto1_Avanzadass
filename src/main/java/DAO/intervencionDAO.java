@@ -5,7 +5,7 @@
 package DAO;
 
 import Config.ConexionDB;
-import Interfacez.IIntervencionDAO;
+import Interfaces.IIntervencionDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

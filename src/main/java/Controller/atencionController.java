@@ -1,7 +1,7 @@
 // adolfius77/proyecto1_avanzadass/Proyecto1_Avanzadass-efa5249733c0a77b27bf3c20dc9431858aa99eb3/src/main/java/Controller/atencionController.java
 package Controller;
 
-import Interfacez.IAtencionDAO;
+import Interfaces.IAtencionDAO;
 import java.sql.Timestamp;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;

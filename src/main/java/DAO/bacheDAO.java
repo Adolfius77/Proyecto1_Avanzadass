@@ -5,7 +5,7 @@
 package DAO;
 
 import Config.ConexionDB;
-import Interfacez.IBacheDAO;
+import Interfaces.IBacheDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

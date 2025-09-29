@@ -1,8 +1,8 @@
 package Controller;
 
-import Interfacez.IAtencionDAO;
-import Interfacez.IBacheDAO;
-import Interfacez.IIntervencionDAO;
+import Interfaces.IAtencionDAO;
+import Interfaces.IBacheDAO;
+import Interfaces.IIntervencionDAO;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.atencion;

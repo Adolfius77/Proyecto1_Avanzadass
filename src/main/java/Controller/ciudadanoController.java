@@ -1,6 +1,6 @@
 package Controller;
 
-import Interfacez.ICiudadanoDAO;
+import Interfaces.ICiudadanoDAO;
 import java.util.List;
 import java.util.regex.Pattern;
 import javax.swing.table.DefaultTableModel;
