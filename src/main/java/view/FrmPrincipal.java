@@ -105,13 +105,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
         jPanel4.setPreferredSize(new java.awt.Dimension(135, 130));
 
-        jLabel3.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
         jLabel3.setText("Pendientes");
+        jLabel3.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
 
         jLabel5.setText("jLabel5");
 
-        jLabel6.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
         jLabel6.setText("Total de reportes");
+        jLabel6.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -141,11 +141,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
         jPanel5.setPreferredSize(new java.awt.Dimension(135, 130));
 
-        jLabel4.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
         jLabel4.setText("Pendientes");
+        jLabel4.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
         jLabel7.setText("En proceso");
+        jLabel7.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
 
         jLabel8.setText("jLabel8");
 
@@ -177,8 +177,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel6.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
         jPanel6.setPreferredSize(new java.awt.Dimension(135, 130));
 
-        jLabel9.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
         jLabel9.setText("En Proceso");
+        jLabel9.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
 
         jLabel11.setText("jLabel11");
 
@@ -208,8 +208,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel7.setForeground(new java.awt.Color(118, 185, 50));
         jPanel7.setPreferredSize(new java.awt.Dimension(135, 130));
 
-        jLabel10.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
         jLabel10.setText("Reparados");
+        jLabel10.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
 
         jLabel12.setText("jLabel12");
 
@@ -269,13 +269,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel12.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
         jPanel12.setPreferredSize(new java.awt.Dimension(135, 130));
 
-        jLabel21.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
         jLabel21.setText("Pendientes");
+        jLabel21.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
 
         jLabel22.setText("jLabel5");
 
-        jLabel23.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
         jLabel23.setText("Total de reportes");
+        jLabel23.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -322,11 +322,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel11.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
         jPanel11.setPreferredSize(new java.awt.Dimension(135, 130));
 
-        jLabel18.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
         jLabel18.setText("Pendientes");
+        jLabel18.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
 
-        jLabel19.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
         jLabel19.setText("En proceso");
+        jLabel19.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
 
         jLabel20.setText("jLabel8");
 
@@ -358,8 +358,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel9.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
         jPanel9.setPreferredSize(new java.awt.Dimension(135, 130));
 
-        jLabel14.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
         jLabel14.setText("En Proceso");
+        jLabel14.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
 
         jLabel15.setText("jLabel11");
 
@@ -389,8 +389,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel10.setForeground(new java.awt.Color(118, 185, 50));
         jPanel10.setPreferredSize(new java.awt.Dimension(135, 130));
 
-        jLabel16.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
         jLabel16.setText("Reparados");
+        jLabel16.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
 
         jLabel17.setText("jLabel12");
 
@@ -437,10 +437,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnCiudadanos.setText("Ciudadanos");
         btnCiudadanos.setBackground(new java.awt.Color(35, 41, 50));
         btnCiudadanos.setFont(new java.awt.Font("Comic Sans MS", 0, 15)); // NOI18N
         btnCiudadanos.setForeground(new java.awt.Color(255, 255, 255));
+        btnCiudadanos.setText("Ciudadanos");
         btnCiudadanos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCiudadanosActionPerformed(evt);
@@ -467,10 +467,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnAtenciones.setText("Atenciones");
         btnAtenciones.setBackground(new java.awt.Color(35, 41, 50));
         btnAtenciones.setFont(new java.awt.Font("Comic Sans MS", 0, 15)); // NOI18N
         btnAtenciones.setForeground(new java.awt.Color(255, 255, 255));
+        btnAtenciones.setText("Atenciones");
         btnAtenciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAtencionesActionPerformed(evt);
@@ -504,24 +504,24 @@ public class FrmPrincipal extends javax.swing.JFrame {
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(56, 56, 56)
                 .addComponent(btnCiudadanos)
-                .addGap(66, 66, 66)
+                .addGap(26, 26, 26)
                 .addComponent(btnBaches)
-                .addGap(56, 56, 56)
+                .addGap(18, 18, 18)
                 .addComponent(btnAutoridades)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btnAtenciones)
-                .addGap(89, 89, 89)
+                .addGap(18, 18, 18)
                 .addComponent(btnIntervenciones)
-                .addGap(76, 76, 76))
+                .addContainerGap(291, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.WEST);
 
         jPanel3.setBackground(new java.awt.Color(35, 41, 50));
 
+        jLabel2.setText("Sistema de Reportes de Baches");
         jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 25)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Sistema de Reportes de Baches");
 
         btnInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inicio.png"))); // NOI18N
         btnInicio.addActionListener(new java.awt.event.ActionListener() {
@@ -595,7 +595,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void btnAtencionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtencionesActionPerformed
         FrmAtenciones at = new FrmAtenciones();
         mostrarPanel(at);
-        at.setVisible(true);
     }//GEN-LAST:event_btnAtencionesActionPerformed
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
