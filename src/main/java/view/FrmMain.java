@@ -57,24 +57,27 @@ public class FrmMain extends javax.swing.JPanel {
     private void cargarReportesRecientes() {
         PanelDinamico.removeAll();
         PanelDinamico.setLayout(new BoxLayout(PanelDinamico, BoxLayout.Y_AXIS));
-
         List<bache> baches = bacheController.listarBaches();
-
         int count = 0;
-
         int totalBaches = baches.size();
 
-        for (bache b : baches) {
-            if (count < 5) {
-                FrmReportesRecientes reportePanel = new FrmReportesRecientes(b);
-                PanelDinamico.add(reportePanel);
-                count++;
+        if (totalBaches == 0) {
+            FrmReportesRecientes reporteVacio = new FrmReportesRecientes(null); 
+            reporteVacio.mostrarMensajeNoHayReportes(); 
+            PanelDinamico.add(reporteVacio);
+        } else {
+            for (bache b : baches) {
+                if (count < 5) {
+                    FrmReportesRecientes reportePanel = new FrmReportesRecientes(b);
+                    PanelDinamico.add(reportePanel);
+                    count++;
 
-                if (count < 5 && count < totalBaches) {
-                    PanelDinamico.add(new javax.swing.JSeparator());
+                    if (count < 5 && count < totalBaches) {
+                        PanelDinamico.add(new javax.swing.JSeparator());
+                    }
+                } else {
+                    break;
                 }
-            } else {
-                break;
             }
         }
 

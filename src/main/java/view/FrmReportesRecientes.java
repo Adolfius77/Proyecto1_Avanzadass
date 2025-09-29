@@ -28,30 +28,48 @@ public class FrmReportesRecientes extends javax.swing.JPanel {
 
     private void llenarDatos(bache bacheInfo) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        lblID.setText(String.valueOf(bacheInfo.getId_bache()));
-        lblUbicacion.setText(bacheInfo.getCalle() + ", " + bacheInfo.getColonia());
-        lblSeveridad.setText(bacheInfo.getSeveridad());
-        lblFechaReporte.setText(sdf.format(bacheInfo.getFecha_reporte()));
 
-       
-        switch (bacheInfo.getEstado_actual().toLowerCase()) {
-            case "reportado":
-                Estatus.setText("PENDIENTE");
-                Estatus.setForeground(Color.RED);
-                break;
-            case "en proceso":
-                Estatus.setText("EN PROCESO");
-                Estatus.setForeground(new Color(238, 173, 14)); // Naranja/Amarillo
-                break;
-            case "reparado":
-                Estatus.setText("REPARADO");
-                Estatus.setForeground(new Color(0, 128, 0)); // Verde oscuro
-                break;
-            default:
-                Estatus.setText(bacheInfo.getEstado_actual().toUpperCase());
-                Estatus.setForeground(Color.BLACK);
-                break;
+        if (bacheInfo == null) {
+            lblID.setText("");
+            lblUbicacion.setText("");
+            lblSeveridad.setText("");
+            lblFechaReporte.setText("");
+            Estatus.setText("NO HAY REPORTES RECIENTES");
+            Estatus.setForeground(Color.GRAY); 
+        } else {
+            lblID.setText(String.valueOf(bacheInfo.getId_bache()));
+            lblUbicacion.setText(bacheInfo.getCalle() + ", " + bacheInfo.getColonia());
+            lblSeveridad.setText(bacheInfo.getSeveridad());
+            lblFechaReporte.setText(sdf.format(bacheInfo.getFecha_reporte()));
+
+            switch (bacheInfo.getEstado_actual().toLowerCase()) {
+                case "reportado":
+                    Estatus.setText("PENDIENTE");
+                    Estatus.setForeground(Color.RED);
+                    break;
+                case "en proceso":
+                    Estatus.setText("EN PROCESO");
+                    Estatus.setForeground(new Color(238, 173, 14)); // Naranja/Amarillo
+                    break;
+                case "reparado":
+                    Estatus.setText("REPARADO");
+                    Estatus.setForeground(new Color(0, 128, 0)); // Verde oscuro
+                    break;
+                default:
+                    Estatus.setText(bacheInfo.getEstado_actual().toUpperCase());
+                    Estatus.setForeground(Color.BLACK);
+                    break;
+            }
         }
+    }
+    
+    public void mostrarMensajeNoHayReportes() {
+        lblID.setText("");
+        lblUbicacion.setText("");
+        lblSeveridad.setText("");
+        lblFechaReporte.setText("");
+        Estatus.setText("No hay reportes recientes");
+        Estatus.setForeground(Color.GRAY);
     }
 
     /**
@@ -63,7 +81,6 @@ public class FrmReportesRecientes extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -87,25 +104,15 @@ public class FrmReportesRecientes extends javax.swing.JPanel {
         jPanel8 = new javax.swing.JPanel();
         Estatus = new javax.swing.JLabel();
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("jLabel9");
 
         jLabel7.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Estatus:");
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setForeground(new java.awt.Color(255, 255, 255));
 
         lblEstatus.setText("jLabel6");
-        lblEstatus.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -132,14 +139,12 @@ public class FrmReportesRecientes extends javax.swing.JPanel {
 
         jLabel8.setText("Fecha del Reporte:");
         jLabel8.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
 
-        lblFechaReporte.setText("jLabel4");
         lblFechaReporte.setFont(new java.awt.Font("Comic Sans MS", 0, 15)); // NOI18N
-        lblFechaReporte.setForeground(new java.awt.Color(0, 0, 0));
+        lblFechaReporte.setText("jLabel4");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -158,16 +163,14 @@ public class FrmReportesRecientes extends javax.swing.JPanel {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jLabel1.setText("Reporte ID #");
         jLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Reporte ID #");
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setForeground(new java.awt.Color(255, 255, 255));
 
-        lblID.setText("jLabel2");
         lblID.setFont(new java.awt.Font("Comic Sans MS", 0, 15)); // NOI18N
-        lblID.setForeground(new java.awt.Color(0, 0, 0));
+        lblID.setText("jLabel2");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -187,14 +190,12 @@ public class FrmReportesRecientes extends javax.swing.JPanel {
 
         jLabel3.setText("Ubicacion:");
         jLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setForeground(new java.awt.Color(255, 255, 255));
 
         lblUbicacion.setText("jLabel9");
         lblUbicacion.setFont(new java.awt.Font("Comic Sans MS", 0, 15)); // NOI18N
-        lblUbicacion.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -215,14 +216,12 @@ public class FrmReportesRecientes extends javax.swing.JPanel {
 
         jLabel5.setText("Severidad:");
         jLabel5.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setForeground(new java.awt.Color(255, 255, 255));
 
         lblSeveridad.setText("jLabel10");
         lblSeveridad.setFont(new java.awt.Font("Comic Sans MS", 0, 15)); // NOI18N
-        lblSeveridad.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -242,14 +241,12 @@ public class FrmReportesRecientes extends javax.swing.JPanel {
         );
 
         jLabel6.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Estatus:");
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
         jPanel8.setForeground(new java.awt.Color(255, 255, 255));
 
         Estatus.setFont(new java.awt.Font("Comic Sans MS", 0, 15)); // NOI18N
-        Estatus.setForeground(new java.awt.Color(0, 0, 0));
         Estatus.setText("jLabel4");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -360,10 +357,8 @@ public class FrmReportesRecientes extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Estatus;
@@ -383,7 +378,6 @@ public class FrmReportesRecientes extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblEstatus;
     private javax.swing.JLabel lblFechaReporte;
     private javax.swing.JLabel lblID;
