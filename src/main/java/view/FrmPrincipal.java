@@ -5,6 +5,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import javax.swing.JPanel;
 
 /**
  *
@@ -29,6 +30,16 @@ public class FrmPrincipal extends javax.swing.JFrame {
         PanelContenido.removeAll();
         PanelContenido.add(main, BorderLayout.CENTER);
 
+        PanelContenido.revalidate();
+        PanelContenido.repaint();
+    }
+    
+    private void mostrarPanel(JPanel panel) {
+        panel.setSize(PanelContenido.getWidth(), PanelContenido.getHeight());
+        panel.setLocation(0, 0);
+
+        PanelContenido.removeAll();
+        PanelContenido.add(panel, BorderLayout.CENTER);
         PanelContenido.revalidate();
         PanelContenido.repaint();
     }
@@ -563,65 +574,28 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void btnAutoridadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutoridadesActionPerformed
         FrmAutoridades auto = new FrmAutoridades();
-
-        PanelContenido.removeAll();
-
-        PanelContenido.add(auto, BorderLayout.CENTER);
-
-        PanelContenido.revalidate();
-        PanelContenido.repaint();
+        mostrarPanel(auto);
     }//GEN-LAST:event_btnAutoridadesActionPerformed
 
     private void btnCiudadanosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCiudadanosActionPerformed
-        FrmCiudadanos panelCiudadanos = new FrmCiudadanos();
-
-        panelCiudadanos.setSize(PanelContenido.getWidth(), PanelContenido.getHeight());
-        panelCiudadanos.setLocation(0, 0);
-
-        PanelContenido.removeAll();
-        PanelContenido.add(panelCiudadanos, BorderLayout.CENTER);
-
-        PanelContenido.revalidate();
-        PanelContenido.repaint();
+            FrmCiudadanos panelCiudadanos = new FrmCiudadanos();
+            mostrarPanel(panelCiudadanos);
     }//GEN-LAST:event_btnCiudadanosActionPerformed
 
     private void btnBachesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBachesActionPerformed
         FrmBaches bachesPanel = new FrmBaches();
-
-        bachesPanel.setSize(PanelContenido.getWidth(), PanelContenido.getHeight());
-        bachesPanel.setLocation(0, 0);
-
-        PanelContenido.removeAll();
-        PanelContenido.add(bachesPanel, BorderLayout.CENTER);
-
-        PanelContenido.revalidate();
-        PanelContenido.repaint();
+        mostrarPanel(bachesPanel);
     }//GEN-LAST:event_btnBachesActionPerformed
 
     private void btnIntervencionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIntervencionesActionPerformed
         FrmIntervencion intervencion = new FrmIntervencion();
-
-        intervencion.setSize(PanelContenido.getWidth(), PanelContenido.getHeight());
-        intervencion.setLocation(0, 0);
-
-        PanelContenido.removeAll();
-        PanelContenido.add(intervencion, BorderLayout.CENTER);
-
-        PanelContenido.revalidate();
-        PanelContenido.repaint();
+        mostrarPanel(intervencion);
     }//GEN-LAST:event_btnIntervencionesActionPerformed
 
     private void btnAtencionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtencionesActionPerformed
-        FrmAtenciones atencion = new FrmAtenciones();
-
-        atencion.setSize(PanelContenido.getWidth(), PanelContenido.getHeight());
-        atencion.setLocation(0, 0);
-
-        PanelContenido.removeAll();
-        PanelContenido.add(atencion, BorderLayout.CENTER);
-
-        PanelContenido.revalidate();
-        PanelContenido.repaint();
+        FrmAtenciones at = new FrmAtenciones();
+        mostrarPanel(at);
+        at.setVisible(true);
     }//GEN-LAST:event_btnAtencionesActionPerformed
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
