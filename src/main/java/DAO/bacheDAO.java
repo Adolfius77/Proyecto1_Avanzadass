@@ -102,7 +102,7 @@ public class bacheDAO implements IBacheDAO {
 
     @Override
     public boolean actualizarBache(bache bache) {
-        String sql = "UPDATE bache SET fecha_reporte = ?,tamaño_aprox = ?,severidad = ?,estado_actual = ?, = ?,colonia = ?,codigo_postal = ?,latitud= ?,longitud = ? WHERE id_bache = ? ";
+        String sql = "UPDATE bache SET fecha_reporte = ?, tamaño_aprox = ?, severidad = ?, estado_actual = ?, calle = ?, colonia = ?, codigo_postal = ?, latitud = ?, longitud = ? WHERE id_bache = ?";
         try (Connection conn = ConexionDB.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setDate(1, bache.getFecha_reporte());
@@ -114,6 +114,7 @@ public class bacheDAO implements IBacheDAO {
             ps.setString(7, bache.getCodigo_postal());
             ps.setDouble(8, bache.getLatitud());
             ps.setDouble(9, bache.getLongitud());
+            ps.setInt(10, bache.getId_bache());
 
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -167,14 +168,14 @@ public class bacheDAO implements IBacheDAO {
         }
         return listaBaches;
     }
+
     @Override
-    public List<bache> obtenerBachesSinAtender(){
+    public List<bache> obtenerBachesSinAtender() {
         String sql = "SELECT * FROM bache WHERE estado_actual = 'Reportado'";
         List<bache> listaBaches = new ArrayList<>();
-        try(Connection conn = ConexionDB.getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = ConexionDB.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 bache bache = new bache();
                 bache.setId_bache(rs.getInt("id_bache"));
                 bache.setCalle(rs.getString("calle"));
