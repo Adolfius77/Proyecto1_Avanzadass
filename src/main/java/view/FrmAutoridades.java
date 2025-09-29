@@ -39,7 +39,7 @@ public class FrmAutoridades extends javax.swing.JPanel {
         personalizarTabla();
         cargarAutoridades();
         txtId.setEditable(false);
-
+        
     }
 
     private void personalizarTabla() {
@@ -321,23 +321,21 @@ public class FrmAutoridades extends javax.swing.JPanel {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel7.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Id:");
 
+        txtId.setEditable(false);
+        txtId.setEnabled(false);
+
         jLabel8.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Nombre:");
 
         jLabel10.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Dependencia:");
 
         jLabel11.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Telefono:");
 
         jLabel12.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Correo:");
 
         txtTelefono.addActionListener(new java.awt.event.ActionListener() {
@@ -483,7 +481,6 @@ public class FrmAutoridades extends javax.swing.JPanel {
             }
         });
 
-        txtBuscador.setBackground(new java.awt.Color(255, 255, 255));
         txtBuscador.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBuscadorKeyReleased(evt);
