@@ -40,7 +40,6 @@ public class atencionController {
     }
 
     public DefaultTableModel obtenerTablaAtenciones() {
-        // AÑADIDO: La columna "Estatus"
         String[] columnas = {"ID", "Autoridad", "Fecha Inicio", "Fecha Solucion", "Estatus"};
         DefaultTableModel modelo = new DefaultTableModel(null, columnas) {
             @Override

@@ -22,14 +22,13 @@ public class atencionDAO implements IAtencionDAO {
 
     @Override
     public boolean insertarAtencion(atencion atencion) {
-        // AÑADIDO: estatus_final en la consulta y en los parámetros
         String sql = "INSERT INTO atencion (id_autoridad, fecha_inicio, fecha_solucion, estatus_final) VALUES (?, ?, ?, ?)";
         try (Connection conn = ConexionDB.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, atencion.getId_autoridad());
             ps.setTimestamp(2, atencion.getFecha_inicio());
             ps.setTimestamp(3, atencion.getFecha_solucion());
-            ps.setString(4, atencion.getEstatus_final()); // <-- AÑADIDO
+            ps.setString(4, atencion.getEstatus_final());
 
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {

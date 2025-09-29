@@ -184,7 +184,7 @@ public class bacheDAO implements IBacheDAO {
                 listaBaches.add(bache);
             }
         } catch (SQLException e) {
-            System.err.println("error al obtenr baches sin atender: " + e.getMessage());
+            System.err.println("error al obtener baches sin atender: " + e.getMessage());
         }
         return listaBaches;
     }
