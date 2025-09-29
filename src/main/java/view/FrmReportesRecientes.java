@@ -20,6 +20,7 @@ public class FrmReportesRecientes extends javax.swing.JPanel {
     public FrmReportesRecientes() {
         initComponents();
     }
+
     public FrmReportesRecientes(bache bacheInfo) {
         initComponents();
         llenarDatos(bacheInfo);
@@ -31,24 +32,24 @@ public class FrmReportesRecientes extends javax.swing.JPanel {
         lblUbicacion.setText(bacheInfo.getCalle() + ", " + bacheInfo.getColonia());
         lblSeveridad.setText(bacheInfo.getSeveridad());
         lblFechaReporte.setText(sdf.format(bacheInfo.getFecha_reporte()));
-        
-        
+
+       
         switch (bacheInfo.getEstado_actual().toLowerCase()) {
             case "reportado":
-                lblEstatus.setText("PENDIENTE");
-                lblEstatus.setForeground(Color.RED);
+                Estatus.setText("PENDIENTE");
+                Estatus.setForeground(Color.RED);
                 break;
             case "en proceso":
-                lblEstatus.setText("EN PROCESO");
-                lblEstatus.setForeground(new Color(238, 173, 14)); // Naranja
+                Estatus.setText("EN PROCESO");
+                Estatus.setForeground(new Color(238, 173, 14)); // Naranja/Amarillo
                 break;
             case "reparado":
-                lblEstatus.setText("REPARADO");
-                lblEstatus.setForeground(new Color(0, 128, 0)); // Verde
+                Estatus.setText("REPARADO");
+                Estatus.setForeground(new Color(0, 128, 0)); // Verde oscuro
                 break;
             default:
-                lblEstatus.setText(bacheInfo.getEstado_actual().toUpperCase());
-                lblEstatus.setForeground(Color.BLACK);
+                Estatus.setText(bacheInfo.getEstado_actual().toUpperCase());
+                Estatus.setForeground(Color.BLACK);
                 break;
         }
     }
@@ -126,6 +127,8 @@ public class FrmReportesRecientes extends javax.swing.JPanel {
         jLabel2.setText("Estatus");
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+
+        jPanel7.setBackground(new java.awt.Color(102, 102, 102));
 
         jLabel8.setText("Fecha del Reporte:");
         jLabel8.setFont(new java.awt.Font("Comic Sans MS", 1, 15)); // NOI18N
