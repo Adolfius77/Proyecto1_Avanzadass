@@ -1,3 +1,4 @@
+
 import Controller.atencionController;
 import Controller.autoridadController;
 import Controller.bacheController;
@@ -15,51 +16,70 @@ import java.time.LocalDateTime;
 public class Main {
 
     public static void main(String[] args) {
-        // Instancias de los DAOs
+
         ciudadanoDAO ciudadanoDAO = new ciudadanoDAO();
         bacheDAO bacheDAO = new bacheDAO();
         autoridadDAO autoridadDAO = new autoridadDAO();
         atencionDAO atencionDAO = new atencionDAO();
         intervencionDAO intervencionDAO = new intervencionDAO();
 
-        // Instancias de los Controllers
         ciudadanoController ciudadanoCtrl = new ciudadanoController(ciudadanoDAO);
         bacheController bacheCtrl = new bacheController(bacheDAO);
         autoridadController autoridadCtrl = new autoridadController(autoridadDAO);
         atencionController atencionCtrl = new atencionController(atencionDAO);
-        //intervencionController intervencionCtrl = new intervencionController(intervencionDAO);
+        intervencionController intervencionCtrl = new intervencionController(intervencionDAO, bacheDAO, atencionDAO);
 
         // --- Pruebas para Ciudadano ---
         System.out.println("--- Pruebas Ciudadano ---");
-        ciudadanoCtrl.agregarCiudadano("Juan", "Perez", "Gomez", "6441234567", "juan.perez@example.com");
+        if (ciudadanoCtrl.agregarCiudadano("Juan", "Perez", "Gomez", "6441234567", "juan.perez@example.com")) {
+            System.out.println("Ciudadano agregado con exito.");
+        } else {
+            System.out.println("Fallo al agregar ciudadano.");
+        }
         System.out.println("Listado de ciudadanos:");
-        ciudadanoCtrl.listarCiudadanos().forEach(System.out::println);
+        ciudadanoCtrl.listarCiudadanos().forEach(c -> System.out.println(c.toString()));
 
         // --- Pruebas para Bache ---
         System.out.println("\n--- Pruebas Bache ---");
         long milisegundos = System.currentTimeMillis();
         Date fechaActual = new Date(milisegundos);
-        //bacheCtrl.agregarBache(fechaActual, 5, "Alta", "Reportado", "Guerrero", "Centro", "85000", 27.48, -109.93);
+        if (bacheCtrl.agregarBache(1, fechaActual, 5, "Alta", "Reportado", "Guerrero", "Centro", "85000", 27.48, -109.93)) {
+            System.out.println("Bache agregado con exito.");
+        } else {
+            System.out.println("Fallo al agregar bache.");
+        }
         System.out.println("Listado de baches:");
-        bacheCtrl.listarBaches().forEach(System.out::println);
+        bacheCtrl.listarBaches().forEach(b -> System.out.println(b.toString()));
 
         // --- Pruebas para Autoridad ---
         System.out.println("\n--- Pruebas Autoridad ---");
-        autoridadCtrl.agregarAutoridad("Obras Publicas", "Ayuntamiento", "6444105000", "obras.publicas@cajeme.gob.mx");
+        if (autoridadCtrl.agregarAutoridad("Obras Publicas", "Ayuntamiento", "6444105000", "obras.publicas@cajeme.gob.mx")) {
+            System.out.println("Autoridad agregada con exito.");
+        } else {
+            System.out.println("Fallo al agregar autoridad.");
+        }
         System.out.println("Listado de autoridades:");
-        autoridadCtrl.listarAutoridades().forEach(System.out::println);
+        autoridadCtrl.listarAutoridades().forEach(a -> System.out.println(a.toString()));
 
         // --- Pruebas para Atencion ---
         System.out.println("\n--- Pruebas Atencion ---");
         Timestamp fechaInicio = Timestamp.valueOf(LocalDateTime.now());
-        //atencionCtrl.agregarAtencion(1, fechaInicio, );
+        if (atencionCtrl.agregarAtencion(1, fechaInicio, null, "Pendiente")) {
+            System.out.println("Atencion agregada con exito.");
+        } else {
+            System.out.println("Fallo al agregar atencion.");
+        }
         System.out.println("Listado de atenciones:");
-        //atencionCtrl.listarAtencion().forEach(System.out::println);
+        atencionDAO.obtenerTodos().forEach(at -> System.out.println(at.toString()));
 
         // --- Pruebas para Intervencion ---
         System.out.println("\n--- Pruebas Intervencion ---");
-        //intervencionCtrl.agregarIntervencion(1, 1);
+        if (intervencionCtrl.asignarIntervencion(1, 1)) {
+            System.out.println("Intervencion asignada con exito.");
+        } else {
+            System.out.println("Fallo al asignar intervencion.");
+        }
         System.out.println("Intervenciones por bache 1:");
-        //intervencionCtrl.obtenerIntervencionesPorBache(1).forEach(System.out::println);
+        intervencionDAO.obtenerPorIdBache(1).forEach(i -> System.out.println(i.toString()));
     }
 }
