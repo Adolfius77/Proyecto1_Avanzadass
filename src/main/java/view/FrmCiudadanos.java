@@ -37,9 +37,9 @@ public class FrmCiudadanos extends javax.swing.JPanel {
         txtId.setEditable(false);
 
     }
-    
+
     private void personalizarTabla() {
-        
+
         Color colorFondoEncabezado = new Color(101, 85, 143); // Morado oscuro
         Color colorLetraEncabezado = Color.black;
         Color colorFondoFilaPar = new Color(240, 237, 247); // Morado muy claro
@@ -48,35 +48,32 @@ public class FrmCiudadanos extends javax.swing.JPanel {
         Color colorLetraSeleccion = Color.BLACK;
         Color colorCuadricula = new Color(221, 221, 221); // Gris claro
 
-        
         Font fuenteEncabezado = new Font("Segoe UI", Font.BOLD, 14);
         Font fuenteCeldas = new Font("Segoe UI", Font.PLAIN, 14);
 
-       
         JTableHeader header = TablaCiudadanos.getTableHeader();
         header.setFont(fuenteEncabezado);
         header.setBackground(colorFondoEncabezado);
         header.setForeground(colorLetraEncabezado);
-        header.setOpaque(false); 
+        header.setOpaque(false);
 
-        
         TablaCiudadanos.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(javax.swing.JTable table, Object value,
-                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                    boolean isSelected, boolean hasFocus, int row, int column) {
                 Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
                 if (isSelected) {
                     c.setBackground(colorFondoSeleccion);
                     c.setForeground(colorLetraSeleccion);
                 } else {
-                    
+
                     if (row % 2 == 0) {
                         c.setBackground(colorFondoFilaPar);
                     } else {
                         c.setBackground(colorFondoFilaImpar);
                     }
-                    c.setForeground(Color.BLACK); 
+                    c.setForeground(Color.BLACK);
                 }
                 return c;
             }
@@ -85,8 +82,9 @@ public class FrmCiudadanos extends javax.swing.JPanel {
         TablaCiudadanos.setFont(fuenteCeldas);
         TablaCiudadanos.setGridColor(colorCuadricula);
         TablaCiudadanos.setRowHeight(25);
-        TablaCiudadanos.getTableHeader().setReorderingAllowed(false); 
+        TablaCiudadanos.getTableHeader().setReorderingAllowed(false);
     }
+
     private void cargarCiudadanos() {
         DefaultTableModel modelo = clController.obtenerTablaProblemas();
         TablaCiudadanos.setModel(modelo);
@@ -110,26 +108,19 @@ public class FrmCiudadanos extends javax.swing.JPanel {
             String telefono = txtTelefono.getText();
             String correo = txtCorreo.getText();
 
-            if (nombre.isEmpty() || apellidoMaterno.isEmpty() || apellidoPaterno.isEmpty() || telefono.isEmpty() || correo.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "todos los campos son necesarios", "Error", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            if (btnAgregar.getText().equals("Agregar")) {
-                boolean exito = clController.agregarCiudadano(nombre, apellidoPaterno, apellidoMaterno, telefono, correo);
+            boolean exito = clController.agregarCiudadano(nombre, apellidoPaterno, apellidoMaterno, telefono, correo);
 
-                if (exito) {
-                    JOptionPane.showMessageDialog(this, "ciudadano guardado correctamente");
-                } else {
-                    JOptionPane.showMessageDialog(this, "error al agregar un ciudadano", "Error", JOptionPane.WARNING_MESSAGE);
-
-                }
+            if (exito) {
+                JOptionPane.showMessageDialog(this, "Ciudadano guardado correctamente");
+                cargarCiudadanos();
+                limpiarCampos();
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al agregar un ciudadano. Verifique que todos los campos sean válidos.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
             }
-            cargarCiudadanos();
-            limpiarCampos();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
                     this,
-                    "Error: " + e.getMessage(),
+                    "Error inesperado: " + e.getMessage(),
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
@@ -207,6 +198,7 @@ public class FrmCiudadanos extends javax.swing.JPanel {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
+
     private void buscar() {
         String nombre = txtBuscador.getText().trim();
         if (nombre.isEmpty()) {
