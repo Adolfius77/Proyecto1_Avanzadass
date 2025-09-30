@@ -23,10 +23,14 @@ public class autoridadController {
             System.out.println("la dependencia no puede estar vacia");
             return false;
         }
-        if (telefono == null || telefono.trim().isEmpty()) {
-            telefono = "";
-        }else if(!telefono.trim().matches("\\d{10}")){
+        String telefonoNumerico = "";
+        if (telefono != null && !telefono.trim().isEmpty()) {
+            telefonoNumerico = telefono.replaceAll("[^\\d]", "");
+        }
+
+        if (telefonoNumerico.length() != 10) {
             System.err.println("El telefono debe contener exactamente 10 numeros.");
+            return false;
         }
         if (correo == null || correo.trim().isEmpty()) {
             System.out.println("el corrreo no puede estar vacio");
@@ -67,10 +71,14 @@ public class autoridadController {
             System.err.println("la dependencia no puede estar vacia");
             return false;
         }
-        if (telefono == null || telefono.trim().isEmpty()) {
-            telefono = "";
-        }else if(!telefono.trim().matches("\\d{10}")){
+        String telefonoNumerico = "";
+        if (telefono != null && !telefono.trim().isEmpty()) {
+            telefonoNumerico = telefono.replaceAll("[^\\d]", "");
+        }
+
+        if (telefonoNumerico.length() != 10) {
             System.err.println("El telefono debe contener exactamente 10 numeros.");
+            return false;
         }
         if (correo == null || correo.trim().isEmpty()) {
             System.err.println("el correo no puede estar vacio");
@@ -94,18 +102,19 @@ public class autoridadController {
         }
         return autoridadDAO.eliminarAutoridad(id_autoridad);
     }
-    
+
     public DefaultTableModel obtenerTablaProblemas() {
-        String[] columnas = {"ID", "Nombre","Dependencia","Telefono","Correo"};
+        String[] columnas = {"ID", "Nombre", "Dependencia", "Telefono", "Correo"};
         DefaultTableModel modelo = new DefaultTableModel(null, columnas);
         List<autoridad> lista = autoridadDAO.obtenerTodos();
         for (autoridad a : lista) {
-            modelo.addRow(new Object[]{a.getId_autoridad(), a.getNombre(),a.getDependencia(), a.getTelefono(),a.getCorreo()});
+            modelo.addRow(new Object[]{a.getId_autoridad(), a.getNombre(), a.getDependencia(), a.getTelefono(), a.getCorreo()});
         }
         return modelo;
     }
+
     public DefaultTableModel obtenerTablaClientesPorFiltroModal(String filtro) {
-        String[] columnas = {"ID", "Nombre","Dependencia","Telefono","Correo"};
+        String[] columnas = {"ID", "Nombre", "Dependencia", "Telefono", "Correo"};
         DefaultTableModel modelo = new DefaultTableModel(null, columnas);
         List<autoridad> lista = autoridadDAO.obtenerTodosPorFiltro(filtro);
         for (autoridad c : lista) {

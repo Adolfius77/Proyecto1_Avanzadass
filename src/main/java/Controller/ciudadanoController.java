@@ -46,6 +46,15 @@ public class ciudadanoController {
             System.err.println("El formato del correo electronico no es valido.");
             return false;
         }
+        String telefonoNumerico = "";
+        if (telefono != null && !telefono.trim().isEmpty()) {
+            telefonoNumerico = telefono.replaceAll("[^\\d]", "");
+        }
+
+        if (telefonoNumerico.length() != 10) {
+            System.err.println("El telefono debe contener exactamente 10 numeros.");
+            return false;
+        }
         
         ciudadano ciudadanoNuevo = new ciudadano();
         ciudadanoNuevo.setNombre(nombre.trim());
@@ -93,6 +102,15 @@ public class ciudadanoController {
         }
         if (!esCorreoValido(correo.trim())) {
             System.err.println("El formato del correo electronico no es valido.");
+            return false;
+        }
+        String telefonoNumerico = "";
+        if (telefono != null && !telefono.trim().isEmpty()) {
+            telefonoNumerico = telefono.replaceAll("[^\\d]", "");
+        }
+
+        if (telefonoNumerico.length() != 10) {
+            System.err.println("El telefono debe contener exactamente 10 numeros.");
             return false;
         }
         
