@@ -158,7 +158,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
 
     private void actualizarAtencion() {
         if (idField.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Seleccione una atención de la tabla para actualizar.", "Sin Selección", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Seleccione una atencion de la tabla para actualizar.", "Sin Selección", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
@@ -190,7 +190,7 @@ public class FrmAtenciones extends javax.swing.JPanel {
             boolean exito = clAtencion.actualizarAtencion(idAtencion, idAutoridad, tsInicio, tsSolucion, estatusSeleccionado);
 
             if (exito) {
-                JOptionPane.showMessageDialog(this, "Atención actualizada correctamente.");
+                JOptionPane.showMessageDialog(this, "Atencion actualizada correctamente.");
                 cargarAtenciones();
                 limpiarCampos();
             } else {
@@ -198,33 +198,33 @@ public class FrmAtenciones extends javax.swing.JPanel {
             }
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El ID no es válido.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "El ID no es valido.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrió un error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     private void eliminarAtencion() {
         if (idField.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Seleccione una atención para eliminar.", "Sin selección", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Seleccione una atencion para eliminar.", "Sin seleccion", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         try {
             int id = Integer.parseInt(idField.getText());
             int confirm = JOptionPane.showConfirmDialog(this,
-                    "¿Seguro que quieres eliminar esta atención?",
-                    "Confirmar eliminación",
+                    "¿Seguro que quieres eliminar esta atencion?",
+                    "Confirmar eliminacion",
                     JOptionPane.YES_NO_OPTION);
 
             if (confirm == JOptionPane.YES_OPTION) {
                 boolean exito = clAtencion.eliminarAtencion(id);
                 if (exito) {
-                    JOptionPane.showMessageDialog(this, "La atención ha sido eliminada.");
+                    JOptionPane.showMessageDialog(this, "La atencion ha sido eliminada.");
                     cargarAtenciones();
                     limpiarCampos();
                 } else {
-                    JOptionPane.showMessageDialog(this, "Ocurrió un error al eliminar la atención.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Ocurrió un error al eliminar la atencion.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         } catch (Exception e) {

@@ -110,10 +110,7 @@ public class FrmAutoridades extends javax.swing.JPanel {
             String telefono = txtTelefono.getText();
             String correo = txtCorreo.getText();
 
-            if (nombre.isEmpty() || dependencia.isEmpty() || telefono.isEmpty() || correo.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "todos los campos son necesarios", "Error", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
+           
             if (btnAgregar.getText().equals("Agregar")) {
                 boolean exito = atController.agregarAutoridad(nombre, dependencia, telefono, correo);
 
